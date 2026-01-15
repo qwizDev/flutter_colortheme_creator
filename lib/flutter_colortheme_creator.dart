@@ -9,7 +9,7 @@ class DoSomeStuff {
   // final someText = "helloMyFrend";
 
   // String makeAString() => "aaaaaaaaaaaaaaaaaa";
-    int addOne(int value) => value + 123;
+    int addOne(int value) => value + 12222;
 
 
 }
