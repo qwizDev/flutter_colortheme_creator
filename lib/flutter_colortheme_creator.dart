@@ -8,6 +8,8 @@ class DoSomeStuff {
 
   // final someText = "helloMyFrend";
 
-  String makeAString() => "aaaaaaaaaaaaaaaaaa";
+  // String makeAString() => "aaaaaaaaaaaaaaaaaa";
+    int addOne(int value) => value + 1;
+
 
 }
