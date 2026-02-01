@@ -1,15 +1,6 @@
-// /// A Calculator.
-// class Calculator {
-//   /// Returns [value] plus 1.
-//   int addOne(int value) => value + 1;
+export 'src/show_all_theme_colors_widget.dart' show ShowAllThemeColorsWidget;
+// export 'src/theme_color_creator_widget.dart' show ThemeColorCreatorWidget;
+
+// class DoSomeStuff {
+//     int addOne(int value) => value + 12222;
 // }
-
-class DoSomeStuff {
-
-  // final someText = "helloMyFrend";
-
-  // String makeAString() => "aaaaaaaaaaaaaaaaaa";
-    int addOne(int value) => value + 12222;
-
-
-}
