@@ -1,6 +1,6 @@
 name: flutter_colortheme_creator
 description: "A new Flutter package project."
-version: 0.0.1
+version: 0.0.2
 homepage:
 publish_to: none # without this line, it's not possible to use git-repos as dependencies.
 
@@ -36,7 +36,10 @@ dependency_overrides:
     # path: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
     git:
       url: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
-      ref: main
+      # ref: main
+      # ref: v0.0.2 # Spezifischer Tag
+      ref: makePackageWorkThenCreateNewTag
+
 
 
 dev_dependencies:

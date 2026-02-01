@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_colortheme_creator/src/provider/color_scheme_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
+
+import 'show_all_theme_colors_widget.dart';
 
 enum RadioValues {
   primary,
@@ -49,8 +52,8 @@ class ThemeColorCreatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StandardViewScaffold(
-        title: title, givenWidget: ContentWidgetThemeColorCreator());
+    return ScaffoldForViewStandard(
+        title: title, contentWidget: ContentWidgetThemeColorCreator());
   }
 }
 
