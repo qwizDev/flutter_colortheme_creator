@@ -25,7 +25,6 @@ class ShowAllThemeColorsWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _ContentWidgetThemeColor();
   }
 
@@ -510,69 +509,67 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
       maxHeight: 800,
       maxWidth: 600,
     ),
-    child: Container(
-      child: Column(
-        children: [
-          SizedBox(
-            // height: 40,
-            width: 400,
-            // height: 400,
-            child: Container(
-              color: colThemeData.primaryColor,
-              child: Column(
-                children: [
-                  Text("BackgroundColor: primaryColor"),
-                  Text("Text has color: default"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColorLight),
-                      "Text has color: primaryColorLight"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColorDark),
-                      "Text has color: primaryColorDark"),
-                ],
-              ),
+    child: Column(
+      children: [
+        SizedBox(
+          // height: 40,
+          width: 400,
+          // height: 400,
+          child: Container(
+            color: colThemeData.primaryColor,
+            child: Column(
+              children: [
+                Text("BackgroundColor: primaryColor"),
+                Text("Text has color: default"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColorLight),
+                    "Text has color: primaryColorLight"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColorDark),
+                    "Text has color: primaryColorDark"),
+              ],
             ),
           ),
-          SizedBox(
-            // height: 40,
-            width: 400,
-            child: Container(
-              color: colThemeData.primaryColorLight,
-              child: Column(
-                children: [
-                  Text("BackgroundColor: primaryColorLight"),
-                  Text("Text has color: default"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColor),
-                      "Text has color: primaryColor"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColorDark),
-                      "Text has color: primaryColorDark"),
-                ],
-              ),
+        ),
+        SizedBox(
+          // height: 40,
+          width: 400,
+          child: Container(
+            color: colThemeData.primaryColorLight,
+            child: Column(
+              children: [
+                Text("BackgroundColor: primaryColorLight"),
+                Text("Text has color: default"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColor),
+                    "Text has color: primaryColor"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColorDark),
+                    "Text has color: primaryColorDark"),
+              ],
             ),
           ),
-          SizedBox(
-            // height: 40,
-            width: 400,
-            child: Container(
-              color: colThemeData.primaryColorDark,
-              child: Column(
-                children: [
-                  Text("BackgroundColor: primaryColorDark"),
-                  Text("Text has color: default"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColor),
-                      "Text has color: primaryColor"),
-                  Text(
-                      style: TextStyle(color: colThemeData.primaryColorLight),
-                      "Text has color: primaryColorLight"),
-                ],
-              ),
+        ),
+        SizedBox(
+          // height: 40,
+          width: 400,
+          child: Container(
+            color: colThemeData.primaryColorDark,
+            child: Column(
+              children: [
+                Text("BackgroundColor: primaryColorDark"),
+                Text("Text has color: default"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColor),
+                    "Text has color: primaryColor"),
+                Text(
+                    style: TextStyle(color: colThemeData.primaryColorLight),
+                    "Text has color: primaryColorLight"),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
