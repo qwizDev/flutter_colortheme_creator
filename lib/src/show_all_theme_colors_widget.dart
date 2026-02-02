@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:gui_creation_helper/gui_creation_helper.dart';
 // import 'package:sp_frontend/apps/sp/gui/screens/setStartConfig/subwidgets/nice_text.dart';
 // import 'package:sp_frontend/apps/sp/gui/util/gui_constants.dart';
 
@@ -12,12 +13,11 @@ final double _singleColorHeigth = 40;
 
 final Color _startColor = Colors.red;
 
-final Color _colBorderStd = const Color.fromARGB(255, 1, 20, 52);
-// final Color _colBorderLighter = const Color.fromARGB(43, 1, 20, 52);
-final Color colBoxBorderStd = _colBorderStd;
+// final Color _colBorderStd = const Color.fromARGB(255, 1, 20, 52);
+// // final Color _colBorderLighter = const Color.fromARGB(43, 1, 20, 52);
+// final Color colBoxBorderStd = _colBorderStd;
 // final Color colMenuSeperationBorder = _colBorderLighter;
 
-final boxDecoStd = BoxDecoration(border: Border.all(color: colBoxBorderStd));
 
 class ShowAllThemeColorsWidget extends StatefulWidget {
   const ShowAllThemeColorsWidget({super.key, this.title = "noTitleGiven"});

@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_colorpicker: ^1.1.0
+  material_color_utilities: ^0.11.1
   # flutter_riverpod: ^3.2.0
   flutter_riverpod: ^3.1.0
   riverpod_annotation: ^4.0.0
@@ -26,19 +27,20 @@ dependencies:
   gui_creation_helper: 
   ### !!!!!!!!!!!! ATTENTION !!!!!!!!!!!! OVERRIDDEN IN DEPENDENCY OVERRIDES !!! (see directly below)
     git:
-      # url: https://github.com/qwizDev/ChangeThisToGitrepoForPackackeGuiCreationHelperWhenCreatedOnGithub
-      url: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
-      ref: main
+      url: https://github.com/qwizDev/flutter_gui_creation_helper.git
+      ref: v0.0.2
+  
 
 dependency_overrides:
-  # Lokale Version für Entwicklung (überschreibt die git-Dependency)
-  gui_creation_helper:
-    # path: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
-    git:
-      url: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
-      # ref: main
-      # ref: v0.0.2 # Spezifischer Tag
-      ref: makePackageWorkThenCreateNewTag
+  
+  # # Lokale Version für Entwicklung (überschreibt die git-Dependency)
+  # gui_creation_helper:
+  #   path: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
+  #   # git:
+  #     # url: https://github.com/qwizDev/flutter_gui_creation_helper.git
+  #     # ref: main
+  #     # ref: v0.0.2 # Spezifischer Tag
+  #     # ref: makePackageWorkThenCreateNewTag
 
 
 
