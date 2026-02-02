@@ -3,10 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_colortheme_creator/src/provider/color_scheme_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
-// import 'package:gui_creation_helper/gui_creation_helper.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
-
-import 'show_all_theme_colors_widget.dart';
 
 enum RadioValues {
   primary,
@@ -870,8 +867,8 @@ class MiniColorBox extends StatelessWidget {
 }
 
 class ExampleButton extends StatelessWidget {
-  ExampleButton(
-      {required this.caption,
+  const ExampleButton(
+      {super.key, required this.caption,
       required this.foregroundCol,
       required this.backgroundCol});
 
