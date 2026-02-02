@@ -1,6 +1,6 @@
 name: flutter_colortheme_creator
 description: "A new Flutter package project."
-version: 0.0.2
+version: 0.0.3
 homepage:
 publish_to: none # without this line, it's not possible to use git-repos as dependencies.
 
@@ -28,19 +28,20 @@ dependencies:
   ### !!!!!!!!!!!! ATTENTION !!!!!!!!!!!! OVERRIDDEN IN DEPENDENCY OVERRIDES !!! (see directly below)
     git:
       url: https://github.com/qwizDev/flutter_gui_creation_helper.git
+      # ref: someBranchName or someTagName
       ref: v0.0.2
   
 
 dependency_overrides:
   
-  # # Lokale Version für Entwicklung (überschreibt die git-Dependency)
-  # gui_creation_helper:
-  #   path: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
-  #   # git:
-  #     # url: https://github.com/qwizDev/flutter_gui_creation_helper.git
-  #     # ref: main
-  #     # ref: v0.0.2 # Spezifischer Tag
-  #     # ref: makePackageWorkThenCreateNewTag
+  # Lokale Version für Entwicklung (überschreibt die git-Dependency)
+  gui_creation_helper:
+    path: /home/xy/prog/projekte/00_ownPackages/flutter/003-GuiCreationHelper/gui_creation_helper/
+    # git:
+      # url: https://github.com/qwizDev/flutter_gui_creation_helper.git
+      # someBranchName or someTagName
+      # ref: v0.0.2
+      # ref: makePackageWorkThenCreateNewTag
 
 
 
