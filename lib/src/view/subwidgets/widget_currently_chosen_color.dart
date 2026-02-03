@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_colortheme_creator/src/provider/color_scheme_manager_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_colortheme_creator/src/subwidgets/helper_widgets.dart';
+import 'package:flutter_colortheme_creator/src/view/subwidgets/helper_widgets.dart';
 
 
 class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
@@ -11,7 +11,7 @@ class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final customThemeData = ref.watch(colorSchemeManagerProvider.notifier).getThemeData();
+    final themeState = ref.watch(themeStateProvider).themeData;
 
     return Column(
         children: [
@@ -42,107 +42,107 @@ class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
                 Column(
                   children: [
                     ConstrainedColorBox(
-                      col: customThemeData.primaryColor,
+                      col: themeState.primaryColor,
                       givenColorCaption: "primaryColor",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.primaryColorDark,
+                      col: themeState.primaryColorDark,
                       givenColorCaption: "primaryColorDark",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.primaryColorLight,
+                      col: themeState.primaryColorLight,
                       givenColorCaption: "primaryColorLight",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.primary,
+                      col: themeState.colorScheme.primary,
                       givenColorCaption:
                           "colorScheme.colorScheme.primary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.onPrimary,
+                      col: themeState.colorScheme.onPrimary,
                       givenColorCaption:
                           "colorScheme.colorScheme.onPrimary",
                     ),
                     ConstrainedColorBox(
                       col:
-                          customThemeData.colorScheme.primaryContainer,
+                          themeState.colorScheme.primaryContainer,
                       givenColorCaption:
                           "colorScheme.colorScheme.primaryContainer",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.surface,
+                      col: themeState.colorScheme.surface,
                       givenColorCaption:
                           "colorScheme.colorScheme.surface",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .surfaceContainerLowest,
                       givenColorCaption:
                           "colorScheme.colorScheme.surfaceContainerLowest",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .surfaceContainerHighest,
                       givenColorCaption:
                           "colorScheme.colorScheme.surfaceContainerHighest",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.secondary,
+                      col: themeState.colorScheme.secondary,
                       givenColorCaption: "colorScheme.secondary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.onSecondary,
+                      col: themeState.colorScheme.onSecondary,
                       givenColorCaption: "colorScheme.onSecondary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .secondaryContainer,
                       givenColorCaption:
                           "colorScheme.secondaryContainer",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.tertiary,
+                      col: themeState.colorScheme.tertiary,
                       givenColorCaption: "colorScheme.tertiary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.onTertiary,
+                      col: themeState.colorScheme.onTertiary,
                       givenColorCaption: "colorScheme.onTertiary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .tertiaryContainer,
                       givenColorCaption:
                           "colorScheme.tertiaryContainer",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.inversePrimary,
+                      col: themeState.colorScheme.inversePrimary,
                       givenColorCaption: "colorScheme.inversePrimary",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.inverseSurface,
+                      col: themeState.colorScheme.inverseSurface,
                       givenColorCaption: "colorScheme.inverseSurface",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.outline,
+                      col: themeState.colorScheme.outline,
                       givenColorCaption: "colorScheme.outline",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData.colorScheme.scrim,
+                      col: themeState.colorScheme.scrim,
                       givenColorCaption: "colorScheme.scrim",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .surfaceContainerHighest,
                       givenColorCaption:
                           "colorScheme.surfaceContainerHighest",
                     ),
                     ConstrainedColorBox(
-                      col: customThemeData
+                      col: themeState
                           .colorScheme
                           .surfaceContainerLowest,
                       givenColorCaption:

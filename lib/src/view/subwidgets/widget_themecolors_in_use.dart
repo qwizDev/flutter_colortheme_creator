@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/src/subwidgets/helper_widgets.dart';
+import 'helper_widgets.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 class DisplayWidgetThemeColorsInUse extends StatelessWidget {

@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/src/provider/color_scheme_manager_provider.dart';
-import '/src/subwidgets/widget_currently_chosen_color.dart';
-import '/src/subwidgets/widget_showing_current_colors.dart';
-import '/src/subwidgets/widget_themecolors_in_use.dart';
+import '../provider/theme_state_provider.dart';
+import 'subwidgets/widget_currently_chosen_color.dart';
+import 'subwidgets/widget_showing_current_colors.dart';
+import 'subwidgets/widget_themecolors_in_use.dart';
 
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -32,17 +32,17 @@ class ShowAllThemeColorsWidget extends ConsumerStatefulWidget {
 class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
   _ContentWidgetThemeColor();
 
-  late final Color _chosenColor;
-  late final ThemeData _customThemeData;
+  late Color _chosenColor;
+  late ThemeData _customThemeData;
 
   @override
   Widget build(BuildContext context) {
-    final colorSchemeManager = ref.watch(colorSchemeManagerProvider.notifier);
+    final themeState = ref.watch(themeStateProvider);
 
-    _chosenColor = colorSchemeManager.getSeedColor();
+    _chosenColor = themeState.seedColor;
 
-    _customThemeData = colorSchemeManager.createThemeDataFromColorScheme();
-
+    _customThemeData = themeState.themeData;
+    
     // final int redPartOfColor = _chosenColor.red;
     // final int greenPartOfColor = _chosenColor.green;
     // final int bluePartOfColor = _chosenColor.blue;
@@ -80,15 +80,15 @@ class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
   }
 
   void setNewColor(WidgetRef ref, Color newColor) {
-    ref.read(colorSchemeManagerProvider.notifier).setSeedColor(newColor);
+    ref.read(themeStateProvider.notifier).setSeedColor(newColor);
   }
 
   void updateColors(Color newColor) {
-    ref.read(colorSchemeManagerProvider.notifier).setSeedColor(newColor);
+    ref.read(themeStateProvider.notifier).setSeedColor(newColor);
   }
 
   Color getCurrentColor() {
-    return ref.read(colorSchemeManagerProvider.notifier).getSeedColor();
+    return ref.read(themeStateProvider).seedColor;
   }
 }
 

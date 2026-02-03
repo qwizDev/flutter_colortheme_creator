@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colortheme_creator/src/provider/color_scheme_manager_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -26,7 +26,7 @@ class ConfigureColorsPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorSchemeManager = ref.watch(colorSchemeManagerProvider.notifier);
+    final themeData = ref.watch(themeStateProvider);
 
     return Column(
       children: [
@@ -51,11 +51,12 @@ class ConfigureColorsPanel extends ConsumerWidget {
                 Container(
                   decoration: WidgetDeco.boxDecoStd,
                   child: ColorPicker(
-                    pickerColor: colorSchemeManager.getSeedColor(),
+                    pickerColor: themeData.seedColor,
                     // pickerColor: currentColor,
                     // print("prints from onColorChanged. Color:\t $color")),
                     onColorChanged: (color) =>
-                        colorSchemeManager.setSeedColor(color),
+                    
+                    ref.read(themeStateProvider.notifier).setSeedColor(color),
                   ),
                 ),
                 Expanded(child: SizedBox(height: 10)),
@@ -81,7 +82,7 @@ class ConfigureColorsPanel extends ConsumerWidget {
               child: Text("ExampleWidget for PrimaryColor:"),
               /* ---------------------------------------------------------------- */
             ),
-            getExampleWidgetForChosenColors(colorSchemeManager.getThemeData()),
+            getExampleWidgetForChosenColors(ref),
             Text("ExampleWidget for SecondaryColor:"),
           ],
         ),
@@ -90,12 +91,15 @@ class ConfigureColorsPanel extends ConsumerWidget {
   }
 
   void setNewColor(WidgetRef ref, Color newColor) {
-    ref.read(colorSchemeManagerProvider.notifier).setSeedColor(newColor);
+    ref.read(themeStateProvider.notifier).setSeedColor(newColor);
   }
 
 }
 
-Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
+Widget getExampleWidgetForChosenColors(WidgetRef ref) {
+
+  ThemeData themeData = ref.watch(themeStateProvider).themeData;
+
   return ConstrainedBox(
     constraints: BoxConstraints(maxHeight: 800, maxWidth: 600),
     child: Column(
@@ -105,17 +109,17 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
           width: 400,
           // height: 400,
           child: Container(
-            color: colThemeData.primaryColor,
+            color: themeData.primaryColor,
             child: Column(
               children: [
                 Text("BackgroundColor: primaryColor"),
                 Text("Text has color: default"),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColorLight),
+                  style: TextStyle(color: themeData.primaryColorLight),
                   "Text has color: primaryColorLight",
                 ),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColorDark),
+                  style: TextStyle(color: themeData.primaryColorDark),
                   "Text has color: primaryColorDark",
                 ),
               ],
@@ -126,17 +130,17 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
           // height: 40,
           width: 400,
           child: Container(
-            color: colThemeData.primaryColorLight,
+            color: themeData.primaryColorLight,
             child: Column(
               children: [
                 Text("BackgroundColor: primaryColorLight"),
                 Text("Text has color: default"),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColor),
+                  style: TextStyle(color: themeData.primaryColor),
                   "Text has color: primaryColor",
                 ),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColorDark),
+                  style: TextStyle(color: themeData.primaryColorDark),
                   "Text has color: primaryColorDark",
                 ),
               ],
@@ -147,17 +151,17 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
           // height: 40,
           width: 400,
           child: Container(
-            color: colThemeData.primaryColorDark,
+            color: themeData.primaryColorDark,
             child: Column(
               children: [
                 Text("BackgroundColor: primaryColorDark"),
                 Text("Text has color: default"),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColor),
+                  style: TextStyle(color: themeData.primaryColor),
                   "Text has color: primaryColor",
                 ),
                 Text(
-                  style: TextStyle(color: colThemeData.primaryColorLight),
+                  style: TextStyle(color: themeData.primaryColorLight),
                   "Text has color: primaryColorLight",
                 ),
               ],

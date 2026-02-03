@@ -26,8 +26,8 @@ class ConstrainedColorBox extends ConstrainedBox {
          ),
        );
 
-  Color col;
-  String givenColorCaption;
+  final Color col;
+  final String givenColorCaption;
 
   /* could also be a factory constructor, but probably not worth the effort as
      it's a private method. */

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colortheme_creator/src/provider/color_scheme_manager_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -149,7 +149,7 @@ class _ContentWidgetThemeColor
                           // onPressed: setColorSchemeGlobally(),
                           onPressed: () {
                             ref
-                                .read(colorSchemeManagerProvider.notifier)
+                                .read(themeStateProvider.notifier)
                                 .setSeedColor(_colorScheme.primary);
                           },
                           child: Text("AS GLOBAL SCHEME-NYI"),
