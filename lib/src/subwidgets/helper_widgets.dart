@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 const double colorPanelWidth = 600;
@@ -40,4 +42,35 @@ class ConstrainedColorBox extends ConstrainedBox {
       ),
     );
   }
+}
+
+class ColButtonBox extends SizedBox {
+  // final double ownWidth = 300;
+  // final double ownHeight = 300;
+
+  ColButtonBox({
+    super.key,
+    required String caption,
+    required void Function()? onPressed,
+  }) : super(
+         height: 40,
+         width: 300,
+         child: Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: ColButton(caption: caption, onPressed: onPressed),
+         ),
+       );
+}
+
+class ColButton extends ElevatedButton {
+  ColButton({super.key, required super.onPressed, required String caption})
+    : super(child: Text(caption));
+}
+
+Color buildRandomColor() {
+  var rng = Random();
+  int red = rng.nextInt(255);
+  int green = rng.nextInt(255);
+  int blue = rng.nextInt(255);
+  return Color.fromRGBO(red, green, blue, 100);
 }
