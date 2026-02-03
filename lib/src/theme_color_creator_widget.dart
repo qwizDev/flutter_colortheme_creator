@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colortheme_creator/src/provider/color_scheme_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/color_scheme_manager_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
@@ -51,7 +51,9 @@ class ThemeColorCreatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldForViewStandard(
-        title: title, contentWidget: ContentWidgetThemeColorCreator());
+      title: title,
+      contentWidget: ContentWidgetThemeColorCreator(),
+    );
   }
 }
 
@@ -108,9 +110,7 @@ class _ContentWidgetThemeColor
                   centerTitle: true,
                   title: Text(
                     "ThemeColorCreator",
-                    style: TextStyle(
-                      color: _colorScheme.inversePrimary,
-                    ),
+                    style: TextStyle(color: _colorScheme.inversePrimary),
                   ),
                 ),
                 Padding(
@@ -125,7 +125,7 @@ class _ContentWidgetThemeColor
                   children: [
                     Container(
                       // decoration: boxDecoStd,
-                      decoration: boxDecoStd,
+                      decoration: WidgetDeco.boxDecoStd,
                       child: ColorPicker(
                         pickerColor: _chosenColor,
                         onColorChanged: (color) => applyChosenColor(color),
@@ -149,7 +149,7 @@ class _ContentWidgetThemeColor
                           // onPressed: setColorSchemeGlobally(),
                           onPressed: () {
                             ref
-                                .read(colorSchemeSetterProvider.notifier)
+                                .read(colorSchemeManagerProvider.notifier)
                                 .setSeedColor(_colorScheme.primary);
                           },
                           child: Text("AS GLOBAL SCHEME-NYI"),
@@ -215,14 +215,17 @@ class _ContentWidgetThemeColor
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               PanelDemo(
-                                  colScheme: _colorScheme,
-                                  kindOfThemeCol: "primary"),
+                                colScheme: _colorScheme,
+                                kindOfThemeCol: "primary",
+                              ),
                               PanelDemo(
-                                  colScheme: _colorScheme,
-                                  kindOfThemeCol: "secondary"),
+                                colScheme: _colorScheme,
+                                kindOfThemeCol: "secondary",
+                              ),
                               PanelDemo(
-                                  colScheme: _colorScheme,
-                                  kindOfThemeCol: "tertiary"),
+                                colScheme: _colorScheme,
+                                kindOfThemeCol: "tertiary",
+                              ),
                             ],
                           ),
                           Padding(
@@ -234,19 +237,22 @@ class _ContentWidgetThemeColor
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.primary,
-                                        backgroundCol: null),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.primary,
+                                      backgroundCol: null,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.primary,
-                                        backgroundCol:
-                                            _colorScheme.primaryContainer),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.primary,
+                                      backgroundCol:
+                                          _colorScheme.primaryContainer,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol:
-                                            _colorScheme.inversePrimary,
-                                        backgroundCol: _colorScheme.primary),
+                                      caption: "Button Std",
+                                      foregroundCol:
+                                          _colorScheme.inversePrimary,
+                                      backgroundCol: _colorScheme.primary,
+                                    ),
                                   ],
                                 ),
                               ],
@@ -261,18 +267,21 @@ class _ContentWidgetThemeColor
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.secondary,
-                                        backgroundCol: null),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.secondary,
+                                      backgroundCol: null,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.secondary,
-                                        backgroundCol:
-                                            _colorScheme.secondaryContainer),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.secondary,
+                                      backgroundCol:
+                                          _colorScheme.secondaryContainer,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.onSecondary,
-                                        backgroundCol: _colorScheme.secondary),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.onSecondary,
+                                      backgroundCol: _colorScheme.secondary,
+                                    ),
                                   ],
                                 ),
                               ],
@@ -287,18 +296,21 @@ class _ContentWidgetThemeColor
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.tertiary,
-                                        backgroundCol: null),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.tertiary,
+                                      backgroundCol: null,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.tertiary,
-                                        backgroundCol:
-                                            _colorScheme.tertiaryContainer),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.tertiary,
+                                      backgroundCol:
+                                          _colorScheme.tertiaryContainer,
+                                    ),
                                     ExampleButton(
-                                        caption: "Button Std",
-                                        foregroundCol: _colorScheme.onTertiary,
-                                        backgroundCol: _colorScheme.tertiary),
+                                      caption: "Button Std",
+                                      foregroundCol: _colorScheme.onTertiary,
+                                      backgroundCol: _colorScheme.tertiary,
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -313,88 +325,112 @@ class _ContentWidgetThemeColor
                                           child: Column(
                                             children: [
                                               Padding(
-                                                padding:
-                                                    EdgeInsets.all(paddingStd),
+                                                padding: EdgeInsets.all(
+                                                  paddingStd,
+                                                ),
                                                 child: Text(
                                                   style: TextStyle(
-                                                      fontSize: textSizehuge,
-                                                      color:
-                                                          _colorScheme.primary),
+                                                    fontSize: textSizehuge,
+                                                    color: _colorScheme.primary,
+                                                  ),
                                                   "An Article about Colors",
                                                 ),
                                               ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Text(
-                                                  style: TextStyle(
-                                                      fontSize: textSizeLarge),
-                                                  "abc def abc def abc def abc def abc def abc def "),
+                                                style: TextStyle(
+                                                  fontSize: textSizeLarge,
+                                                ),
+                                                "abc def abc def abc def abc def abc def abc def ",
+                                              ),
                                               Padding(
                                                 padding: EdgeInsets.all(
-                                                    paddingStd * 2),
+                                                  paddingStd * 2,
+                                                ),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     ExampleButton(
-                                                        caption: "Button Std",
-                                                        foregroundCol:
-                                                            _colorScheme
-                                                                .primary,
-                                                        backgroundCol: null),
+                                                      caption: "Button Std",
+                                                      foregroundCol:
+                                                          _colorScheme.primary,
+                                                      backgroundCol: null,
+                                                    ),
                                                     ExampleButton(
-                                                        caption: "Button Std",
-                                                        foregroundCol:
-                                                            _colorScheme
-                                                                .primary,
-                                                        backgroundCol: _colorScheme
-                                                            .surfaceContainerLowest),
+                                                      caption: "Button Std",
+                                                      foregroundCol:
+                                                          _colorScheme.primary,
+                                                      backgroundCol: _colorScheme
+                                                          .surfaceContainerLowest,
+                                                    ),
                                                     ExampleButton(
-                                                        caption: "Button Std",
-                                                        foregroundCol:
-                                                            _colorScheme
-                                                                .inversePrimary,
-                                                        backgroundCol:
-                                                            _colorScheme
-                                                                .primary),
+                                                      caption: "Button Std",
+                                                      foregroundCol:
+                                                          _colorScheme
+                                                              .inversePrimary,
+                                                      backgroundCol:
+                                                          _colorScheme.primary,
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -404,7 +440,7 @@ class _ContentWidgetThemeColor
                                       ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -445,120 +481,149 @@ class _ContentWidgetThemeColor
 
     switch (radioString) {
       case RadioValues.primary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(primary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          primary: _chosenColor,
+        );
         break;
       case RadioValues.onPrimary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onPrimary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onPrimary: _chosenColor,
+        );
         break;
       case RadioValues.inversePrimary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(inversePrimary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          inversePrimary: _chosenColor,
+        );
         break;
       case RadioValues.primaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(primaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          primaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.onPrimaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onPrimaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onPrimaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.secondary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(secondary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          secondary: _chosenColor,
+        );
         break;
       case RadioValues.onSecondary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onSecondary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onSecondary: _chosenColor,
+        );
         break;
       case RadioValues.secondaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(secondaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          secondaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.onSecondaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onSecondaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onSecondaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.tertiary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(tertiary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          tertiary: _chosenColor,
+        );
         break;
       case RadioValues.onTertiary:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onTertiary: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onTertiary: _chosenColor,
+        );
         break;
       case RadioValues.tertiaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(tertiaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          tertiaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.onTertiaryContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onTertiaryContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onTertiaryContainer: _chosenColor,
+        );
         break;
       case RadioValues.surface:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surface: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surface: _chosenColor,
+        );
         break;
       case RadioValues.onSurface:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onSurface: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onSurface: _chosenColor,
+        );
         break;
       case RadioValues.inverseSurface:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(inverseSurface: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          inverseSurface: _chosenColor,
+        );
         break;
       case RadioValues.surfaceBright:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceBright: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceBright: _chosenColor,
+        );
         break;
       case RadioValues.surfaceContainer:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceContainer: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceContainer: _chosenColor,
+        );
         break;
       case RadioValues.surfaceDim:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceDim: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceDim: _chosenColor,
+        );
         break;
       case RadioValues.surfaceTint:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceTint: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceTint: _chosenColor,
+        );
         break;
       case RadioValues.onSurfaceVariant:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(onSurfaceVariant: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          onSurfaceVariant: _chosenColor,
+        );
         break;
       case RadioValues.surfaceContainerLowest:
         _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
-            surfaceContainerLowest: _chosenColor);
+          surfaceContainerLowest: _chosenColor,
+        );
         break;
       case RadioValues.surfaceContainerLow:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceContainerLow: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceContainerLow: _chosenColor,
+        );
         break;
       case RadioValues.surfaceContainerHigh:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(surfaceContainerHigh: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          surfaceContainerHigh: _chosenColor,
+        );
         break;
       case RadioValues.surfaceContainerHighest:
         _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
-            surfaceContainerHighest: _chosenColor);
+          surfaceContainerHighest: _chosenColor,
+        );
         break;
       case RadioValues.outline:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(outline: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          outline: _chosenColor,
+        );
         break;
       case RadioValues.outlineVariant:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(outlineVariant: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          outlineVariant: _chosenColor,
+        );
         break;
       case RadioValues.scrim:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(scrim: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          scrim: _chosenColor,
+        );
         break;
       case RadioValues.shadow:
-        _ownCustomColorScheme =
-            _ownCustomColorScheme.copyWith(shadow: _chosenColor);
+        _ownCustomColorScheme = _ownCustomColorScheme.copyWith(
+          shadow: _chosenColor,
+        );
         break;
 
       default:
@@ -580,7 +645,6 @@ class _ContentWidgetThemeColor
 
   void setColorSchemeGlobally() {}
 }
-
 
 class PanelDemo extends StatelessWidget {
   PanelDemo({super.key, required this.colScheme, required this.kindOfThemeCol});
@@ -613,10 +677,7 @@ class PanelDemo extends StatelessWidget {
                 kindOfThemeCol,
                 style: TextStyle(fontSize: textSizeLarge, color: mainCol),
               ),
-              Text(
-                someFillText,
-                style: TextStyle(color: mainCol),
-              ),
+              Text(someFillText, style: TextStyle(color: mainCol)),
             ],
           ),
         ),
@@ -659,8 +720,11 @@ class PanelDemo extends StatelessWidget {
 }
 
 class StackedPanelsDemo extends StatelessWidget {
-  StackedPanelsDemo(
-      {super.key, required this.colScheme, required this.colorType});
+  StackedPanelsDemo({
+    super.key,
+    required this.colScheme,
+    required this.colorType,
+  });
   final ColorScheme colScheme;
   final String colorType;
   late final Color mainCol;
@@ -717,7 +781,9 @@ class StackedPanelsDemo extends StatelessWidget {
                               child: Text(
                                 "CONTENT",
                                 style: TextStyle(
-                                    color: mainCol, fontSize: textSizehuge),
+                                  color: mainCol,
+                                  fontSize: textSizehuge,
+                                ),
                               ),
                             ),
                           ),
@@ -780,55 +846,79 @@ class PanelColorsFromColScheme extends StatelessWidget {
         MiniColorBox(color: colScheme.primary, caption: "primary"),
         MiniColorBox(color: colScheme.onPrimary, caption: "onPrimary"),
         MiniColorBox(
-            color: colScheme.inversePrimary, caption: "inversePrimary"),
+          color: colScheme.inversePrimary,
+          caption: "inversePrimary",
+        ),
         MiniColorBox(
-            color: colScheme.primaryContainer, caption: "primaryContainer"),
+          color: colScheme.primaryContainer,
+          caption: "primaryContainer",
+        ),
         MiniColorBox(
-            color: colScheme.onPrimaryContainer, caption: "onPrimaryContainer"),
+          color: colScheme.onPrimaryContainer,
+          caption: "onPrimaryContainer",
+        ),
         // Divider(),
         MiniColorBox(color: colScheme.secondary, caption: "secondary"),
         MiniColorBox(color: colScheme.onSecondary, caption: "onSecondary"),
         MiniColorBox(
-            color: colScheme.secondaryContainer, caption: "secondaryContainer"),
+          color: colScheme.secondaryContainer,
+          caption: "secondaryContainer",
+        ),
         MiniColorBox(
-            color: colScheme.onSecondaryContainer,
-            caption: "onSecondaryContainer"),
+          color: colScheme.onSecondaryContainer,
+          caption: "onSecondaryContainer",
+        ),
         // Divider(),
         MiniColorBox(color: colScheme.tertiary, caption: "tertiary"),
         MiniColorBox(color: colScheme.onTertiary, caption: "onTertiary"),
         MiniColorBox(
-            color: colScheme.tertiaryContainer, caption: "tertiaryContainer"),
+          color: colScheme.tertiaryContainer,
+          caption: "tertiaryContainer",
+        ),
         MiniColorBox(
-            color: colScheme.onTertiaryContainer,
-            caption: "onTertiaryContainer"),
+          color: colScheme.onTertiaryContainer,
+          caption: "onTertiaryContainer",
+        ),
         // Divider(),
         MiniColorBox(color: colScheme.surface, caption: "surface"),
         MiniColorBox(
-            color: colScheme.inverseSurface, caption: "inverseSurface"),
+          color: colScheme.inverseSurface,
+          caption: "inverseSurface",
+        ),
         MiniColorBox(color: colScheme.surfaceBright, caption: "surfaceBright"),
         MiniColorBox(
-            color: colScheme.surfaceContainer, caption: "surfaceContainer"),
+          color: colScheme.surfaceContainer,
+          caption: "surfaceContainer",
+        ),
         MiniColorBox(color: colScheme.surfaceDim, caption: "surfaceDim"),
         MiniColorBox(color: colScheme.surfaceTint, caption: "surfaceTint"),
         MiniColorBox(color: colScheme.onSurface, caption: "onSurface"),
         MiniColorBox(
-            color: colScheme.onSurfaceVariant, caption: "onSurfaceVariant"),
+          color: colScheme.onSurfaceVariant,
+          caption: "onSurfaceVariant",
+        ),
         MiniColorBox(
-            color: colScheme.surfaceContainerLowest,
-            caption: "surfaceContainerLowest"),
+          color: colScheme.surfaceContainerLowest,
+          caption: "surfaceContainerLowest",
+        ),
         MiniColorBox(
-            color: colScheme.surfaceContainerLow,
-            caption: "surfaceContainerLow"),
+          color: colScheme.surfaceContainerLow,
+          caption: "surfaceContainerLow",
+        ),
         MiniColorBox(
-            color: colScheme.surfaceContainerHigh,
-            caption: "surfaceContainerHigh"),
+          color: colScheme.surfaceContainerHigh,
+          caption: "surfaceContainerHigh",
+        ),
         MiniColorBox(
-            color: colScheme.surfaceContainerHighest,
-            caption: "surfaceContainerHighest"),
+          color: colScheme.surfaceContainerHighest,
+          caption: "surfaceContainerHighest",
+        ),
         // Divider(),
         MiniColorBox(color: colScheme.outline, caption: "outline"),
         MiniColorBox(
-            color: colScheme.outlineVariant, caption: "outlineVariant"),
+          color: colScheme.outlineVariant,
+          caption: "outlineVariant",
+        ),
         MiniColorBox(color: colScheme.scrim, caption: "scrim"),
         MiniColorBox(color: colScheme.shadow, caption: "shadow"),
       ],
@@ -849,17 +939,10 @@ class MiniColorBox extends StatelessWidget {
   Widget build(Object context) {
     return Row(
       children: [
-        SizedBox(
-          width: width,
-          height: height,
-          child: Text(caption),
-        ),
+        SizedBox(width: width, height: height, child: Text(caption)),
         Container(
           decoration: BoxDecoration(color: color, border: Border.all()),
-          child: SizedBox(
-            width: width,
-            height: height,
-          ),
+          child: SizedBox(width: width, height: height),
         ),
       ],
     );
@@ -867,10 +950,12 @@ class MiniColorBox extends StatelessWidget {
 }
 
 class ExampleButton extends StatelessWidget {
-  const ExampleButton(
-      {super.key, required this.caption,
-      required this.foregroundCol,
-      required this.backgroundCol});
+  const ExampleButton({
+    super.key,
+    required this.caption,
+    required this.foregroundCol,
+    required this.backgroundCol,
+  });
 
   final String caption;
   final Color foregroundCol;
@@ -880,8 +965,9 @@ class ExampleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
-      style:
-          ButtonStyle(backgroundColor: WidgetStatePropertyAll(backgroundCol)),
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(backgroundCol),
+      ),
       child: Text(
         "Button on Container",
         style: TextStyle(

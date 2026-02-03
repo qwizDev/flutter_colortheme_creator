@@ -2,243 +2,112 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_colortheme_creator/src/provider/color_scheme_manager_provider.dart';
+import 'package:flutter_colortheme_creator/src/subwidgets/widget_currently_chosen_color.dart';
+import 'package:flutter_colortheme_creator/src/subwidgets/widget_themecolors_in_use.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 // import 'package:sp_frontend/apps/sp/gui/screens/setStartConfig/subwidgets/nice_text.dart';
 // import 'package:sp_frontend/apps/sp/gui/util/gui_constants.dart';
 
-final double _colorPanelWidth = 600;
-final double _colorPanelHeigth = 1000;
-final double _singleColorWidth = 500;
-final double _singleColorHeigth = 40;
 
-final Color _startColor = Colors.red;
 
 // final Color _colBorderStd = const Color.fromARGB(255, 1, 20, 52);
 // // final Color _colBorderLighter = const Color.fromARGB(43, 1, 20, 52);
 // final Color colBoxBorderStd = _colBorderStd;
 // final Color colMenuSeperationBorder = _colBorderLighter;
 
-
-class ShowAllThemeColorsWidget extends StatefulWidget {
+class ShowAllThemeColorsWidget extends ConsumerStatefulWidget {
   const ShowAllThemeColorsWidget({super.key, this.title = "noTitleGiven"});
   final String title;
-
+  
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return _ContentWidgetThemeColor();
   }
 
-    // void printThemeDataStuff(BuildContext context) {
+  // void printThemeDataStuff(BuildContext context) {
   //   ThemeData stuff = Theme.of(context);
   //   for (var elem in stuff.colorScheme) {
   //     print(elem.toString());
   //   }
   // }
-
 }
 
-class _ContentWidgetThemeColor extends State<StatefulWidget> {
+class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
   _ContentWidgetThemeColor();
 
-  Color _chosenColor = _startColor;
+  late final Color _chosenColor;
+  late final colorSchemeManager;
 
-  late ColorScheme _customScheme;
+  // late ColorScheme _customScheme;
 
-  late ThemeData _customThemeData;
+  late final ThemeData _customThemeData;
 
   @override
   Widget build(BuildContext context) {
-    _customScheme = ColorScheme.fromSeed(seedColor: _chosenColor);
 
-    _customThemeData = ThemeData(
-      colorScheme: _customScheme,
-      useMaterial3: true,
-    );
+  colorSchemeManager = ref.watch(colorSchemeManagerProvider.notifier);
 
-    final int redPartOfColor = _chosenColor.red;
-    final int greenPartOfColor = _chosenColor.green;
-    final int bluePartOfColor = _chosenColor.blue;
+  _chosenColor = colorSchemeManager.getSeedColor();
 
-    final String _chosenColorString =
-        "RED: $redPartOfColor, GREEN: $greenPartOfColor, BLUE: $bluePartOfColor";
+    // _customScheme = ColorScheme.fromSeed(seedColor: _chosenColor);
+
+    // _customThemeData = ThemeData(
+    //   // colorScheme: _customScheme,
+    //   colorScheme: ref.read(colorSchemeManagerProvider),
+    //   useMaterial3: true,
+    // );
+  _customThemeData = colorSchemeManager.createThemeDataFromColorScheme();
+
+    // final int redPartOfColor = _chosenColor.red;
+    // final int greenPartOfColor = _chosenColor.green;
+    // final int bluePartOfColor = _chosenColor.blue;
+
+    // final String _chosenColorString =
+    //     "RED: $redPartOfColor, GREEN: $greenPartOfColor, BLUE: $bluePartOfColor";
 
     return Center(
       child: Container(
-        decoration: boxDecoStd,
+        decoration: WidgetDeco.boxDecoStd,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // NiceText("Colors of theme being in use"),
-              Text("Colors of theme being in use"),
-              SizedBox(
-                  width: _colorPanelWidth,
-                  height: _colorPanelHeigth,
-                  child: Column(children: [
-                    SizedColorBox(
-                      col: Theme.of(context).primaryColor,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).primaryColorDark,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).primaryColorLight,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.primary,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.primaryContainer,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.secondary,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.primary,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    SizedColorBox(
-                      col: Theme.of(context).colorScheme.tertiaryContainer,
-                    ),
-                  ])),
+              DisplayWidgetThemeColorsInUse(),
               Divider(),
               ColButtonBox(
                 onPressed: () => setRandom_second(updateColors),
                 caption: "use a random color",
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                // child: NiceText("Colors for currently chosen color:"),
-                child: Text("Colors for currently chosen color:"),
-              ),
-              // NiceText(_chosenColorString),
-              Text(_chosenColorString),
-              Text(_chosenColor.toString()),
-              // NiceText(_chosenColor.toString()),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      width: _colorPanelWidth,
-                      height: _colorPanelHeigth,
-                      child: Column(children: [
-                        SizedColorBox(
-                          col: _customThemeData.primaryColor,
-                          givenColorCaption: "primaryColor",
+              // Divider(),
+                DisplayWidgetForCurrentlyChosenColor(),
+                  // SizedBox(
+                  //   width: _colorPanelWidth,
+                  //   height: _colorPanelHeigth,
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 50,
+                      maxHeight: 1000,
+                      minWidth: 100,
+                      maxWidth: 1000,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: _customThemeData.colorScheme.outline,
+                          width: 2,
                         ),
-                        SizedColorBox(
-                          col: _customThemeData.primaryColorDark,
-                          givenColorCaption: "primaryColorDark",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.primaryColorLight,
-                          givenColorCaption: "primaryColorLight",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.primary,
-                          givenColorCaption: "colorScheme.colorScheme.primary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.onPrimary,
-                          givenColorCaption:
-                              "colorScheme.colorScheme.onPrimary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.primaryContainer,
-                          givenColorCaption:
-                              "colorScheme.colorScheme.primaryContainer",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.surface,
-                          givenColorCaption: "colorScheme.colorScheme.surface",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData
-                              .colorScheme.surfaceContainerLowest,
-                          givenColorCaption:
-                              "colorScheme.colorScheme.surfaceContainerLowest",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData
-                              .colorScheme.surfaceContainerHighest,
-                          givenColorCaption:
-                              "colorScheme.colorScheme.surfaceContainerHighest",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.secondary,
-                          givenColorCaption: "colorScheme.secondary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.onSecondary,
-                          givenColorCaption: "colorScheme.onSecondary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.secondaryContainer,
-                          givenColorCaption: "colorScheme.secondaryContainer",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.tertiary,
-                          givenColorCaption: "colorScheme.tertiary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.onTertiary,
-                          givenColorCaption: "colorScheme.onTertiary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.tertiaryContainer,
-                          givenColorCaption: "colorScheme.tertiaryContainer",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.inversePrimary,
-                          givenColorCaption: "colorScheme.inversePrimary",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.inverseSurface,
-                          givenColorCaption: "colorScheme.inverseSurface",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.outline,
-                          givenColorCaption: "colorScheme.outline",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData.colorScheme.scrim,
-                          givenColorCaption: "colorScheme.scrim",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData
-                              .colorScheme.surfaceContainerHighest,
-                          givenColorCaption:
-                              "colorScheme.surfaceContainerHighest",
-                        ),
-                        SizedColorBox(
-                          col: _customThemeData
-                              .colorScheme.surfaceContainerLowest,
-                          givenColorCaption:
-                              "colorScheme.surfaceContainerLowest",
-                        ),
-                      ])),
-                  SizedBox(
-                      width: _colorPanelWidth,
-                      height: _colorPanelHeigth,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: _customThemeData.colorScheme.outline,
-                                width: 2),
-                            // color: _customThemeData.colorScheme.surface),
-                            color: _customThemeData.colorScheme.surface),
-                        child: Column(children: [
+                        // color: _customThemeData.colorScheme.surface),
+                        color: _customThemeData.colorScheme.surface,
+                      ),
+                      child: Column(
+                        children: [
+                          /* ---------------------------------------------------------------- */
                           Text(
                             "This is an Example Widget for showing current colors",
                           ),
-                          Text(
-                            "The background-color is surface",
-                          ),
+                          /* ---------------------------------------------------------------- */
+                          Text("The background-color is surface"),
                           Column(
                             children: [
                               ElevatedButton(
@@ -261,7 +130,8 @@ class _ContentWidgetThemeColor extends State<StatefulWidget> {
                                     backgroundColor:
                                         _customThemeData.colorScheme.secondary,
                                     color: _customThemeData
-                                        .colorScheme.onSecondary,
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
                                 ),
                               ),
@@ -307,10 +177,11 @@ class _ContentWidgetThemeColor extends State<StatefulWidget> {
                                 ),
                               ),
                             ],
-                          )
-                        ]),
-                      )),
-                ],
+                          ),
+                        ],
+                      ),
+                    ),
+                
               ),
               Divider(),
               ConfigureColorsPanel(
@@ -319,12 +190,12 @@ class _ContentWidgetThemeColor extends State<StatefulWidget> {
                 currentColor: _chosenColor,
                 colThemeData: _customThemeData,
               ),
-            ],
-          ),
-        ),
-      ),
+          ],  //children of column
+        ),  //Colums        
+          ), //SingleChildScrollView 
+        ), //Container      
     );
-  }
+  } //build-method
 
   var emptyFunc = () {};
 
@@ -345,9 +216,10 @@ class _ContentWidgetThemeColor extends State<StatefulWidget> {
   // manuallyChosenColor
 
   void updateColors(Color newColor) {
-    setState(() {
-      _chosenColor = newColor;
-    });
+    // setState(() {
+    //   chosenColor = newColor;
+    // });
+    ref.read(colorSchemeManagerProvider.notifier).setSeedColor(newColor);
   }
 
   Color getCurrentColor() {
@@ -355,41 +227,15 @@ class _ContentWidgetThemeColor extends State<StatefulWidget> {
   }
 }
 
-// ignore: must_be_immutable
-class SizedColorBox extends SizedBox {
-  SizedColorBox({super.key, this.col = Colors.green, this.givenColorCaption = ""
-      // }) : super.expand(
-      })
-      : super(
-            child: _createColorContainerWithCaptureText(col, givenColorCaption),
-            width: _singleColorWidth,
-            height: _singleColorHeigth);
-
-  Color col;
-  String givenColorCaption;
-
-  /* could also be a factory constructor, but probably not worth the effort as
-     it's a private method. */
-  static Widget _createColorContainerWithCaptureText(
-      Color color, String givenColorCaption) {
-    return Container(
-        color: color,
-        child: Column(
-          children: [
-            Text(givenColorCaption),
-            Text(color.toString()),
-          ],
-        ));
-  }
-}
 
 class ConfigureColorsPanel extends StatelessWidget {
-  const ConfigureColorsPanel(
-      {super.key,
-      required this.updateColorAndStateCallback,
-      required this.getColorCallback,
-      required this.currentColor,
-      required this.colThemeData});
+  const ConfigureColorsPanel({
+    super.key,
+    required this.updateColorAndStateCallback,
+    required this.getColorCallback,
+    required this.currentColor,
+    required this.colThemeData,
+  });
 
   /* did not use a provider to learn how to do 
      it the setState callback-passing way */
@@ -402,9 +248,10 @@ class ConfigureColorsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        /* ---------------------------------------------------------------- */
         Text("Configuring colors"),
 
-        // NiceText("Configuring colors"),
+        /* ---------------------------------------------------------------- */
         Column(
           children: [
             // Padding(
@@ -424,7 +271,7 @@ class ConfigureColorsPanel extends StatelessWidget {
               children: [
                 Expanded(child: SizedBox(height: 10)),
                 Container(
-                  decoration: boxDecoStd,
+                  decoration: WidgetDeco.boxDecoStd,
                   child: ColorPicker(
                     pickerColor: currentColor,
                     // print("prints from onColorChanged. Color:\t $color")),
@@ -449,7 +296,9 @@ class ConfigureColorsPanel extends StatelessWidget {
             Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
+              /* ---------------------------------------------------------------- */
               child: Text("ExampleWidget for PrimaryColor:"),
+              /* ---------------------------------------------------------------- */
             ),
             getExampleWidgetForChosenColors(colThemeData),
             Text("ExampleWidget for SecondaryColor:"),
@@ -481,23 +330,23 @@ class ColButtonBox extends SizedBox {
   // final double ownWidth = 300;
   // final double ownHeight = 300;
 
-  ColButtonBox(
-      {super.key, required String caption, required void Function()? onPressed})
-      : super(
-            height: 40,
-            width: 300,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ColButton(
-                caption: caption,
-                onPressed: onPressed,
-              ),
-            ));
+  ColButtonBox({
+    super.key,
+    required String caption,
+    required void Function()? onPressed,
+  }) : super(
+         height: 40,
+         width: 300,
+         child: Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: ColButton(caption: caption, onPressed: onPressed),
+         ),
+       );
 }
 
 class ColButton extends ElevatedButton {
   ColButton({super.key, required super.onPressed, required String caption})
-      : super(child: Text(caption));
+    : super(child: Text(caption));
 }
 
 Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
@@ -505,10 +354,7 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
   //   width: 400,
   //   height: 800,
   return ConstrainedBox(
-    constraints: BoxConstraints(
-      maxHeight: 800,
-      maxWidth: 600,
-    ),
+    constraints: BoxConstraints(maxHeight: 800, maxWidth: 600),
     child: Column(
       children: [
         SizedBox(
@@ -522,11 +368,13 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
                 Text("BackgroundColor: primaryColor"),
                 Text("Text has color: default"),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColorLight),
-                    "Text has color: primaryColorLight"),
+                  style: TextStyle(color: colThemeData.primaryColorLight),
+                  "Text has color: primaryColorLight",
+                ),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColorDark),
-                    "Text has color: primaryColorDark"),
+                  style: TextStyle(color: colThemeData.primaryColorDark),
+                  "Text has color: primaryColorDark",
+                ),
               ],
             ),
           ),
@@ -541,11 +389,13 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
                 Text("BackgroundColor: primaryColorLight"),
                 Text("Text has color: default"),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColor),
-                    "Text has color: primaryColor"),
+                  style: TextStyle(color: colThemeData.primaryColor),
+                  "Text has color: primaryColor",
+                ),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColorDark),
-                    "Text has color: primaryColorDark"),
+                  style: TextStyle(color: colThemeData.primaryColorDark),
+                  "Text has color: primaryColorDark",
+                ),
               ],
             ),
           ),
@@ -560,18 +410,20 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
                 Text("BackgroundColor: primaryColorDark"),
                 Text("Text has color: default"),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColor),
-                    "Text has color: primaryColor"),
+                  style: TextStyle(color: colThemeData.primaryColor),
+                  "Text has color: primaryColor",
+                ),
                 Text(
-                    style: TextStyle(color: colThemeData.primaryColorLight),
-                    "Text has color: primaryColorLight"),
+                  style: TextStyle(color: colThemeData.primaryColorLight),
+                  "Text has color: primaryColorLight",
+                ),
               ],
             ),
           ),
         ),
-      ],
-    ),
-  );
+      ],),
+    );
+  
 }
 
 // _customThemeData.primaryColor
@@ -581,4 +433,3 @@ Widget getExampleWidgetForChosenColors(ThemeData colThemeData) {
 // _customThemeData.colorScheme.primary
 // _customThemeData.colorScheme.tertiary
 // _customThemeData.colorScheme.tertiaryContainer
-  
