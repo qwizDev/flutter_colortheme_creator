@@ -8,37 +8,41 @@ class DisplayWidgetThemeColorsInUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints.loose(
-        Size(colorPanelWidth, colorPanelHeigth),
+      // constraints: BoxConstraints.loose(
+      //   Size(colorPanelWidth, colorPanelHeigth),
+      constraints: BoxConstraints(
+        maxWidth:         colorPanelWidth , maxHeight:  colorPanelHeigth,
       ),
-      child: Column(
-        children: [
-          /* ---------------------------------------------------------------- */
-          Text("Colors of theme being in use"),
-
-          /* ---------------------------------------------------------------- */
-          // SizedBox(
-          //   width: _colorPanelWidth,
-          //   height: _colorPanelHeigth,
-          Column(
-            children: [
-              ConstrainedColorBox(col: Theme.of(context).primaryColor),
-              ConstrainedColorBox(col: Theme.of(context).primaryColorDark),
-              ConstrainedColorBox(col: Theme.of(context).primaryColorLight),
-              ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
-              ConstrainedColorBox(col: Theme.of(context).colorScheme.onPrimary),
-              ConstrainedColorBox(
-                col: Theme.of(context).colorScheme.primaryContainer,
-              ),
-              ConstrainedColorBox(col: Theme.of(context).colorScheme.secondary),
-              ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
-              ConstrainedColorBox(col: Theme.of(context).colorScheme.tertiary),
-              ConstrainedColorBox(
-                col: Theme.of(context).colorScheme.tertiaryContainer,
-              ),
-            ],
-          ),
-        ],
+      child: Wrap(
+        children: [Column(
+          children: [
+            /* ---------------------------------------------------------------- */
+            Text("Colors of theme being in use"),
+        
+            /* ---------------------------------------------------------------- */
+            // SizedBox(
+            //   width: _colorPanelWidth,
+            //   height: _colorPanelHeigth,
+            Column(
+              children: [
+                ConstrainedColorBox(col: Theme.of(context).primaryColor),
+                ConstrainedColorBox(col: Theme.of(context).primaryColorDark),
+                ConstrainedColorBox(col: Theme.of(context).primaryColorLight),
+                ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
+                ConstrainedColorBox(col: Theme.of(context).colorScheme.onPrimary),
+                ConstrainedColorBox(
+                  col: Theme.of(context).colorScheme.primaryContainer,
+                ),
+                ConstrainedColorBox(col: Theme.of(context).colorScheme.secondary),
+                ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
+                ConstrainedColorBox(col: Theme.of(context).colorScheme.tertiary),
+                ConstrainedColorBox(
+                  col: Theme.of(context).colorScheme.tertiaryContainer,
+                ),
+              ],
+            ),
+          ],
+        ),],
       ),
     );
   }
