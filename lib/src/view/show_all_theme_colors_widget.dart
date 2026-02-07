@@ -39,15 +39,21 @@ class _ContentWidgetThemeColor extends ConsumerState<ShowAllThemeColorsWidget> {
     _customThemeData = themeState.themeData;
 
     return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 800),
-        child: Container(
-          decoration: WidgetDeco.boxDecoStd,
-          child: SingleChildScrollView(
+      child: Container(
+        decoration: WidgetDeco.boxDecoStd,
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: 50,
+              maxWidth: 1000,
+              minHeight: 10,
+              maxHeight: 10000,
+            ),
             child: Column(
+              mainAxisSize: MainAxisSize.min, // IMPORTANT!!
               children: [
-                // DisplayWidgetThemeColorsInUse(),
-                // Divider(),
+                DisplayWidgetThemeColorsInUse(),
+                Divider(),
                 DisplayWidgetForCurrentlyChosenColor(),
                 ExampleWidgetShowingCurrentColors(
                   customThemeData: _customThemeData,

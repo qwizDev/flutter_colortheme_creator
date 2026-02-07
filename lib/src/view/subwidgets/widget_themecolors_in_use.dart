@@ -7,43 +7,71 @@ class DisplayWidgetThemeColorsInUse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      // constraints: BoxConstraints.loose(
-      //   Size(colorPanelWidth, colorPanelHeigth),
-      constraints: BoxConstraints(
-        maxWidth:         colorPanelWidth , maxHeight:  colorPanelHeigth,
-      ),
-      child: Wrap(
-        children: [Column(
-          children: [
-            /* ---------------------------------------------------------------- */
-            Text("Colors of theme being in use"),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        /* ---------------------------------------------------------------- */
+        Text("Colors of theme being in use"),
         
-            /* ---------------------------------------------------------------- */
-            // SizedBox(
-            //   width: _colorPanelWidth,
-            //   height: _colorPanelHeigth,
-            Column(
-              children: [
-                ConstrainedColorBox(col: Theme.of(context).primaryColor),
-                ConstrainedColorBox(col: Theme.of(context).primaryColorDark),
-                ConstrainedColorBox(col: Theme.of(context).primaryColorLight),
-                ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
-                ConstrainedColorBox(col: Theme.of(context).colorScheme.onPrimary),
-                ConstrainedColorBox(
-                  col: Theme.of(context).colorScheme.primaryContainer,
-                ),
-                ConstrainedColorBox(col: Theme.of(context).colorScheme.secondary),
-                ConstrainedColorBox(col: Theme.of(context).colorScheme.primary),
-                ConstrainedColorBox(col: Theme.of(context).colorScheme.tertiary),
-                ConstrainedColorBox(
-                  col: Theme.of(context).colorScheme.tertiaryContainer,
-                ),
-              ],
+        /* ---------------------------------------------------------------- */
+        // SizedBox(
+        //   width: _colorPanelWidth,
+        //   height: _colorPanelHeigth,
+        Column(
+          children: [
+            ConstrainedColorBox(
+              col: Theme.of(context).primaryColor,
+              givenColorCaption: "primaryColor" ,
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).primaryColorDark,
+              givenColorCaption: "primaryColorDark",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).primaryColorLight,
+              givenColorCaption: "primaryColorLight",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.primary,
+              givenColorCaption: "primary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.onPrimary,
+              givenColorCaption: "onPrimary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.primaryContainer,
+              givenColorCaption: "primaryContainer",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.secondary,
+              givenColorCaption: "secondary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.primary,
+              givenColorCaption: "primary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.tertiary,
+              givenColorCaption: "tertiary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: Theme.of(context).colorScheme.tertiaryContainer,
+              givenColorCaption: "tertiaryContainer",
+              context: context,
             ),
           ],
-        ),],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -11,7 +11,11 @@ class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeState = ref.watch(themeStateProvider);
     final themeData = themeState.themeData;
-
+    final String currentSeedColor = buildColorString(themeState.seedColor);
+    // return ConstrainedBox(
+    //   constraints: BoxConstraints(
+    //     maxHeight: 2000,
+    //   ),
     return Column(
       children: [
         Padding(
@@ -26,100 +30,116 @@ class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(14.0),
-          child: Text("Current Seedcolor: ${themeState.seedColor}"),
+          // child: Text("Current Seedcolor: ${themeState.seedColor}"),
+          // child: Text("Current Seedcolor: ${buildColorString(themeState.seedColor)}"),
+          child: Text("current Seedcolor: $currentSeedColor"),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
           children: [
-            Column(
-              children: [
-                ConstrainedColorBox(
-                  col: themeData.primaryColor,
-                  givenColorCaption: "primaryColor",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.primaryColorDark,
-                  givenColorCaption: "primaryColorDark",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.primaryColorLight,
-                  givenColorCaption: "primaryColorLight",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.primary,
-                  givenColorCaption: "colorScheme.colorScheme.primary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.onPrimary,
-                  givenColorCaption: "colorScheme.colorScheme.onPrimary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.primaryContainer,
-                  givenColorCaption: "colorScheme.colorScheme.primaryContainer",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.surface,
-                  givenColorCaption: "colorScheme.colorScheme.surface",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.surfaceContainerLowest,
-                  givenColorCaption:
-                      "colorScheme.colorScheme.surfaceContainerLowest",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.surfaceContainerHighest,
-                  givenColorCaption:
-                      "colorScheme.colorScheme.surfaceContainerHighest",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.secondary,
-                  givenColorCaption: "colorScheme.secondary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.onSecondary,
-                  givenColorCaption: "colorScheme.onSecondary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.secondaryContainer,
-                  givenColorCaption: "colorScheme.secondaryContainer",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.tertiary,
-                  givenColorCaption: "colorScheme.tertiary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.onTertiary,
-                  givenColorCaption: "colorScheme.onTertiary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.tertiaryContainer,
-                  givenColorCaption: "colorScheme.tertiaryContainer",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.inversePrimary,
-                  givenColorCaption: "colorScheme.inversePrimary",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.inverseSurface,
-                  givenColorCaption: "colorScheme.inverseSurface",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.outline,
-                  givenColorCaption: "colorScheme.outline",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.scrim,
-                  givenColorCaption: "colorScheme.scrim",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.surfaceContainerHighest,
-                  givenColorCaption: "colorScheme.surfaceContainerHighest",
-                ),
-                ConstrainedColorBox(
-                  col: themeData.colorScheme.surfaceContainerLowest,
-                  givenColorCaption: "colorScheme.surfaceContainerLowest",
-                ),
-              ],
+            ConstrainedColorBox(
+              col: themeData.primaryColor,
+              givenColorCaption: "themeData.primaryColor",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.primaryColorDark,
+              givenColorCaption: "themeData.primaryColorDark",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.primaryColorLight,
+              givenColorCaption: "themeData.primaryColorLight",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.primary,
+              givenColorCaption: "primary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.onPrimary,
+              givenColorCaption: "onPrimary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.primaryContainer,
+              givenColorCaption: "primaryContainer",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.surface,
+              givenColorCaption: "surface",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.surfaceContainerLowest,
+              givenColorCaption: "surfaceContainerLowest",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.surfaceContainerHighest,
+              givenColorCaption: "surfaceContainerHighest",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.secondary,
+              givenColorCaption: "secondary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.onSecondary,
+              givenColorCaption: "onSecondary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.secondaryContainer,
+              givenColorCaption: "secondaryContainer",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.tertiary,
+              givenColorCaption: "tertiary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.onTertiary,
+              givenColorCaption: "onTertiary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.tertiaryContainer,
+              givenColorCaption: "tertiaryContainer",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.inversePrimary,
+              givenColorCaption: "inversePrimary",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.inverseSurface,
+              givenColorCaption: "inverseSurface",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.outline,
+              givenColorCaption: "outline",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.scrim,
+              givenColorCaption: "scrim",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.surfaceContainerHighest,
+              givenColorCaption: "surfaceContainerHighest",
+              context: context,
+            ),
+            ConstrainedColorBox(
+              col: themeData.colorScheme.surfaceContainerLowest,
+              givenColorCaption: "surfaceContainerLowest",
+              context: context,
             ),
           ],
         ),
