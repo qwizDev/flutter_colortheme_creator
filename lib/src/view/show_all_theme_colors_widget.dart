@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
+import '../provider/theme_controller.dart';
 import '../provider/theme_state_provider.dart';
 import 'subwidgets/widget_currently_chosen_color.dart';
 import 'subwidgets/widget_showing_current_colors.dart';
@@ -10,18 +11,24 @@ import 'subwidgets/widget_themecolors_in_use.dart';
 import 'subwidgets/widget_configure_colors_panel.dart';
 
 class ShowAllThemeColorsWidget extends ConsumerStatefulWidget {
-  const ShowAllThemeColorsWidget({super.key, this.title = "noTitleGiven"});
+  const ShowAllThemeColorsWidget({
+    super.key,
+    this.title = "noTitleGiven",
+    required this.themeController,
+  });
   final String title;
+  final ThemeController themeController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _ContentWidgetThemeColor();
   }
-  
 }
 
-class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
+class _ContentWidgetThemeColor extends ConsumerState<ShowAllThemeColorsWidget> {
   _ContentWidgetThemeColor();
+
+  late final ThemeController themeController = widget.themeController;
 
   late ThemeData _customThemeData;
 
@@ -31,7 +38,6 @@ class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
 
     _customThemeData = themeState.themeData;
 
-
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 800),
@@ -40,14 +46,14 @@ class _ContentWidgetThemeColor extends ConsumerState<ConsumerStatefulWidget> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                DisplayWidgetThemeColorsInUse(),
-                Divider(),
+                // DisplayWidgetThemeColorsInUse(),
+                // Divider(),
                 DisplayWidgetForCurrentlyChosenColor(),
                 ExampleWidgetShowingCurrentColors(
                   customThemeData: _customThemeData,
                 ),
                 Divider(),
-                ConfigureColorsPanel(),
+                ConfigureColorsPanel(themeController: themeController),
               ],
             ),
           ),

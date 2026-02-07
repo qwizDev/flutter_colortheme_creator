@@ -25,29 +25,40 @@ class ThemeState extends _$ThemeState {
     );
   }
 
-
   void setSeedColor(Color newColor) {
     _seedColor = newColor;
     _colorScheme = ColorScheme.fromSeed(seedColor: newColor);
     _themeData = _createThemeDataFromColorScheme(_colorScheme);
-    state = ThemeDataState(seedColor: newColor, colorScheme: _colorScheme, themeData: _themeData);
-  }
-
-  void setColorTheme(ColorScheme colorScheme) {
-        state = ThemeDataState(seedColor: _seedColor, colorScheme: colorScheme, themeData: _themeData);
-  }
-
-  void setThemeData(ThemeData themeData) {
-        state = ThemeDataState(seedColor: _seedColor, colorScheme: _colorScheme, themeData: themeData);
-  }
-
-  ThemeData _createThemeDataFromColorScheme(ColorScheme colorScheme) {
-    return _themeData = ThemeData(
-      colorScheme: colorScheme,
-      useMaterial3: true,
+    state = ThemeDataState(
+      seedColor: newColor,
+      colorScheme: _colorScheme,
+      themeData: _themeData,
     );
   }
 
+  void setColorTheme(ColorScheme colorScheme) {
+    state = ThemeDataState(
+      seedColor: _seedColor,
+      colorScheme: colorScheme,
+      themeData: _themeData,
+    );
+  }
+
+  void setThemeData(ThemeData themeData) {
+    state = ThemeDataState(
+      seedColor: _seedColor,
+      colorScheme: _colorScheme,
+      themeData: themeData,
+    );
+  }
+
+  ThemeData _createThemeDataFromColorScheme(ColorScheme colorScheme) {
+    return _themeData = ThemeData(colorScheme: colorScheme, useMaterial3: true);
+  }
+
+  ThemeData createCurrentThemeData() {
+    return _themeData;
+  }
 }
 
 
