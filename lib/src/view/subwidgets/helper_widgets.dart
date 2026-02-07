@@ -29,7 +29,7 @@ class ConstrainedColorBox extends ConstrainedBox {
            minWidth: 50,
            maxWidth: 1000,
            minHeight: 10,
-           maxHeight: 60,
+           maxHeight: 80,
          ),
        );
 

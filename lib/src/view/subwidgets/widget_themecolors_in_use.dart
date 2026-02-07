@@ -11,7 +11,7 @@ class DisplayWidgetThemeColorsInUse extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         /* ---------------------------------------------------------------- */
-        Text("Colors of theme being in use"),
+        Headline(text: "Colors of theme being in use"),
         
         /* ---------------------------------------------------------------- */
         // SizedBox(

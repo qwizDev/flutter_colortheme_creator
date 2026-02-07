@@ -35,7 +35,7 @@ class ConfigureColorsPanel extends ConsumerWidget {
 
     return Column(
       children: [
-        Text("Configuring colors"),
+        Headline(text: "Configuring colors"),
         Column(
           children: [
             ColButtonBox(
@@ -84,12 +84,12 @@ class ConfigureColorsPanel extends ConsumerWidget {
             ),
             ColButtonBox(
               onPressed: () {},
-              caption: "Save SeedColor SOMEHOW (NYI)",
+              caption: "save ColorScheme (NYI)",
             ),
             Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("ExampleWidget for PrimaryColor:"),
+              child: Headline(text: "ExampleWidget for PrimaryColor:"),
             ),
             ExampleWidgetForChosenColors(),
           ],

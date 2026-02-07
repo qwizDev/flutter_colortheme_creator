@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gui_creation_helper/gui_creation_helper.dart';
+
 
 class ExampleWidgetForChosenColors extends ConsumerWidget{
   const ExampleWidgetForChosenColors({super.key});
@@ -19,14 +21,15 @@ class ExampleWidgetForChosenColors extends ConsumerWidget{
               // height: 40,
               width: 400,
               // height: 400,
-              child: Container(
+              child: Container( 
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.yellow, width: 3),
+                  border: WidgetDeco.borderStd,
+                  color: themeData.primaryColor,
                 ),
                 // color: themeData.primaryColor,
                 child: Column(
                   children: [
-                    Text("ExampleWidget for SecondaryColor:"),
+                    Text("ExampleWidget for PrimaryColor:"),
                     Text("BackgroundColor: primaryColor"),
                     Text("Text has color: default"),
                     Text(

@@ -20,7 +20,7 @@ class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: NiceText("Colors for currently chosen color:"),
+          child: Headline(text: "Colors for currently chosen color:"),
         ),
         ColButtonBox(
           onPressed: () => ref
