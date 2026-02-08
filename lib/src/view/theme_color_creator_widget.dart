@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
 import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
@@ -44,27 +45,39 @@ final double textSizeLarge = 20;
 final double textSizehuge = 35;
 final double colorLineHeight = 25;
 
-class ThemeColorCreatorWidget extends StatelessWidget {
-  const ThemeColorCreatorWidget({super.key, this.title = "noTitleGiven"});
+// class ThemeColorCreatorWidget extends ConsumerWidget {
+//   const ThemeColorCreatorWidget({
+//     super.key,
+//     this.title = "noTitleGiven",
+//     required this.themeController,
+//   });
+//   final String title;
+//   final ThemeController themeController;
+  
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return ContentWidgetThemeColorCreator();
+//   }    
+
+// }
+
+class ThemeColorCreatorWidget extends ConsumerStatefulWidget {
+  const ThemeColorCreatorWidget({
+    super.key,
+    this.title = "noTitleGiven",
+    required this.themeController,
+  });
   final String title;
+  final ThemeController themeController;
 
   @override
-  Widget build(BuildContext context) {
-    return ContentWidgetThemeColorCreator();
-  }
-}
-
-class ContentWidgetThemeColorCreator extends ConsumerStatefulWidget {
-  const ContentWidgetThemeColorCreator({super.key});
-
-  @override
-  ConsumerState<ContentWidgetThemeColorCreator> createState() {
+  ConsumerState<ThemeColorCreatorWidget> createState() {
     return _ContentWidgetThemeColor();
   }
 }
 
 class _ContentWidgetThemeColor
-    extends ConsumerState<ContentWidgetThemeColorCreator> {
+    extends ConsumerState<ThemeColorCreatorWidget> {
   _ContentWidgetThemeColor();
 
   Color _chosenColor = _startColor;
@@ -72,6 +85,7 @@ class _ContentWidgetThemeColor
   late ColorScheme _colorScheme;
   late ColorScheme _ownCustomColorScheme;
   late RadioValues? radioString = RadioValues.primary;
+  late final ThemeController themeController = widget.themeController;
 
   final ColorScheme copiedScheme = ColorScheme(
     primary: Colors.blue,
@@ -96,6 +110,11 @@ class _ContentWidgetThemeColor
 
   @override
   Widget build(BuildContext context) {
+    final themeState = ref.watch(themeStateProvider);
+    
+
+    // _ownCustomColorScheme = themeState.colorScheme;
+
     return SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 900),
@@ -150,12 +169,15 @@ class _ContentWidgetThemeColor
                                   child: Text("useColorAsSeedColor"),
                                 ),
                                 ElevatedButton(
-                                  // onPressed: setColorSchemeGlobally(),
+                                  // onPressed: setColorSchemeGlobally,
                                   onPressed: () {
-                                    ref
-                                        .read(themeStateProvider.notifier)
-                                        .setSeedColor(_colorScheme.primary);
+                                    setColorSchemeGlobally(themeController);
                                   },
+                                  // onPressed: () {
+                                  //   ref
+                                  //       .read(themeStateProvider.notifier)
+                                  //       .setSeedColor(_colorScheme.primary);
+                                  // },
                                   child: Text("AS GLOBAL SCHEME-NYI"),
                                 ),
                               ],
@@ -689,7 +711,19 @@ class _ContentWidgetThemeColor
     });
   }
 
-  void setColorSchemeGlobally() {}
+  void setColorSchemeGlobally(ThemeController themeController) {
+    // ref.read(themeStateProvider.notifier).setColorTheme(_colorScheme);
+    ref.read(themeStateProvider.notifier).setColorTheme(_colorScheme);
+    // themeState.themeData;
+
+    final String themeName = DateTime.now().toIso8601String();
+    themeController.addThemeToList(
+      themeName,
+      ref.read(themeStateProvider).colorScheme,
+      true,
+    );
+    themeController.applyTheme(themeName);
+  }
 }
 
 class PanelDemo extends StatelessWidget {

@@ -17,7 +17,7 @@ class ShowAllThemeColorsWidget extends ConsumerStatefulWidget {
     required this.themeController,
   });
   final String title;
-  final ThemeController themeController;
+  final ThemeController themeController;  
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
