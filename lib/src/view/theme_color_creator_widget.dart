@@ -50,10 +50,7 @@ class ThemeColorCreatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldForViewStandard(
-      title: title,
-      contentWidget: ContentWidgetThemeColorCreator(),
-    );
+    return ContentWidgetThemeColorCreator();
   }
 }
 
@@ -113,84 +110,71 @@ class _ContentWidgetThemeColor
                     style: TextStyle(color: _colorScheme.inversePrimary),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    "Pick colors and create a custom colorScheme",
-                    style: TextStyle(fontSize: textSizeLarge),
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
                   children: [
-                    Container(
-                      // decoration: boxDecoStd,
-                      decoration: WidgetDeco.boxDecoStd,
-                      child: ColorPicker(
-                        pickerColor: _chosenColor,
-                        onColorChanged: (color) => applyChosenColor(color),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        "Pick colors and create a custom colorScheme",
+                        style: TextStyle(fontSize: textSizeLarge),
                       ),
                     ),
+
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ElevatedButton(
-                          onPressed: () => useThisColorAsAColorRole(),
-                          child: Text("useThisColor"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => nowCreateAndUseTheme(),
-                          child: Text("nowCreateAndUseTheme"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => useColorAsSeedColor(),
-                          child: Text("useColorAsSeedColor"),
-                        ),
-                        ElevatedButton(
-                          // onPressed: setColorSchemeGlobally(),
-                          onPressed: () {
-                            ref
-                                .read(themeStateProvider.notifier)
-                                .setSeedColor(_colorScheme.primary);
-                          },
-                          child: Text("AS GLOBAL SCHEME-NYI"),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 300,
-                      // height: 600,
-                      child: SingleChildScrollView(
-                        child: Column(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Select Color to set up"),
-                            for (RadioValues radVal in RadioValues.values)
-                              ListTile(
-                                contentPadding: EdgeInsets.all(0),
-                                minVerticalPadding: 0,
-                                minTileHeight: 25,
-                                title: Text(radVal.name),
-                                leading: Radio<RadioValues>(
-                                  value: radVal,
-                                  groupValue: radioString,
-                                  onChanged: (RadioValues? value) {
-                                    setState(() {
-                                      radioString = value;
-                                    });
-                                  },
-                                ),
+                            Container(
+                              decoration: WidgetDeco.boxDecoStd,
+                              child: ColorPicker(
+                                pickerColor: _chosenColor,
+                                onColorChanged: (color) =>
+                                    applyChosenColor(color),
                               ),
+                            ),
+                            Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () => useThisColorAsAColorRole(),
+                                  child: Text("useThisColor"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => nowCreateAndUseTheme(),
+                                  child: Text("nowCreateAndUseTheme"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => useColorAsSeedColor(),
+                                  child: Text("useColorAsSeedColor"),
+                                ),
+                                ElevatedButton(
+                                  // onPressed: setColorSchemeGlobally(),
+                                  onPressed: () {
+                                    ref
+                                        .read(themeStateProvider.notifier)
+                                        .setSeedColor(_colorScheme.primary);
+                                  },
+                                  child: Text("AS GLOBAL SCHEME-NYI"),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Text("customColorScheme:"),
-                        PanelColorsFromColScheme(colScheme: _colorScheme),
                       ],
                     ),
                   ],
                 ),
+              ],
+            ),
+            Column(
+              children: [
+                Text("customColorScheme:"),
+                PanelColorsFromColScheme(colScheme: _colorScheme),
+              ],
+            ),
+            Column(
+              children: [
                 SizedBox(
                   child: Padding(
                     padding: const EdgeInsets.all(50),
@@ -206,9 +190,7 @@ class _ContentWidgetThemeColor
                             centerTitle: true,
                             title: Text(
                               "Navbar for Example",
-                              style: TextStyle(
-                                color: _colorScheme.inversePrimary,
-                              ),
+                              style: TextStyle(color: _colorScheme.inversePrimary),
                             ),
                           ),
                           Row(
@@ -244,13 +226,11 @@ class _ContentWidgetThemeColor
                                     ExampleButton(
                                       caption: "Button Std",
                                       foregroundCol: _colorScheme.primary,
-                                      backgroundCol:
-                                          _colorScheme.primaryContainer,
+                                      backgroundCol: _colorScheme.primaryContainer,
                                     ),
                                     ExampleButton(
                                       caption: "Button Std",
-                                      foregroundCol:
-                                          _colorScheme.inversePrimary,
+                                      foregroundCol: _colorScheme.inversePrimary,
                                       backgroundCol: _colorScheme.primary,
                                     ),
                                   ],
@@ -303,8 +283,7 @@ class _ContentWidgetThemeColor
                                     ExampleButton(
                                       caption: "Button Std",
                                       foregroundCol: _colorScheme.tertiary,
-                                      backgroundCol:
-                                          _colorScheme.tertiaryContainer,
+                                      backgroundCol: _colorScheme.tertiaryContainer,
                                     ),
                                     ExampleButton(
                                       caption: "Button Std",
@@ -325,9 +304,7 @@ class _ContentWidgetThemeColor
                                           child: Column(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.all(
-                                                  paddingStd,
-                                                ),
+                                                padding: EdgeInsets.all(paddingStd),
                                                 child: Text(
                                                   style: TextStyle(
                                                     fontSize: textSizehuge,
@@ -425,9 +402,8 @@ class _ContentWidgetThemeColor
                                                     ),
                                                     ExampleButton(
                                                       caption: "Button Std",
-                                                      foregroundCol:
-                                                          _colorScheme
-                                                              .inversePrimary,
+                                                      foregroundCol: _colorScheme
+                                                          .inversePrimary,
                                                       backgroundCol:
                                                           _colorScheme.primary,
                                                     ),
@@ -444,7 +420,7 @@ class _ContentWidgetThemeColor
                               ],
                             ),
                           ),
-
+                
                           // StackedPanelsDemo(
                           //   colScheme: _colorScheme,
                           //   colorType: "primary",
