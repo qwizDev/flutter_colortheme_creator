@@ -1,0 +1,39 @@
+enum ColorSchemeKey {
+  primary,
+  onPrimary,
+  primaryContainer,
+  onPrimaryContainer,
+
+  secondary,
+  onSecondary,
+  secondaryContainer,
+  onSecondaryContainer,
+
+  tertiary,
+  onTertiary,
+  tertiaryContainer,
+  onTertiaryContainer,
+
+  error,
+  onError,
+  errorContainer,
+  onErrorContainer,
+
+  background,
+  onBackground,
+
+  surface,
+  onSurface,
+  surfaceVariant,
+  onSurfaceVariant,
+
+  outline,
+  outlineVariant,
+
+  shadow,
+  scrim,
+
+  inverseSurface,
+  onInverseSurface,
+  inversePrimary,
+}
