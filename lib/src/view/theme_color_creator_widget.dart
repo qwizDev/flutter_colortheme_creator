@@ -97,7 +97,8 @@ class _ContentWidgetThemeColor
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 900),
         child: Column(
           children: [
             Column(
@@ -167,10 +168,41 @@ class _ContentWidgetThemeColor
                 ),
               ],
             ),
-            Column(
+            Row(
               children: [
-                Text("customColorScheme:"),
-                PanelColorsFromColScheme(colScheme: _colorScheme),
+                Column(
+                  children: [
+                    Text("customColorScheme:"),
+                    PanelColorsFromColScheme(colScheme: _colorScheme),
+                  ],
+                ),
+                SizedBox(
+                  width: 300,
+                  // height: 600,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text("Select Color to set up"),
+                        for (RadioValues radVal in RadioValues.values)
+                          ListTile(
+                            contentPadding: EdgeInsets.all(0),
+                            minVerticalPadding: 0,
+                            minTileHeight: 25,
+                            title: Text(radVal.name),
+                            leading: Radio<RadioValues>(
+                              value: radVal,
+                              groupValue: radioString,
+                              onChanged: (RadioValues? value) {
+                                setState(() {
+                                  radioString = value;
+                                });
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
             Column(
@@ -190,7 +222,9 @@ class _ContentWidgetThemeColor
                             centerTitle: true,
                             title: Text(
                               "Navbar for Example",
-                              style: TextStyle(color: _colorScheme.inversePrimary),
+                              style: TextStyle(
+                                color: _colorScheme.inversePrimary,
+                              ),
                             ),
                           ),
                           Row(
@@ -226,11 +260,13 @@ class _ContentWidgetThemeColor
                                     ExampleButton(
                                       caption: "Button Std",
                                       foregroundCol: _colorScheme.primary,
-                                      backgroundCol: _colorScheme.primaryContainer,
+                                      backgroundCol:
+                                          _colorScheme.primaryContainer,
                                     ),
                                     ExampleButton(
                                       caption: "Button Std",
-                                      foregroundCol: _colorScheme.inversePrimary,
+                                      foregroundCol:
+                                          _colorScheme.inversePrimary,
                                       backgroundCol: _colorScheme.primary,
                                     ),
                                   ],
@@ -283,7 +319,8 @@ class _ContentWidgetThemeColor
                                     ExampleButton(
                                       caption: "Button Std",
                                       foregroundCol: _colorScheme.tertiary,
-                                      backgroundCol: _colorScheme.tertiaryContainer,
+                                      backgroundCol:
+                                          _colorScheme.tertiaryContainer,
                                     ),
                                     ExampleButton(
                                       caption: "Button Std",
@@ -304,7 +341,9 @@ class _ContentWidgetThemeColor
                                           child: Column(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.all(paddingStd),
+                                                padding: EdgeInsets.all(
+                                                  paddingStd,
+                                                ),
                                                 child: Text(
                                                   style: TextStyle(
                                                     fontSize: textSizehuge,
@@ -402,8 +441,9 @@ class _ContentWidgetThemeColor
                                                     ),
                                                     ExampleButton(
                                                       caption: "Button Std",
-                                                      foregroundCol: _colorScheme
-                                                          .inversePrimary,
+                                                      foregroundCol:
+                                                          _colorScheme
+                                                              .inversePrimary,
                                                       backgroundCol:
                                                           _colorScheme.primary,
                                                     ),
@@ -420,7 +460,7 @@ class _ContentWidgetThemeColor
                               ],
                             ),
                           ),
-                
+
                           // StackedPanelsDemo(
                           //   colScheme: _colorScheme,
                           //   colorType: "primary",
