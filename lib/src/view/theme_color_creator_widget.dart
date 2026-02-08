@@ -221,7 +221,7 @@ class _ContentWidgetThemeColor
                             backgroundColor: _colorScheme.primary,
                             centerTitle: true,
                             title: Text(
-                              "Navbar for Example",
+                              "Navbar/AppExample",
                               style: TextStyle(
                                 color: _colorScheme.inversePrimary,
                               ),
@@ -248,23 +248,35 @@ class _ContentWidgetThemeColor
                             padding: EdgeInsets.all(paddingStd),
                             child: Column(
                               children: [
-                                Text("Button-Row: PRIMARY"),
+                                // Text(
+                                //   "Button-Row: PRIMARY: foreground is primary. background as caption of button sasy.",
+                                // ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "primary",
+                                      nameOfBackgroundCol: "inversePrimary",
+                                      foregroundCol: _colorScheme.primary,
+                                      backgroundCol:
+                                          _colorScheme.inversePrimary,
+                                    ),
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "primary",
+                                      nameOfBackgroundCol: "null",
                                       foregroundCol: _colorScheme.primary,
                                       backgroundCol: null,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "primary",
+                                      nameOfBackgroundCol: "primaryContainer",
                                       foregroundCol: _colorScheme.primary,
                                       backgroundCol:
                                           _colorScheme.primaryContainer,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "inversePrimary",
+                                      nameOfBackgroundCol: "primary",
                                       foregroundCol:
                                           _colorScheme.inversePrimary,
                                       backgroundCol: _colorScheme.primary,
@@ -278,23 +290,32 @@ class _ContentWidgetThemeColor
                             padding: EdgeInsets.all(paddingStd),
                             child: Column(
                               children: [
-                                Text("Button-Row: SECONDARY"),
+                                // Text("Button-Row: SECONDARY"),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "secondary",
+                                      nameOfBackgroundCol: "onSecondary",
+                                      foregroundCol: _colorScheme.secondary,
+                                      backgroundCol: _colorScheme.onSecondary,
+                                    ),
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "secondary",
+                                      nameOfBackgroundCol: "null",
                                       foregroundCol: _colorScheme.secondary,
                                       backgroundCol: null,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "secondary",
+                                      nameOfBackgroundCol: "secondaryContainer",
                                       foregroundCol: _colorScheme.secondary,
                                       backgroundCol:
                                           _colorScheme.secondaryContainer,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "onSecondary",
+                                      nameOfBackgroundCol: "secondary",
                                       foregroundCol: _colorScheme.onSecondary,
                                       backgroundCol: _colorScheme.secondary,
                                     ),
@@ -311,19 +332,28 @@ class _ContentWidgetThemeColor
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "tertiary",
+                                      nameOfBackgroundCol: "onTertiary",
+                                      foregroundCol: _colorScheme.tertiary,
+                                      backgroundCol: _colorScheme.onTertiary,
+                                    ),
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "tertiary",
+                                      nameOfBackgroundCol: "null",
                                       foregroundCol: _colorScheme.tertiary,
                                       backgroundCol: null,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "tertiary",
+                                      nameOfBackgroundCol: "tertiaryContainer",
                                       foregroundCol: _colorScheme.tertiary,
                                       backgroundCol:
                                           _colorScheme.tertiaryContainer,
                                     ),
-                                    ExampleButton(
-                                      caption: "Button Std",
+                                    ExampleButtonPlusDescription(
+                                      nameOfTextCol: "onTertiary",
+                                      nameOfBackgroundCol: "tertiary",
                                       foregroundCol: _colorScheme.onTertiary,
                                       backgroundCol: _colorScheme.tertiary,
                                     ),
@@ -965,6 +995,36 @@ class MiniColorBox extends StatelessWidget {
   }
 }
 
+class ExampleButtonPlusDescription extends StatelessWidget {
+  const ExampleButtonPlusDescription({
+    super.key,
+    required this.nameOfTextCol,
+    required this.nameOfBackgroundCol,
+    required this.foregroundCol,
+    required this.backgroundCol,
+  });
+
+  final String nameOfTextCol;
+  final String nameOfBackgroundCol;
+  final Color foregroundCol;
+  final Color? backgroundCol;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("foreground: $nameOfTextCol"),
+        Text("background: $nameOfBackgroundCol"),
+        ExampleButton(
+          caption: "ExampleButton",
+          foregroundCol: foregroundCol,
+          backgroundCol: backgroundCol,
+        ),
+      ],
+    );
+  }
+}
+
 class ExampleButton extends StatelessWidget {
   const ExampleButton({
     super.key,
@@ -985,7 +1045,8 @@ class ExampleButton extends StatelessWidget {
         backgroundColor: WidgetStatePropertyAll(backgroundCol),
       ),
       child: Text(
-        "Button on Container",
+        // "Button on Container",
+        caption,
         style: TextStyle(
           color: foregroundCol,
           // backgroundColor: backgroundCol,
