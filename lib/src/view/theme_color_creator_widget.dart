@@ -53,11 +53,11 @@ final double colorLineHeight = 25;
 //   });
 //   final String title;
 //   final ThemeController themeController;
-  
+
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
 //     return ContentWidgetThemeColorCreator();
-//   }    
+//   }
 
 // }
 
@@ -76,11 +76,11 @@ class ThemeColorCreatorWidget extends ConsumerStatefulWidget {
   }
 }
 
-class _ContentWidgetThemeColor
-    extends ConsumerState<ThemeColorCreatorWidget> {
+class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
   _ContentWidgetThemeColor();
 
-  Color _chosenColor = _startColor;
+  // late Color _chosenColor = _startColor;
+  late Color _chosenColor;
 
   late ColorScheme _colorScheme;
   late ColorScheme _ownCustomColorScheme;
@@ -103,16 +103,21 @@ class _ContentWidgetThemeColor
   @override
   void initState() {
     super.initState();
-    _colorScheme = ColorScheme.fromSeed(seedColor: _chosenColor);
+    // _colorScheme = ColorScheme.fromSeed(seedColor: _chosenColor);
     // _ownCustomColorScheme = copiedScheme;
+    _colorScheme = ref.read(themeStateProvider).colorScheme;
     _ownCustomColorScheme = _colorScheme;
+    _chosenColor = _colorScheme.primary;
   }
 
   @override
   Widget build(BuildContext context) {
     final themeState = ref.watch(themeStateProvider);
-    
 
+    final buttonSizeMax = WidgetStateProperty.all(const Size(250, 250));
+    final buttonSizeMin = WidgetStateProperty.all(const Size(250, 50));
+
+    // _colorScheme = themeState.colorScheme;
     // _ownCustomColorScheme = themeState.colorScheme;
 
     return SingleChildScrollView(
@@ -126,7 +131,7 @@ class _ContentWidgetThemeColor
                   backgroundColor: _colorScheme.primary,
                   centerTitle: true,
                   title: Text(
-                    "ThemeColorCreator",
+                    "ThemeColor-Creator",
                     style: TextStyle(color: _colorScheme.inversePrimary),
                   ),
                 ),
@@ -135,7 +140,7 @@ class _ContentWidgetThemeColor
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
-                        "Pick colors and create a custom colorScheme",
+                        "Pick colors and create your own custom colorScheme",
                         style: TextStyle(fontSize: textSizeLarge),
                       ),
                     ),
@@ -143,6 +148,7 @@ class _ContentWidgetThemeColor
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //COLORPICKER AND SOME DEV BUTTONS IN A ROW
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -154,33 +160,106 @@ class _ContentWidgetThemeColor
                                     applyChosenColor(color),
                               ),
                             ),
-                            Column(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () => useThisColorAsAColorRole(),
-                                  child: Text("useThisColor"),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => nowCreateAndUseTheme(),
-                                  child: Text("nowCreateAndUseTheme"),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => useColorAsSeedColor(),
-                                  child: Text("useColorAsSeedColor"),
-                                ),
-                                ElevatedButton(
-                                  // onPressed: setColorSchemeGlobally,
-                                  onPressed: () {
-                                    setColorSchemeGlobally(themeController);
-                                  },
-                                  // onPressed: () {
-                                  //   ref
-                                  //       .read(themeStateProvider.notifier)
-                                  //       .setSeedColor(_colorScheme.primary);
-                                  // },
-                                  child: Text("AS GLOBAL SCHEME-NYI"),
-                                ),
-                              ],
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxHeight: 300),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            maximumSize: buttonSizeMax,
+                                            minimumSize: buttonSizeMin,
+                                            shape: WidgetStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.zero,
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () =>
+                                              useThisColorAsAColorRole(),
+                                          child: Text("useThisColor"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            maximumSize: buttonSizeMax,
+                                            minimumSize: buttonSizeMin,
+                                            shape: WidgetStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.zero,
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () =>
+                                              nowCreateAndUseTheme(),
+                                          child: Text("nowCreateAndUseTheme"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            maximumSize: buttonSizeMax,
+                                            minimumSize: buttonSizeMin,
+                                            shape: WidgetStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.zero,
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () =>
+                                              useColorAsSeedColor(),
+                                          child: Text("useColorAsSeedColor"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            maximumSize: buttonSizeMax,
+                                            minimumSize: buttonSizeMin,
+                                            shape: WidgetStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.zero,
+                                              ),
+                                            ),
+                                          ),
+                                          // onPressed: setColorSchemeGlobally,
+                                          onPressed: () {
+                                            setColorSchemeGlobally(
+                                              themeController,
+                                            );
+                                          },
+                                          // onPressed: () {
+                                          //   ref
+                                          //       .read(themeStateProvider.notifier)
+                                          //       .setSeedColor(_colorScheme.primary);
+                                          // },
+                                          child: Text("AS GLOBAL SCHEME-NYI"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -188,347 +267,364 @@ class _ContentWidgetThemeColor
                     ),
                   ],
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Column(
+                Row(
                   children: [
-                    Text("customColorScheme:"),
-                    PanelColorsFromColScheme(colScheme: _colorScheme),
-                  ],
-                ),
-                SizedBox(
-                  width: 300,
-                  // height: 600,
-                  child: SingleChildScrollView(
-                    child: Column(
+                    Column(
                       children: [
-                        Text("Select Color to set up"),
-                        for (RadioValues radVal in RadioValues.values)
-                          ListTile(
-                            contentPadding: EdgeInsets.all(0),
-                            minVerticalPadding: 0,
-                            minTileHeight: 25,
-                            title: Text(radVal.name),
-                            leading: Radio<RadioValues>(
-                              value: radVal,
-                              groupValue: radioString,
-                              onChanged: (RadioValues? value) {
-                                setState(() {
-                                  radioString = value;
-                                });
-                              },
-                            ),
-                          ),
+                        Text("customColorScheme:"),
+                        PanelColorsFromColScheme(colScheme: _colorScheme),
                       ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(50),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: _colorScheme.outline),
-                        color: _colorScheme.surface,
-                      ),
-                      child: Column(
-                        children: [
-                          AppBar(
-                            backgroundColor: _colorScheme.primary,
-                            centerTitle: true,
-                            title: Text(
-                              "Navbar/AppExample",
-                              style: TextStyle(
-                                color: _colorScheme.inversePrimary,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              PanelDemo(
-                                colScheme: _colorScheme,
-                                kindOfThemeCol: "primary",
-                              ),
-                              PanelDemo(
-                                colScheme: _colorScheme,
-                                kindOfThemeCol: "secondary",
-                              ),
-                              PanelDemo(
-                                colScheme: _colorScheme,
-                                kindOfThemeCol: "tertiary",
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(paddingStd),
-                            child: Column(
-                              children: [
-                                // Text(
-                                //   "Button-Row: PRIMARY: foreground is primary. background as caption of button sasy.",
-                                // ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "primary",
-                                      nameOfBackgroundCol: "inversePrimary",
-                                      foregroundCol: _colorScheme.primary,
-                                      backgroundCol:
-                                          _colorScheme.inversePrimary,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "primary",
-                                      nameOfBackgroundCol: "null",
-                                      foregroundCol: _colorScheme.primary,
-                                      backgroundCol: null,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "primary",
-                                      nameOfBackgroundCol: "primaryContainer",
-                                      foregroundCol: _colorScheme.primary,
-                                      backgroundCol:
-                                          _colorScheme.primaryContainer,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "inversePrimary",
-                                      nameOfBackgroundCol: "primary",
-                                      foregroundCol:
-                                          _colorScheme.inversePrimary,
-                                      backgroundCol: _colorScheme.primary,
-                                    ),
-                                  ],
+                    SizedBox(
+                      width: 300,
+                      // height: 600,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text("Select Color to set up"),
+                            for (RadioValues radVal in RadioValues.values)
+                              ListTile(
+                                contentPadding: EdgeInsets.all(0),
+                                minVerticalPadding: 0,
+                                minTileHeight: 25,
+                                title: Text(radVal.name),
+                                leading: Radio<RadioValues>(
+                                  value: radVal,
+                                  groupValue: radioString,
+                                  onChanged: (RadioValues? value) {
+                                    setState(() {
+                                      radioString = value;
+                                    });
+                                  },
                                 ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(paddingStd),
-                            child: Column(
-                              children: [
-                                // Text("Button-Row: SECONDARY"),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "secondary",
-                                      nameOfBackgroundCol: "onSecondary",
-                                      foregroundCol: _colorScheme.secondary,
-                                      backgroundCol: _colorScheme.onSecondary,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "secondary",
-                                      nameOfBackgroundCol: "null",
-                                      foregroundCol: _colorScheme.secondary,
-                                      backgroundCol: null,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "secondary",
-                                      nameOfBackgroundCol: "secondaryContainer",
-                                      foregroundCol: _colorScheme.secondary,
-                                      backgroundCol:
-                                          _colorScheme.secondaryContainer,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "onSecondary",
-                                      nameOfBackgroundCol: "secondary",
-                                      foregroundCol: _colorScheme.onSecondary,
-                                      backgroundCol: _colorScheme.secondary,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(paddingStd),
-                            child: Column(
-                              children: [
-                                Text("Button-Row: TERTIARY"),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "tertiary",
-                                      nameOfBackgroundCol: "onTertiary",
-                                      foregroundCol: _colorScheme.tertiary,
-                                      backgroundCol: _colorScheme.onTertiary,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "tertiary",
-                                      nameOfBackgroundCol: "null",
-                                      foregroundCol: _colorScheme.tertiary,
-                                      backgroundCol: null,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "tertiary",
-                                      nameOfBackgroundCol: "tertiaryContainer",
-                                      foregroundCol: _colorScheme.tertiary,
-                                      backgroundCol:
-                                          _colorScheme.tertiaryContainer,
-                                    ),
-                                    ExampleButtonPlusDescription(
-                                      nameOfTextCol: "onTertiary",
-                                      nameOfBackgroundCol: "tertiary",
-                                      foregroundCol: _colorScheme.onTertiary,
-                                      backgroundCol: _colorScheme.tertiary,
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(paddingStd * 2),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        width: 600,
-                                        height: 600,
-                                        child: Container(
-                                          color: _colorScheme.primaryContainer,
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.all(
-                                                  paddingStd,
-                                                ),
-                                                child: Text(
-                                                  style: TextStyle(
-                                                    fontSize: textSizehuge,
-                                                    color: _colorScheme.primary,
-                                                  ),
-                                                  "An Article about Colors",
-                                                ),
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Text(
-                                                style: TextStyle(
-                                                  fontSize: textSizeLarge,
-                                                ),
-                                                "abc def abc def abc def abc def abc def abc def ",
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(
-                                                  paddingStd * 2,
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    ExampleButton(
-                                                      caption: "Button Std",
-                                                      foregroundCol:
-                                                          _colorScheme.primary,
-                                                      backgroundCol: null,
-                                                    ),
-                                                    ExampleButton(
-                                                      caption: "Button Std",
-                                                      foregroundCol:
-                                                          _colorScheme.primary,
-                                                      backgroundCol: _colorScheme
-                                                          .surfaceContainerLowest,
-                                                    ),
-                                                    ExampleButton(
-                                                      caption: "Button Std",
-                                                      foregroundCol:
-                                                          _colorScheme
-                                                              .inversePrimary,
-                                                      backgroundCol:
-                                                          _colorScheme.primary,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          // StackedPanelsDemo(
-                          //   colScheme: _colorScheme,
-                          //   colorType: "primary",
-                          // ),
-                          // StackedPanelsDemo(
-                          //   colScheme: _colorScheme,
-                          //   colorType: "secondary",
-                          // ),
-                          // StackedPanelsDemo(
-                          //   colScheme: _colorScheme,
-                          //   colorType: "tertiary",
-                          // ),
-                        ],
+                              ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(50),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: _colorScheme.outline),
+                            color: _colorScheme.surface,
+                          ),
+                          child: Column(
+                            children: [
+                              AppBar(
+                                backgroundColor: _colorScheme.primary,
+                                centerTitle: true,
+                                title: Text(
+                                  "Navbar/AppExample",
+                                  style: TextStyle(
+                                    color: _colorScheme.inversePrimary,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  PanelDemo(
+                                    colScheme: _colorScheme,
+                                    kindOfThemeCol: "primary",
+                                  ),
+                                  PanelDemo(
+                                    colScheme: _colorScheme,
+                                    kindOfThemeCol: "secondary",
+                                  ),
+                                  PanelDemo(
+                                    colScheme: _colorScheme,
+                                    kindOfThemeCol: "tertiary",
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(paddingStd),
+                                child: Column(
+                                  children: [
+                                    // Text(
+                                    //   "Button-Row: PRIMARY: foreground is primary. background as caption of button sasy.",
+                                    // ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "primary",
+                                          nameOfBackgroundCol: "inversePrimary",
+                                          foregroundCol: _colorScheme.primary,
+                                          backgroundCol:
+                                              _colorScheme.inversePrimary,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "primary",
+                                          nameOfBackgroundCol: "null",
+                                          foregroundCol: _colorScheme.primary,
+                                          backgroundCol: null,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "primary",
+                                          nameOfBackgroundCol:
+                                              "primaryContainer",
+                                          foregroundCol: _colorScheme.primary,
+                                          backgroundCol:
+                                              _colorScheme.primaryContainer,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "inversePrimary",
+                                          nameOfBackgroundCol: "primary",
+                                          foregroundCol:
+                                              _colorScheme.inversePrimary,
+                                          backgroundCol: _colorScheme.primary,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(paddingStd),
+                                child: Column(
+                                  children: [
+                                    // Text("Button-Row: SECONDARY"),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "secondary",
+                                          nameOfBackgroundCol: "onSecondary",
+                                          foregroundCol: _colorScheme.secondary,
+                                          backgroundCol:
+                                              _colorScheme.onSecondary,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "secondary",
+                                          nameOfBackgroundCol: "null",
+                                          foregroundCol: _colorScheme.secondary,
+                                          backgroundCol: null,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "secondary",
+                                          nameOfBackgroundCol:
+                                              "secondaryContainer",
+                                          foregroundCol: _colorScheme.secondary,
+                                          backgroundCol:
+                                              _colorScheme.secondaryContainer,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "onSecondary",
+                                          nameOfBackgroundCol: "secondary",
+                                          foregroundCol:
+                                              _colorScheme.onSecondary,
+                                          backgroundCol: _colorScheme.secondary,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(paddingStd),
+                                child: Column(
+                                  children: [
+                                    Text("Button-Row: TERTIARY"),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "tertiary",
+                                          nameOfBackgroundCol: "onTertiary",
+                                          foregroundCol: _colorScheme.tertiary,
+                                          backgroundCol:
+                                              _colorScheme.onTertiary,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "tertiary",
+                                          nameOfBackgroundCol: "null",
+                                          foregroundCol: _colorScheme.tertiary,
+                                          backgroundCol: null,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "tertiary",
+                                          nameOfBackgroundCol:
+                                              "tertiaryContainer",
+                                          foregroundCol: _colorScheme.tertiary,
+                                          backgroundCol:
+                                              _colorScheme.tertiaryContainer,
+                                        ),
+                                        ExampleButtonPlusDescription(
+                                          nameOfTextCol: "onTertiary",
+                                          nameOfBackgroundCol: "tertiary",
+                                          foregroundCol:
+                                              _colorScheme.onTertiary,
+                                          backgroundCol: _colorScheme.tertiary,
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(paddingStd * 2),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            width: 600,
+                                            height: 600,
+                                            child: Container(
+                                              color:
+                                                  _colorScheme.primaryContainer,
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.all(
+                                                      paddingStd,
+                                                    ),
+                                                    child: Text(
+                                                      style: TextStyle(
+                                                        fontSize: textSizehuge,
+                                                        color: _colorScheme
+                                                            .primary,
+                                                      ),
+                                                      "An Article about Colors",
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Text(
+                                                    style: TextStyle(
+                                                      fontSize: textSizeLarge,
+                                                    ),
+                                                    "abc def abc def abc def abc def abc def abc def ",
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(
+                                                      paddingStd * 2,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        ExampleButton(
+                                                          caption: "Button Std",
+                                                          foregroundCol:
+                                                              _colorScheme
+                                                                  .primary,
+                                                          backgroundCol: null,
+                                                        ),
+                                                        ExampleButton(
+                                                          caption: "Button Std",
+                                                          foregroundCol:
+                                                              _colorScheme
+                                                                  .primary,
+                                                          backgroundCol:
+                                                              _colorScheme
+                                                                  .surfaceContainerLowest,
+                                                        ),
+                                                        ExampleButton(
+                                                          caption: "Button Std",
+                                                          foregroundCol:
+                                                              _colorScheme
+                                                                  .inversePrimary,
+                                                          backgroundCol:
+                                                              _colorScheme
+                                                                  .primary,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              // StackedPanelsDemo(
+                              //   colScheme: _colorScheme,
+                              //   colorType: "primary",
+                              // ),
+                              // StackedPanelsDemo(
+                              //   colScheme: _colorScheme,
+                              //   colorType: "secondary",
+                              // ),
+                              // StackedPanelsDemo(
+                              //   colScheme: _colorScheme,
+                              //   colorType: "tertiary",
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
