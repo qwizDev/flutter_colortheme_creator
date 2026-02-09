@@ -17,16 +17,17 @@ class ShowAllThemeColorsWidget extends ConsumerStatefulWidget {
     required this.themeController,
   });
   final String title;
-  final ThemeController themeController;  
+  final ThemeController themeController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _ContentWidgetThemeColor();
+    return _ShowAllThemeColorsWidget();
   }
 }
 
-class _ContentWidgetThemeColor extends ConsumerState<ShowAllThemeColorsWidget> {
-  _ContentWidgetThemeColor();
+class _ShowAllThemeColorsWidget
+    extends ConsumerState<ShowAllThemeColorsWidget> {
+  _ShowAllThemeColorsWidget();
 
   late final ThemeController themeController = widget.themeController;
 
@@ -50,7 +51,7 @@ class _ContentWidgetThemeColor extends ConsumerState<ShowAllThemeColorsWidget> {
               maxHeight: 10000,
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // IMPORTANT!!
+              mainAxisSize: MainAxisSize.min,
               children: [
                 DisplayWidgetThemeColorsInUse(),
                 Divider(),
