@@ -6,57 +6,45 @@ part 'theme_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class ThemeState extends _$ThemeState {
-  final Color _startColor = Colors.red; //Colors.blue
-  late Color _seedColor;
-  late ThemeData _themeData;
-  late ColorScheme _colorScheme;
+  final Color _startColor = Colors.green; //Colors.blue
+  // late Color _seedColor;
+  // late ThemeData _themeData;
+  // late ColorScheme _colorScheme;
 
   @override
   ThemeDataState build() {
-    // chosenColor = const Color.fromARGB(255, 129, 226, 44);
-    _seedColor = _startColor;
-
-    _colorScheme = ColorScheme.fromSeed(seedColor: _seedColor);
-    _themeData = ThemeData(colorScheme: _colorScheme);
     return ThemeDataState(
-      colorScheme: _colorScheme,
-      seedColor: _seedColor,
-      themeData: _themeData,
+      colorScheme: ThemeData.dark().colorScheme,
+      seedColor: _startColor,
+      themeData: ThemeData.dark(),
     );
   }
 
   void setSeedColor(Color newColor) {
-    _seedColor = newColor;
-    _colorScheme = ColorScheme.fromSeed(seedColor: newColor);
-    _themeData = _createThemeDataFromColorScheme(_colorScheme);
+    final colorScheme = ColorScheme.fromSeed(seedColor: newColor);
+    final themeData = _createThemeDataFromColorScheme(colorScheme);
     state = ThemeDataState(
       seedColor: newColor,
-      colorScheme: _colorScheme,
-      themeData: _themeData,
-    );
-  }
-
-  void setColorTheme(ColorScheme colorScheme) {
-    state = ThemeDataState(
-      seedColor: _seedColor,
       colorScheme: colorScheme,
-      themeData: _themeData,
-    );
-  }
-
-  void setThemeData(ThemeData themeData) {
-    state = ThemeDataState(
-      seedColor: _seedColor,
-      colorScheme: _colorScheme,
       themeData: themeData,
     );
   }
 
-  ThemeData _createThemeDataFromColorScheme(ColorScheme colorScheme) {
-    return _themeData = ThemeData(colorScheme: colorScheme, useMaterial3: true);
+  void setColorTheme(ColorScheme colorScheme) {
+    state = state.copyWith(
+      colorScheme: colorScheme,
+      themeData: _createThemeDataFromColorScheme(colorScheme),
+    );
   }
 
-  ThemeData createCurrentThemeData() {
-    return _themeData;
+  void setThemeData(ThemeData themeData) {
+    state = state.copyWith(
+      themeData: themeData,
+      colorScheme: themeData.colorScheme,
+    );
+  }
+
+  ThemeData _createThemeDataFromColorScheme(ColorScheme colorScheme) {
+    return ThemeData(colorScheme: colorScheme, useMaterial3: true);
   }
 }
