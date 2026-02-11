@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'themedata_state.freezed.dart';
+part 'theme_data_state.freezed.dart';
 
 @freezed
 class ThemeDataState with _$ThemeDataState {

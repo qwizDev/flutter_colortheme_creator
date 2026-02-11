@@ -7,7 +7,8 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../../../flutter_colortheme_creator.dart';
-import '../../provider/custom_colorscheme_data_provider.dart';
+import '../../model/color_scheme_data.dart';
+import '../../provider/custom_color_scheme_data_provider.dart';
 import '../../provider/theme_state_provider.dart';
 
 class ColorPickerAndButtonsWidget extends ConsumerStatefulWidget {
@@ -25,19 +26,20 @@ class _ColorPickerAndButtonsWidget
     extends ConsumerState<ColorPickerAndButtonsWidget> {
   final buttonSizeMax = WidgetStateProperty.all(const Size(250, 250));
   final buttonSizeMin = WidgetStateProperty.all(const Size(250, 50));
-  // late ColorschemeData _customColorSchemeData;
+  late ColorSchemeData _customColorSchemeData;
   late ColorScheme _ownCustomColorScheme;
+  late Color _chosenColor;
   late ColorSchemeKey _radioColorKey;
   late final ThemeController themeController = widget.themeController;
 
   @override
   Widget build(BuildContext context) {
-    final customColorSchemeData = ref.watch(
+    _customColorSchemeData = ref.watch(
       customColorschemeDataProvider(themeController),
     );
 
-    _ownCustomColorScheme = customColorSchemeData.customColorScheme;
-    final chosenColor = customColorSchemeData.chosenColor;
+    _ownCustomColorScheme = _customColorSchemeData.customColorScheme;
+    _chosenColor = _customColorSchemeData.chosenColor;
 
     _radioColorKey = ref.watch(radioValueForColorRoleProvider);
 
@@ -47,7 +49,7 @@ class _ColorPickerAndButtonsWidget
         Container(
           decoration: WidgetDeco.boxDecoStd,
           child: ColorPicker(
-            pickerColor: chosenColor,
+            pickerColor: _chosenColor,
             onColorChanged: (color) => applyChosenColor(themeController, color),
           ),
         ),

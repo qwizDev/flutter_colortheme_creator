@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'colorscheme_data.freezed.dart';
+part 'color_scheme_data.freezed.dart';
 
 @freezed
-class ColorschemeData with _$ColorschemeData {
+class ColorSchemeData with _$ColorSchemeData {
   @override
   final ColorScheme customColorScheme;
   @override
   final Color chosenColor;
 
-  ColorschemeData({required this.customColorScheme, required this.chosenColor});
+  ColorSchemeData({required this.customColorScheme, required this.chosenColor});
 }

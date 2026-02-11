@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
-import 'package:flutter_colortheme_creator/src/provider/custom_colorscheme_data_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
 import 'package:flutter_colortheme_creator/src/provider/radio_value_for_color_role.dart';
 import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,6 +57,7 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
     _ownCustomColorScheme = ref
         .watch(customColorschemeDataProvider(themeController))
         .customColorScheme;
+    // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
 
     return SingleChildScrollView(
       child: ConstrainedBox(

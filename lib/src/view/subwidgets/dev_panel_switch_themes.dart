@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../../../flutter_colortheme_creator.dart';
-import '../../provider/custom_colorscheme_data_provider.dart';
+import '../../provider/custom_color_scheme_data_provider.dart';
 
 class DevPanelSwitchThemes extends ConsumerWidget {
   const DevPanelSwitchThemes({super.key, required this.themeController});
@@ -15,55 +13,33 @@ class DevPanelSwitchThemes extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 300, minHeight: 100),
+      constraints: BoxConstraints(maxHeight: 200, minHeight: 100),
       child: Container(
-        // color: Colors.green,
         color: Theme.of(context).colorScheme.surface,
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(WidgetDeco.paddingPanelOnScreen),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Wrap(
                 children: [
                   ButtonStd(labelText: "Theme light", () {
-                    // themeController.applyTheme("light");
                     setNewTheme(ref, "light");
                   }),
                   ButtonStd(labelText: "Theme dark", () {
-                    // themeController.applyTheme("dark");
-
-                    // // ALSO SET _ownCustomColorScheme
-                    // final theme = themeController.getCurrentThemeData();
-                    // ref
-                    //     .read(
-                    //       customColorschemeDataProvider(
-                    //         themeController,
-                    //       ).notifier,
-                    //     )
-                    //     .setCustomColorScheme(
-                    //       theme?.colorScheme ?? ThemeData.light().colorScheme,
-                    //     );
-
                     setNewTheme(ref, "dark");
                   }),
                   ButtonStd(labelText: "Papagei light", () {
-                    // themeController.applyTheme("papageiLight");
                     setNewTheme(ref, "papageiLight");
                   }),
                   ButtonStd(labelText: "Papagei dark", () {
-                    // themeController.applyTheme("papageiDark");
                     setNewTheme(ref, "papageiDark");
                   }),
                   ButtonStd(labelText: "walk through themes", () {
-                    themeController.walkThroughThemesOnePerClick();
+                    walkThroughThemesOnePerClick(ref, themeController);
                   }),
                   ButtonStd(labelText: "reset themes", () {
                     themeController.resetThemeList();
-                    // themeController.applyTheme("light");
-                    // setNewTheme(ref, "dark");
-
-                    // ref
-                    //       .read(customColorschemeDataProvider(themeController))
-                    //       .customColorScheme,
                   }),
                 ],
               ),
@@ -81,12 +57,25 @@ class DevPanelSwitchThemes extends ConsumerWidget {
   void setNewTheme(WidgetRef ref, String nameOfTheme) {
     themeController.applyTheme(nameOfTheme);
 
-    // ALSO SET _ownCustomColorScheme
+    /*  also set _ownCustomColorScheme */
     final theme = themeController.getCurrentThemeData();
     ref
         .read(customColorschemeDataProvider(themeController).notifier)
-        .setCustomColorScheme(
-          theme?.colorScheme ?? ThemeData.light().colorScheme,
-        );
+        .setCustomColorScheme(useThemesColSchemeOrFallback(theme));
+  }
+
+  void walkThroughThemesOnePerClick(
+    WidgetRef ref,
+    ThemeController themeController,
+  ) async {
+    await themeController.walkThroughThemesOnePerClick();
+    final theme = themeController.getCurrentThemeData();
+    ref
+        .read(customColorschemeDataProvider(themeController).notifier)
+        .setCustomColorScheme(useThemesColSchemeOrFallback(theme));
+  }
+
+  ColorScheme useThemesColSchemeOrFallback(ThemeData? theme) {
+    return theme?.colorScheme ?? ThemeData.fallback().colorScheme;
   }
 }

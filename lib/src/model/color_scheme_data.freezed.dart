@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'themedata_state.dart';
+part of 'color_scheme_data.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,40 +12,40 @@ part of 'themedata_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ThemeDataState {
+mixin _$ColorSchemeData {
 
- Color get seedColor; ColorScheme get colorScheme; ThemeData get themeData;
-/// Create a copy of ThemeDataState
+ ColorScheme get customColorScheme; Color get chosenColor;
+/// Create a copy of ColorSchemeData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ThemeDataStateCopyWith<ThemeDataState> get copyWith => _$ThemeDataStateCopyWithImpl<ThemeDataState>(this as ThemeDataState, _$identity);
+$ColorSchemeDataCopyWith<ColorSchemeData> get copyWith => _$ColorSchemeDataCopyWithImpl<ColorSchemeData>(this as ColorSchemeData, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeDataState&&(identical(other.seedColor, seedColor) || other.seedColor == seedColor)&&(identical(other.colorScheme, colorScheme) || other.colorScheme == colorScheme)&&(identical(other.themeData, themeData) || other.themeData == themeData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorSchemeData&&(identical(other.customColorScheme, customColorScheme) || other.customColorScheme == customColorScheme)&&(identical(other.chosenColor, chosenColor) || other.chosenColor == chosenColor));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,seedColor,colorScheme,themeData);
+int get hashCode => Object.hash(runtimeType,customColorScheme,chosenColor);
 
 @override
 String toString() {
-  return 'ThemeDataState(seedColor: $seedColor, colorScheme: $colorScheme, themeData: $themeData)';
+  return 'ColorSchemeData(customColorScheme: $customColorScheme, chosenColor: $chosenColor)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ThemeDataStateCopyWith<$Res>  {
-  factory $ThemeDataStateCopyWith(ThemeDataState value, $Res Function(ThemeDataState) _then) = _$ThemeDataStateCopyWithImpl;
+abstract mixin class $ColorSchemeDataCopyWith<$Res>  {
+  factory $ColorSchemeDataCopyWith(ColorSchemeData value, $Res Function(ColorSchemeData) _then) = _$ColorSchemeDataCopyWithImpl;
 @useResult
 $Res call({
- Color seedColor, ColorScheme colorScheme, ThemeData themeData
+ ColorScheme customColorScheme, Color chosenColor
 });
 
 
@@ -53,29 +53,28 @@ $Res call({
 
 }
 /// @nodoc
-class _$ThemeDataStateCopyWithImpl<$Res>
-    implements $ThemeDataStateCopyWith<$Res> {
-  _$ThemeDataStateCopyWithImpl(this._self, this._then);
+class _$ColorSchemeDataCopyWithImpl<$Res>
+    implements $ColorSchemeDataCopyWith<$Res> {
+  _$ColorSchemeDataCopyWithImpl(this._self, this._then);
 
-  final ThemeDataState _self;
-  final $Res Function(ThemeDataState) _then;
+  final ColorSchemeData _self;
+  final $Res Function(ColorSchemeData) _then;
 
-/// Create a copy of ThemeDataState
+/// Create a copy of ColorSchemeData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? seedColor = null,Object? colorScheme = null,Object? themeData = null,}) {
-  return _then(ThemeDataState(
-seedColor: null == seedColor ? _self.seedColor : seedColor // ignore: cast_nullable_to_non_nullable
-as Color,colorScheme: null == colorScheme ? _self.colorScheme : colorScheme // ignore: cast_nullable_to_non_nullable
-as ColorScheme,themeData: null == themeData ? _self.themeData : themeData // ignore: cast_nullable_to_non_nullable
-as ThemeData,
+@pragma('vm:prefer-inline') @override $Res call({Object? customColorScheme = null,Object? chosenColor = null,}) {
+  return _then(ColorSchemeData(
+customColorScheme: null == customColorScheme ? _self.customColorScheme : customColorScheme // ignore: cast_nullable_to_non_nullable
+as ColorScheme,chosenColor: null == chosenColor ? _self.chosenColor : chosenColor // ignore: cast_nullable_to_non_nullable
+as Color,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [ThemeDataState].
-extension ThemeDataStatePatterns on ThemeDataState {
+/// Adds pattern-matching-related methods to [ColorSchemeData].
+extension ColorSchemeDataPatterns on ColorSchemeData {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:

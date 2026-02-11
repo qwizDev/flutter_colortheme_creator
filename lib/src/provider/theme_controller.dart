@@ -18,7 +18,7 @@ abstract class ThemeController {
 
   void removeThemeFromList(String nameOfTheme);
 
-  void walkThroughThemesOnePerClick();
+  Future<bool> walkThroughThemesOnePerClick();
 
   void resetThemeList();
 }

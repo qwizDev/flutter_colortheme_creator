@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import '/src/model/themedata_state.dart';
+import '../model/theme_data_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_state_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class ThemeState extends _$ThemeState {
-  final Color _startColor = Colors.green; //Colors.blue
-  // late Color _seedColor;
-  // late ThemeData _themeData;
-  // late ColorScheme _colorScheme;
+  final Color _startColor = Colors.green;
 
   @override
   ThemeDataState build() {

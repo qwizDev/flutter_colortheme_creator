@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'custom_colorscheme_data_provider.dart';
+part of 'custom_color_scheme_data_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -13,7 +13,7 @@ part of 'custom_colorscheme_data_provider.dart';
 final customColorschemeDataProvider = CustomColorschemeDataFamily._();
 
 final class CustomColorschemeDataProvider
-    extends $NotifierProvider<CustomColorschemeData, ColorschemeData> {
+    extends $NotifierProvider<CustomColorschemeData, ColorSchemeData> {
   CustomColorschemeDataProvider._({
     required CustomColorschemeDataFamily super.from,
     required ThemeController super.argument,
@@ -40,10 +40,10 @@ final class CustomColorschemeDataProvider
   CustomColorschemeData create() => CustomColorschemeData();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ColorschemeData value) {
+  Override overrideWithValue(ColorSchemeData value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ColorschemeData>(value),
+      providerOverride: $SyncValueProvider<ColorSchemeData>(value),
     );
   }
 
@@ -59,15 +59,15 @@ final class CustomColorschemeDataProvider
 }
 
 String _$customColorschemeDataHash() =>
-    r'f19afb37647f3c9ab672e7496c11ed06fc543a69';
+    r'cccc6383f54e047a1bbba5084b8a995f94c2e74a';
 
 final class CustomColorschemeDataFamily extends $Family
     with
         $ClassFamilyOverride<
           CustomColorschemeData,
-          ColorschemeData,
-          ColorschemeData,
-          ColorschemeData,
+          ColorSchemeData,
+          ColorSchemeData,
+          ColorSchemeData,
           ThemeController
         > {
   CustomColorschemeDataFamily._()
@@ -86,20 +86,20 @@ final class CustomColorschemeDataFamily extends $Family
   String toString() => r'customColorschemeDataProvider';
 }
 
-abstract class _$CustomColorschemeData extends $Notifier<ColorschemeData> {
+abstract class _$CustomColorschemeData extends $Notifier<ColorSchemeData> {
   late final _$args = ref.$arg as ThemeController;
   ThemeController get themeController => _$args;
 
-  ColorschemeData build(ThemeController themeController);
+  ColorSchemeData build(ThemeController themeController);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<ColorschemeData, ColorschemeData>;
+    final ref = this.ref as $Ref<ColorSchemeData, ColorSchemeData>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ColorschemeData, ColorschemeData>,
-              ColorschemeData,
+              AnyNotifier<ColorSchemeData, ColorSchemeData>,
+              ColorSchemeData,
               Object?,
               Object?
             >;
