@@ -10,6 +10,8 @@ class DevPanelSwitchThemes extends ConsumerWidget {
 
   final ThemeController themeController;
 
+  static const double paddingBetweenButtons = WidgetDeco.paddingButtonsBetween;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ConstrainedBox(
@@ -23,24 +25,58 @@ class DevPanelSwitchThemes extends ConsumerWidget {
             children: [
               Wrap(
                 children: [
-                  ButtonStd(labelText: "Theme light", () {
-                    setNewTheme(ref, "light");
-                  }),
-                  ButtonStd(labelText: "Theme dark", () {
-                    setNewTheme(ref, "dark");
-                  }),
-                  ButtonStd(labelText: "Papagei light", () {
-                    setNewTheme(ref, "papageiLight");
-                  }),
-                  ButtonStd(labelText: "Papagei dark", () {
-                    setNewTheme(ref, "papageiDark");
-                  }),
-                  ButtonStd(labelText: "walk through themes", () {
-                    walkThroughThemesOnePerClick(ref, themeController);
-                  }),
-                  ButtonStd(labelText: "reset themes", () {
-                    themeController.resetThemeList();
-                  }),
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "Theme light", () {
+                      setNewTheme(ref, "light");
+                    }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "Theme dark", () {
+                      setNewTheme(ref, "dark");
+                    }),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "Papagei light", () {
+                      setNewTheme(ref, "papageiLight");
+                    }),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "Papagei dark", () {
+                      setNewTheme(ref, "papageiDark");
+                    }),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "walk through themes", () {
+                      walkThroughThemesOnePerClick(ref, themeController);
+                    }),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "reset themes", () {
+                      themeController.resetThemeList();
+                    }),
+                  ),
                 ],
               ),
               Text(
