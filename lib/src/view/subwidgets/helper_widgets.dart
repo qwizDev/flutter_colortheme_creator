@@ -45,7 +45,8 @@ class ConstrainedColorBox extends ConstrainedBox {
     BuildContext context,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 2),
+      // padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4),
+      padding: const EdgeInsetsGeometry.all(WidgetDeco.paddingBoxInPanel),
       child: Container(
         decoration: WidgetDeco.boxDecoStd,
         child: Container(

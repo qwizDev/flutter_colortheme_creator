@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
   const ExampleWidgetShowingCurrentColors({
     super.key,
@@ -12,6 +11,8 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Color backgroundCol = customThemeData.colorScheme.surface;
+
     return ConstrainedBox(
       constraints: BoxConstraints(
         minHeight: 50,
@@ -28,12 +29,15 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
                 width: 2,
               ),
               // color: _customThemeData.colorScheme.surface),
-              color: customThemeData.colorScheme.surface,
+              color: backgroundCol,
             ),
             child: Column(
               children: [
                 /* ---------------------------------------------------------------- */
-                Text("This is an Example Widget for showing current colors"),
+                Text(
+                  "This is an Example Widget for showing current CUSTOM(!!!) colors",
+                ),
+                Text("(not the app-wide used theme!)"),
                 /* ---------------------------------------------------------------- */
                 Text("The background-color is surface"),
                 Wrap(
@@ -111,7 +115,6 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
       ),
     );
   }
-
 }
 
 var emptyFunc = () {};

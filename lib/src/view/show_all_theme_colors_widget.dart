@@ -5,6 +5,7 @@ import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../provider/theme_controller.dart';
 import '../provider/theme_state_provider.dart';
+import 'subwidgets/dev_panel_switch_themes.dart';
 import 'subwidgets/widget_currently_chosen_color.dart';
 import 'subwidgets/widget_showing_current_colors.dart';
 import 'subwidgets/widget_themecolors_in_use.dart';
@@ -53,9 +54,16 @@ class _ShowAllThemeColorsWidget
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                DevPanelSwitchThemes(themeController: themeController),
+                Divider(),
                 DisplayWidgetThemeColorsInUse(),
                 Divider(),
+                DevPanelSwitchThemes(themeController: themeController),
+                Divider(),
                 DisplayWidgetForCurrentlyChosenColor(),
+                Divider(),
+                DevPanelSwitchThemes(themeController: themeController),
+                Divider(),
                 ExampleWidgetShowingCurrentColors(
                   customThemeData: _customThemeData,
                 ),
@@ -69,11 +77,3 @@ class _ShowAllThemeColorsWidget
     );
   }
 }
-
-// _customThemeData.primaryColor
-// _customThemeData.primaryColorDark
-// _customThemeData.primaryColorLight
-// _customThemeData.secondaryHeaderColor
-// _customThemeData.colorScheme.primary
-// _customThemeData.colorScheme.tertiary
-// _customThemeData.colorScheme.tertiaryContainer
