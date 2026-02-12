@@ -59,118 +59,139 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
         .customColorScheme;
     // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
 
-    return SingleChildScrollView(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 900),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                AppBar(
-                  backgroundColor: _colorScheme.primary,
-                  centerTitle: true,
-                  title: Text(
-                    "ThemeColor-Creator",
-                    style: TextStyle(color: _colorScheme.inversePrimary),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // return ConstrainedBox(
+        //   constraints: BoxConstraints(maxWidth: constraints.maxWidth),
+        return SizedBox(
+          width: constraints.maxWidth, // <- DAS ist entscheidend
 
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        "Pick colors and create your own custom colorScheme",
-                        style: TextStyle(
-                          fontSize: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium?.fontSize,
+          child: SingleChildScrollView(
+            child: Row(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 900),
+
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      AppBar(
+                        backgroundColor: _colorScheme.primary,
+                        centerTitle: true,
+                        title: Text(
+                          "ThemeColor-Creator",
+                          style: TextStyle(color: _colorScheme.inversePrimary),
                         ),
                       ),
-                    ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //COLORPICKER AND SOME DEV BUTTONS IN A ROW
-                        ColorPickerAndButtonsWidget(
-                          themeController: themeController,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                DevPanelSwitchThemes(themeController: themeController),
-
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        //PANEL SHOWING COLOR-ROLE-NAMES AND CUSTOM COLORS
-                        Text("customColorScheme:"),
-                        PanelColorsFromColScheme(
-                          colScheme: _ownCustomColorScheme,
-                        ),
-                      ],
-                    ),
-
-                    //PANEL SHOWING RADIOBUTTONS AND COLOR-ROLE NAMES
-                    Column(
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: 1000,
-                            maxWidth: 300,
-                          ),
-
-                          // height: 600,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text("Select Color to set up"),
-                                for (ColorSchemeKey radVal
-                                    in ColorSchemeKey.values)
-                                  ListTile(
-                                    contentPadding: EdgeInsets.all(0),
-                                    minVerticalPadding: 0,
-                                    minTileHeight: 25,
-                                    title: Text(radVal.name),
-                                    leading: Radio<ColorSchemeKey>(
-                                      value: radVal,
-                                      groupValue: radioColorKey,
-                                      onChanged: (ColorSchemeKey? value) {
-                                        setState(() {
-                                          radioColorKey = value;
-                                        });
-
-                                        ref
-                                            .read(
-                                              radioValueForColorRoleProvider
-                                                  .notifier,
-                                            )
-                                            .setValue(value);
-                                      },
-                                    ),
-                                  ),
-                              ],
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Text(
+                              "Pick colors and create your own custom colorScheme",
+                              style: TextStyle(
+                                fontSize: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium?.fontSize,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //COLORPICKER AND SOME DEV BUTTONS IN A ROW
+                              ColorPickerAndButtonsWidget(
+                                themeController: themeController,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      DevPanelSwitchThemes(themeController: themeController),
+
+                      // IntrinsicHeight(
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              //PANEL SHOWING COLOR-ROLE-NAMES AND CUSTOM COLORS
+                              Text("customColorScheme:"),
+                              PanelColorsFromColScheme(
+                                colScheme: _ownCustomColorScheme,
+                              ),
+                            ],
+                          ),
+
+                          //PANEL SHOWING RADIOBUTTONS AND COLOR-ROLE NAMES
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 1000,
+                                  maxWidth: 300,
+                                ),
+
+                                // height: 600,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Select Color to set up"),
+                                      for (ColorSchemeKey radVal
+                                          in ColorSchemeKey.values)
+                                        ListTile(
+                                          contentPadding: EdgeInsets.all(0),
+                                          minVerticalPadding: 0,
+                                          minTileHeight: 25,
+                                          title: Text(radVal.name),
+                                          leading: Radio<ColorSchemeKey>(
+                                            value: radVal,
+                                            groupValue: radioColorKey,
+                                            onChanged: (ColorSchemeKey? value) {
+                                              setState(() {
+                                                radioColorKey = value;
+                                              });
+
+                                              ref
+                                                  .read(
+                                                    radioValueForColorRoleProvider
+                                                        .notifier,
+                                                  )
+                                                  .setValue(value);
+                                            },
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      ExampleScreen01(),
+                    ],
+                  ),
                 ),
-                ExampleScreen01(),
+                // Expanded(
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.max,
+                //     children: [Text("fsadfasdfasdfsadfasdfasd")],
+                //   ),
+                // ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -305,31 +326,28 @@ class PanelColorsFromColScheme extends StatelessWidget {
       colScheme,
     );
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 1000),
+    return Column(
+      // mainAxisSize: MainAxisSize.min,
+      children: [
+        // MiniColorBox(color: colScheme.primary, caption: "primary"),
+        // MiniColorBox(color: colScheme.onPrimary, caption: "onPrimary"),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 400),
 
-      child: Column(
-        children: [
-          // MiniColorBox(color: colScheme.primary, caption: "primary"),
-          // MiniColorBox(color: colScheme.onPrimary, caption: "onPrimary"),
-          Expanded(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 1000, maxWidth: 400),
-              child: ListView.builder(
-                itemCount: ColorSchemeKey.values.length,
-                itemBuilder: (context, index) {
-                  return MiniColorBox(
-                    color:
-                        colorSchemeAsMap[ColorSchemeKey.values[index]] ??
-                        Colors.amber,
-                    caption: ColorSchemeKey.values[index].name,
-                  );
-                },
-              ),
-            ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: ColorSchemeKey.values.length,
+            itemBuilder: (context, index) {
+              return MiniColorBox(
+                color:
+                    colorSchemeAsMap[ColorSchemeKey.values[index]] ??
+                    Colors.amber,
+                caption: ColorSchemeKey.values[index].name,
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

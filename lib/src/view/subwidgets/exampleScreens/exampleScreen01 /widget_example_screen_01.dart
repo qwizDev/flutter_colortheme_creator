@@ -10,11 +10,14 @@ import 'panel_demo.dart';
 class ExampleScreen01 extends ConsumerWidget {
   late final ColorScheme _colorScheme;
 
+  ExampleScreen01({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _colorScheme = ref.read(themeStateProvider).colorScheme;
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
           child: Padding(
