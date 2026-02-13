@@ -151,7 +151,29 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                                           contentPadding: EdgeInsets.all(0),
                                           minVerticalPadding: 0,
                                           minTileHeight: 25,
-                                          title: Text(radVal.name),
+                                          // title: Text(radVal.name),
+                                          // onTap: () {
+                                          //   useThisColorAsPickerColor(
+                                          //     ref,
+                                          //     radVal,
+                                          //   );
+                                          // },
+                                          title: GestureDetector(
+                                            onDoubleTap: () {
+                                              useThisColorAsPickerColor(
+                                                ref,
+                                                radVal,
+                                              );
+                                            },
+                                            child: Text(radVal.name),
+                                          ),
+
+                                          // onTap: () {
+                                          //   useThisColorAsPickerColor(
+                                          //     ref,
+                                          //     radVal,
+                                          //   );
+                                          // },
                                           leading: Radio<ColorSchemeKey>(
                                             value: radVal,
                                             groupValue: radioColorKey,
@@ -177,7 +199,7 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                           ),
                         ],
                       ),
-                      ExampleScreen01(),
+                      ExampleScreen01(themeController: themeController),
                     ],
                   ),
                 ),
@@ -193,6 +215,20 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
         );
       },
     );
+  }
+
+  void useThisColorAsPickerColor(WidgetRef ref, ColorSchemeKey radVal) {
+    final Map<ColorSchemeKey, Color> colorSchemeAsMap = ColorSchemeHelper.toMap(
+      ref
+          .read(customColorschemeDataProvider(themeController))
+          .customColorScheme,
+    );
+
+    final colorToSet = colorSchemeAsMap[radVal] ?? Colors.amber;
+
+    ref
+        .read(customColorschemeDataProvider(themeController).notifier)
+        .setChosenColor(colorToSet);
   }
 }
 

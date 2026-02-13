@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
+import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -8,13 +8,19 @@ import '../../../theme_color_creator_widget.dart';
 import 'panel_demo.dart';
 
 class ExampleScreen01 extends ConsumerWidget {
-  late final ColorScheme _colorScheme;
+  // late final ColorScheme _colorScheme;
+  late final ColorScheme _ownCustomColorScheme;
+  late final ThemeController themeController;
 
-  ExampleScreen01({super.key});
+  ExampleScreen01({super.key, required this.themeController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _colorScheme = ref.read(themeStateProvider).colorScheme;
+    // _colorScheme = ref.read(themeStateProvider).colorScheme;
+
+    _ownCustomColorScheme = ref
+        .read(customColorschemeDataProvider(themeController))
+        .customColorScheme;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -24,32 +30,34 @@ class ExampleScreen01 extends ConsumerWidget {
             padding: const EdgeInsets.all(50),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: _colorScheme.outline),
-                color: _colorScheme.surface,
+                border: Border.all(color: _ownCustomColorScheme.outline),
+                color: _ownCustomColorScheme.surface,
               ),
               child: Column(
                 children: [
                   AppBar(
-                    backgroundColor: _colorScheme.primary,
+                    backgroundColor: _ownCustomColorScheme.primary,
                     centerTitle: true,
                     title: Text(
                       "Navbar/AppExample",
-                      style: TextStyle(color: _colorScheme.inversePrimary),
+                      style: TextStyle(
+                        color: _ownCustomColorScheme.inversePrimary,
+                      ),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PanelDemo(
-                        colScheme: _colorScheme,
+                        colScheme: _ownCustomColorScheme,
                         kindOfThemeCol: "primary",
                       ),
                       PanelDemo(
-                        colScheme: _colorScheme,
+                        colScheme: _ownCustomColorScheme,
                         kindOfThemeCol: "secondary",
                       ),
                       PanelDemo(
-                        colScheme: _colorScheme,
+                        colScheme: _ownCustomColorScheme,
                         kindOfThemeCol: "tertiary",
                       ),
                     ],
@@ -67,26 +75,29 @@ class ExampleScreen01 extends ConsumerWidget {
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "primary",
                               nameOfBackgroundCol: "inversePrimary",
-                              foregroundCol: _colorScheme.primary,
-                              backgroundCol: _colorScheme.inversePrimary,
+                              foregroundCol: _ownCustomColorScheme.primary,
+                              backgroundCol:
+                                  _ownCustomColorScheme.inversePrimary,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "primary",
                               nameOfBackgroundCol: "null",
-                              foregroundCol: _colorScheme.primary,
+                              foregroundCol: _ownCustomColorScheme.primary,
                               backgroundCol: null,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "primary",
                               nameOfBackgroundCol: "primaryContainer",
-                              foregroundCol: _colorScheme.primary,
-                              backgroundCol: _colorScheme.primaryContainer,
+                              foregroundCol: _ownCustomColorScheme.primary,
+                              backgroundCol:
+                                  _ownCustomColorScheme.primaryContainer,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "inversePrimary",
                               nameOfBackgroundCol: "primary",
-                              foregroundCol: _colorScheme.inversePrimary,
-                              backgroundCol: _colorScheme.primary,
+                              foregroundCol:
+                                  _ownCustomColorScheme.inversePrimary,
+                              backgroundCol: _ownCustomColorScheme.primary,
                             ),
                           ],
                         ),
@@ -104,26 +115,27 @@ class ExampleScreen01 extends ConsumerWidget {
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "secondary",
                               nameOfBackgroundCol: "onSecondary",
-                              foregroundCol: _colorScheme.secondary,
-                              backgroundCol: _colorScheme.onSecondary,
+                              foregroundCol: _ownCustomColorScheme.secondary,
+                              backgroundCol: _ownCustomColorScheme.onSecondary,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "secondary",
                               nameOfBackgroundCol: "null",
-                              foregroundCol: _colorScheme.secondary,
+                              foregroundCol: _ownCustomColorScheme.secondary,
                               backgroundCol: null,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "secondary",
                               nameOfBackgroundCol: "secondaryContainer",
-                              foregroundCol: _colorScheme.secondary,
-                              backgroundCol: _colorScheme.secondaryContainer,
+                              foregroundCol: _ownCustomColorScheme.secondary,
+                              backgroundCol:
+                                  _ownCustomColorScheme.secondaryContainer,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "onSecondary",
                               nameOfBackgroundCol: "secondary",
-                              foregroundCol: _colorScheme.onSecondary,
-                              backgroundCol: _colorScheme.secondary,
+                              foregroundCol: _ownCustomColorScheme.onSecondary,
+                              backgroundCol: _ownCustomColorScheme.secondary,
                             ),
                           ],
                         ),
@@ -141,26 +153,27 @@ class ExampleScreen01 extends ConsumerWidget {
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "tertiary",
                               nameOfBackgroundCol: "onTertiary",
-                              foregroundCol: _colorScheme.tertiary,
-                              backgroundCol: _colorScheme.onTertiary,
+                              foregroundCol: _ownCustomColorScheme.tertiary,
+                              backgroundCol: _ownCustomColorScheme.onTertiary,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "tertiary",
                               nameOfBackgroundCol: "null",
-                              foregroundCol: _colorScheme.tertiary,
+                              foregroundCol: _ownCustomColorScheme.tertiary,
                               backgroundCol: null,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "tertiary",
                               nameOfBackgroundCol: "tertiaryContainer",
-                              foregroundCol: _colorScheme.tertiary,
-                              backgroundCol: _colorScheme.tertiaryContainer,
+                              foregroundCol: _ownCustomColorScheme.tertiary,
+                              backgroundCol:
+                                  _ownCustomColorScheme.tertiaryContainer,
                             ),
                             ExampleButtonPlusDescription(
                               nameOfTextCol: "onTertiary",
                               nameOfBackgroundCol: "tertiary",
-                              foregroundCol: _colorScheme.onTertiary,
-                              backgroundCol: _colorScheme.tertiary,
+                              foregroundCol: _ownCustomColorScheme.onTertiary,
+                              backgroundCol: _ownCustomColorScheme.tertiary,
                             ),
                           ],
                         ),
@@ -174,7 +187,7 @@ class ExampleScreen01 extends ConsumerWidget {
                                 width: 600,
                                 height: 1200,
                                 child: Container(
-                                  color: _colorScheme.primaryContainer,
+                                  color: _ownCustomColorScheme.primaryContainer,
                                   child: Column(
                                     children: [
                                       Padding(
@@ -186,7 +199,8 @@ class ExampleScreen01 extends ConsumerWidget {
                                             fontSize: Theme.of(
                                               context,
                                             ).textTheme.headlineLarge?.fontSize,
-                                            color: _colorScheme.primary,
+                                            color:
+                                                _ownCustomColorScheme.primary,
                                           ),
                                           "An Article about Colors",
                                         ),
@@ -290,22 +304,24 @@ class ExampleScreen01 extends ConsumerWidget {
                                             ExampleButton(
                                               caption: "Button Std",
                                               foregroundCol:
-                                                  _colorScheme.primary,
+                                                  _ownCustomColorScheme.primary,
                                               backgroundCol: null,
                                             ),
                                             ExampleButton(
                                               caption: "Button Std",
                                               foregroundCol:
-                                                  _colorScheme.primary,
-                                              backgroundCol: _colorScheme
-                                                  .surfaceContainerLowest,
+                                                  _ownCustomColorScheme.primary,
+                                              backgroundCol:
+                                                  _ownCustomColorScheme
+                                                      .surfaceContainerLowest,
                                             ),
                                             ExampleButton(
                                               caption: "Button Std",
                                               foregroundCol:
-                                                  _colorScheme.inversePrimary,
+                                                  _ownCustomColorScheme
+                                                      .inversePrimary,
                                               backgroundCol:
-                                                  _colorScheme.primary,
+                                                  _ownCustomColorScheme.primary,
                                             ),
                                           ],
                                         ),

@@ -15,7 +15,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 200, minHeight: 100),
+      constraints: BoxConstraints(minHeight: 100),
       child: Container(
         color: Theme.of(context).colorScheme.surface,
         child: Padding(
@@ -41,7 +41,6 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                       setNewTheme(ref, "dark");
                     }),
                   ),
-
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
@@ -50,7 +49,6 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                       setNewTheme(ref, "papageiLight");
                     }),
                   ),
-
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
@@ -59,7 +57,6 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                       setNewTheme(ref, "papageiDark");
                     }),
                   ),
-
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
@@ -68,7 +65,23 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                       walkThroughThemesOnePerClick(ref, themeController);
                     }),
                   ),
-
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "save theme (file) (NYI)", () {
+                      themeController.resetThemeList();
+                    }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(
+                      paddingBetweenButtons,
+                    ),
+                    child: ButtonStd(labelText: "load themes (file) (NYI)", () {
+                      themeController.resetThemeList();
+                    }),
+                  ),
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
