@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
   const ExampleWidgetShowingCurrentColors({
     super.key,
-    required this.customThemeData,
+    required this.colorScheme,
   });
 
-  final ThemeData customThemeData;
+  final ColorScheme colorScheme;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Color backgroundCol = customThemeData.colorScheme.surface;
+    final Color backgroundCol = colorScheme.surface;
 
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -24,11 +24,8 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: customThemeData.colorScheme.outline,
-                width: 2,
-              ),
-              // color: _customThemeData.colorScheme.surface),
+              border: Border.all(color: colorScheme.outline, width: 2),
+              // color: _colorScheme.surface),
               color: backgroundCol,
             ),
             child: Column(
@@ -49,9 +46,8 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
                           child: Text(
                             "primary",
                             style: TextStyle(
-                              backgroundColor:
-                                  customThemeData.colorScheme.primary,
-                              color: customThemeData.colorScheme.onPrimary,
+                              backgroundColor: colorScheme.primary,
+                              color: colorScheme.onPrimary,
                             ),
                           ),
                         ),
@@ -60,9 +56,8 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
                           child: Text(
                             "secondary",
                             style: TextStyle(
-                              backgroundColor:
-                                  customThemeData.colorScheme.secondary,
-                              color: customThemeData.colorScheme.onSecondary,
+                              backgroundColor: colorScheme.secondary,
+                              color: colorScheme.onSecondary,
                             ),
                           ),
                         ),
@@ -71,9 +66,8 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
                           child: Text(
                             "tertiary",
                             style: TextStyle(
-                              backgroundColor:
-                                  customThemeData.colorScheme.tertiary,
-                              color: customThemeData.colorScheme.onTertiary,
+                              backgroundColor: colorScheme.tertiary,
+                              color: colorScheme.onTertiary,
                             ),
                           ),
                         ),
@@ -81,27 +75,21 @@ class ExampleWidgetShowingCurrentColors extends ConsumerWidget {
                           onPressed: emptyFunc,
                           child: Text(
                             "primary",
-                            style: TextStyle(
-                              color: customThemeData.colorScheme.primary,
-                            ),
+                            style: TextStyle(color: colorScheme.primary),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: emptyFunc,
                           child: Text(
                             "secondary",
-                            style: TextStyle(
-                              color: customThemeData.colorScheme.secondary,
-                            ),
+                            style: TextStyle(color: colorScheme.secondary),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: emptyFunc,
                           child: Text(
                             "tertiary",
-                            style: TextStyle(
-                              color: customThemeData.colorScheme.tertiary,
-                            ),
+                            style: TextStyle(color: colorScheme.tertiary),
                           ),
                         ),
                       ],

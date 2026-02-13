@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colortheme_creator/src/view/subwidgets/helper_widgets.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
-class DisplayWidgetForCurrentlyChosenColor extends ConsumerWidget {
-  const DisplayWidgetForCurrentlyChosenColor({super.key});
+class DisplayWidgetForAllColorSchemeColors extends ConsumerWidget {
+  const DisplayWidgetForAllColorSchemeColors({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

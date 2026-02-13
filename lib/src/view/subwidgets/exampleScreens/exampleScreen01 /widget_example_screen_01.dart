@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../../../theme_color_creator_widget.dart';
+import '../../example_buttons.dart';
 import 'panel_demo.dart';
 
 class ExampleScreen01 extends ConsumerWidget {

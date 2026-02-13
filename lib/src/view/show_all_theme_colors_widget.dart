@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
+import 'package:flutter_colortheme_creator/src/view/util/helpers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gui_creation_helper/gui_creation_helper.dart';
@@ -32,13 +34,16 @@ class _ShowAllThemeColorsWidget
 
   late final ThemeController themeController = widget.themeController;
 
-  late ThemeData _customThemeData;
-
   @override
   Widget build(BuildContext context) {
-    final themeState = ref.watch(themeStateProvider);
+    // final themeState = ref.watch(themeStateProvider);
+    // _customThemeData = themeState.themeData;
 
-    _customThemeData = themeState.themeData;
+    final colSchemeAppWide = ref.read(themeStateProvider).colorScheme;
+
+    final colSchemeOwnCustom = ref
+        .read(customColorschemeDataProvider(themeController))
+        .customColorScheme;
 
     return Center(
       child: Container(
@@ -56,16 +61,22 @@ class _ShowAllThemeColorsWidget
               children: [
                 DevPanelSwitchThemes(themeController: themeController),
                 Divider(),
-                DisplayWidgetThemeColorsInUse(),
+                DisplayWidgetThemeColorsInUse(
+                  colorScheme: colSchemeAppWide,
+                  appliedColorScheme: AppliedColorScheme.appWide,
+                ),
                 Divider(),
                 DevPanelSwitchThemes(themeController: themeController),
                 Divider(),
-                DisplayWidgetForCurrentlyChosenColor(),
+                DisplayWidgetThemeColorsInUse(
+                  colorScheme: colSchemeOwnCustom,
+                  appliedColorScheme: AppliedColorScheme.ownCustom,
+                ),
                 Divider(),
                 DevPanelSwitchThemes(themeController: themeController),
                 Divider(),
                 ExampleWidgetShowingCurrentColors(
-                  customThemeData: _customThemeData,
+                  colorScheme: colSchemeOwnCustom,
                 ),
                 Divider(),
                 ConfigureColorsPanel(themeController: themeController),

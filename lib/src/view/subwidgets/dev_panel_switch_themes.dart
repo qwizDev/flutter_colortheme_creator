@@ -70,17 +70,19 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
                     ),
-                    child: ButtonStd(labelText: "save theme (file) (NYI)", () {
-                      themeController.resetThemeList();
-                    }),
+                    child: ButtonStd(
+                      labelText: "save theme (file) (NYI)",
+                      () {},
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
                       paddingBetweenButtons,
                     ),
-                    child: ButtonStd(labelText: "load themes (file) (NYI)", () {
-                      themeController.resetThemeList();
-                    }),
+                    child: ButtonStd(
+                      labelText: "load themes (file) (NYI)",
+                      () {},
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsetsGeometry.all(
