@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -18,10 +19,16 @@ class PanelColorRoleChoser extends ConsumerStatefulWidget {
 }
 
 class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
+  late ThemeController themeController;
   late ColorSchemeKey _radioColorKey;
+  late ColorScheme _colorScheme;
 
   @override
   Widget build(BuildContext context) {
+    themeController = widget.themeController;
+    _colorScheme = ref
+        .watch(customColorschemeDataProvider(themeController))
+        .customColorScheme;
     _radioColorKey = ref.watch(radioValueForColorRoleProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -35,7 +42,10 @@ class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Select Color to set up"),
+                Text(
+                  "Select Color to set up",
+                  style: TextStyle(color: _colorScheme.primary),
+                ),
                 for (ColorSchemeKey radVal in ColorSchemeKey.values)
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
@@ -56,10 +66,14 @@ class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
                           radVal,
                         );
                       },
-                      child: Text(radVal.name),
+                      child: Text(
+                        radVal.name,
+                        style: TextStyle(color: _colorScheme.primary),
+                      ),
                     ),
                     leading: Radio<ColorSchemeKey>(
                       value: radVal,
+                      fillColor: WidgetStatePropertyAll(_colorScheme.primary),
                       groupValue: _radioColorKey,
                       onChanged: (ColorSchemeKey? value) {
                         ref

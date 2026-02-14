@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
 import 'package:flutter_colortheme_creator/src/provider/radio_value_for_color_role.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../provider/theme_state_provider.dart';
 import '../guiConstants/gui_constants_for_package.dart';
 import '../util/helpers.dart';
 
@@ -27,14 +29,23 @@ class MiniColorBox extends ConsumerStatefulWidget {
 }
 
 class _MiniColorBox extends ConsumerState<MiniColorBox> {
+  late ColorScheme colorScheme;
   @override
   Widget build(Object context) {
+    colorScheme = ref
+        .watch(customColorschemeDataProvider(widget.themeController))
+        .customColorScheme;
+
     return Row(
       children: [
         SizedBox(
           width: widget.width,
           height: widget.height,
-          child: Text(widget.caption),
+          // child: Text(widget.caption, style: TextStyle(color: widget.color)),
+          child: Text(
+            widget.caption,
+            style: TextStyle(color: colorScheme.primary),
+          ),
         ),
 
         GestureDetector(

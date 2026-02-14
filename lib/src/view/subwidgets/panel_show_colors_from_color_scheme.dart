@@ -31,6 +31,7 @@ class PanelShowColorsFromColScheme extends StatelessWidget {
             itemBuilder: (context, index) {
               return MiniColorBox(
                 themeController: themeController,
+                // colorScheme: colScheme,
                 color:
                     colorSchemeAsMap[ColorSchemeKey.values[index]] ??
                     Colors.amber,

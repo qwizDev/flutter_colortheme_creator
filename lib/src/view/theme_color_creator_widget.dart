@@ -95,7 +95,8 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                             title: Text(
                               "ThemeColor-Creator",
                               style: TextStyle(
-                                color: _ownCustomColorScheme.inversePrimary,
+                                // color: _ownCustomColorScheme.inversePrimary,
+                                color: _ownCustomColorScheme.onPrimary,
                               ),
                             ),
                           ),
@@ -118,6 +119,9 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                                       fontSize: Theme.of(
                                         context,
                                       ).textTheme.headlineMedium?.fontSize,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
                                     ),
                                   ),
                                 ),
@@ -196,7 +200,13 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                                     Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text("customColorScheme:"),
+                                        Text(
+                                          "customColorScheme:",
+                                          style: TextStyle(
+                                            color:
+                                                _ownCustomColorScheme.primary,
+                                          ),
+                                        ),
                                         PanelShowColorsFromColScheme(
                                           themeController: themeController,
                                           colScheme: _ownCustomColorScheme,
