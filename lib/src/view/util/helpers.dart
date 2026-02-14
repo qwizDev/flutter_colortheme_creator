@@ -191,7 +191,7 @@ class Helpers {
         .setCustomColorScheme(ownCustomColorScheme);
   }
 
-  static void useThisColorAsPickerColor(
+  static void useColorSchemeKeyForPickerColor(
     WidgetRef ref,
     ThemeController themeController,
     ColorSchemeKey radVal,
@@ -208,4 +208,19 @@ class Helpers {
         .read(customColorschemeDataProvider(themeController).notifier)
         .setChosenColor(colorToSet);
   }
+
+  static void useThisColorAsPickerColor(
+    WidgetRef ref,
+    ThemeController themeController,
+    Color color,
+  ) {
+    ref
+        .read(customColorschemeDataProvider(themeController).notifier)
+        .setChosenColor(color);
+  }
+
+  // static String colorToHex(Color color) {
+  //   // return '#${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}';
+  //   return '#${color.toARGB32().toRadixString(16).padLeft(24, '0').toUpperCase()}';
+  // }
 }

@@ -50,7 +50,7 @@ class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
                     // },
                     title: GestureDetector(
                       onDoubleTap: () {
-                        Helpers.useThisColorAsPickerColor(
+                        Helpers.useColorSchemeKeyForPickerColor(
                           ref,
                           widget.themeController,
                           radVal,
@@ -58,21 +58,10 @@ class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
                       },
                       child: Text(radVal.name),
                     ),
-
-                    // onTap: () {
-                    //   useThisColorAsPickerColor(
-                    //     ref,
-                    //     radVal,
-                    //   );
-                    // },
                     leading: Radio<ColorSchemeKey>(
                       value: radVal,
                       groupValue: _radioColorKey,
                       onChanged: (ColorSchemeKey? value) {
-                        //   setState(() {
-                        //     radioColorKey = value;
-                        //   });
-
                         ref
                             .read(radioValueForColorRoleProvider.notifier)
                             .setValue(value);

@@ -1,24 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
+import 'package:flutter_colortheme_creator/src/provider/radio_value_for_color_role.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../guiConstants/gui_constants_for_package.dart';
+import '../util/helpers.dart';
 
-class MiniColorBox extends StatelessWidget {
-  MiniColorBox({super.key, required this.color, required this.caption});
+class MiniColorBox extends ConsumerStatefulWidget {
+  MiniColorBox({
+    super.key,
+    required this.themeController,
+    required this.color,
+    required this.caption,
+  });
 
+  late final ThemeController themeController;
   final double width = 160;
-
   final double height = GuiConstantsForPackage.heightOfAColorLine - 2;
   final Color color;
   final String caption;
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _MiniColorBox();
+  }
+}
+
+class _MiniColorBox extends ConsumerState<MiniColorBox> {
+  @override
   Widget build(Object context) {
     return Row(
       children: [
-        SizedBox(width: width, height: height, child: Text(caption)),
-        Container(
-          decoration: BoxDecoration(color: color, border: Border.all()),
-          child: SizedBox(width: width, height: height),
+        SizedBox(
+          width: widget.width,
+          height: widget.height,
+          child: Text(widget.caption),
+        ),
+
+        GestureDetector(
+          onDoubleTap: () {
+            Helpers.useThisColorAsPickerColor(
+              ref,
+              widget.themeController,
+              widget.color,
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.color,
+              border: Border.all(),
+            ),
+            child: SizedBox(width: widget.width, height: widget.height),
+          ),
         ),
       ],
     );

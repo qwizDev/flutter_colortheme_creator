@@ -61,6 +61,7 @@ class _ButtonPanelForColorSchemeCreation
     } else {
       return Column(
         mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [...createAllButtons()],
       );
     }
@@ -167,7 +168,10 @@ class _ButtonForThis extends StatelessWidget {
     //   ),
     // );
     return Expanded(
-      child: ElevatedButton(onPressed: onPressed, style: style, child: child),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: 300),
+        child: ElevatedButton(onPressed: onPressed, style: style, child: child),
+      ),
     );
   }
 }

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import 'mini_color_box.dart';
 
 class PanelShowColorsFromColScheme extends StatelessWidget {
-  const PanelShowColorsFromColScheme({required this.colScheme, super.key});
+  const PanelShowColorsFromColScheme({
+    required this.themeController,
+    required this.colScheme,
+    super.key,
+  });
 
+  final ThemeController themeController;
   final ColorScheme colScheme;
 
   @override
@@ -15,10 +21,7 @@ class PanelShowColorsFromColScheme extends StatelessWidget {
     );
 
     return Column(
-      // mainAxisSize: MainAxisSize.min,
       children: [
-        // MiniColorBox(color: colScheme.primary, caption: "primary"),
-        // MiniColorBox(color: colScheme.onPrimary, caption: "onPrimary"),
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 400),
 
@@ -27,6 +30,7 @@ class PanelShowColorsFromColScheme extends StatelessWidget {
             itemCount: ColorSchemeKey.values.length,
             itemBuilder: (context, index) {
               return MiniColorBox(
+                themeController: themeController,
                 color:
                     colorSchemeAsMap[ColorSchemeKey.values[index]] ??
                     Colors.amber,

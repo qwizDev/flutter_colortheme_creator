@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -6,97 +7,45 @@ import '../../../flutter_colortheme_creator.dart';
 import '../../provider/custom_color_scheme_data_provider.dart';
 
 class DevPanelSwitchThemes extends ConsumerWidget {
-  const DevPanelSwitchThemes({super.key, required this.themeController});
+  DevPanelSwitchThemes({super.key, required this.themeController});
 
   final ThemeController themeController;
-
+  late Color _chosenColor;
   static const double paddingBetweenButtons = WidgetDeco.paddingButtonsBetween;
+
+  final double _labelSizeMin = 300;
+  late double _fontSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    _fontSize = Theme.of(context).textTheme.headlineMedium?.fontSize ?? 24;
+    _chosenColor = ref
+        .read(customColorschemeDataProvider(themeController))
+        .chosenColor;
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: 100),
       child: Container(
         color: Theme.of(context).colorScheme.surface,
         child: Padding(
-          padding: const EdgeInsets.all(WidgetDeco.paddingPanelOnScreen),
+          // padding: const EdgeInsets.all(WidgetDeco.paddingPanelOnScreen),
+          padding: const EdgeInsets.only(top: WidgetDeco.paddingPanelOnScreen),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Wrap(
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "Theme light", () {
-                      setNewTheme(ref, "light");
-                    }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "Theme dark", () {
-                      setNewTheme(ref, "dark");
-                    }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "Papagei light", () {
-                      setNewTheme(ref, "papageiLight");
-                    }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "Papagei dark", () {
-                      setNewTheme(ref, "papageiDark");
-                    }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "walk through themes", () {
-                      walkThroughThemesOnePerClick(ref, themeController);
-                    }),
-                  ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(
-                      labelText: "save theme (file) (NYI)",
-                      () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(
-                      labelText: "load themes (file) (NYI)",
-                      () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsGeometry.all(
-                      paddingBetweenButtons,
-                    ),
-                    child: ButtonStd(labelText: "reset themes", () {
-                      themeController.resetThemeList();
-                    }),
-                  ),
-                ],
-              ),
-              Text(
-                "last loaded theme: ${themeController.getCurrentThemeName()}",
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ...buildDevButtons(ref),
+              Padding(
+                // padding: EdgeInsetsGeometry.symmetric(
+                //   vertical: WidgetDeco.paddingBoxInPanel,
+                // ),
+                padding: EdgeInsetsGeometry.only(
+                  bottom: WidgetDeco.paddingBoxInPanel,
+                ),
+
+                child: Column(
+                  children: [
+                    ...buildCurrentThemeCurrentColorInfoWidgets(ref, context),
+                  ],
+                ),
               ),
             ],
           ),
@@ -128,5 +77,156 @@ class DevPanelSwitchThemes extends ConsumerWidget {
 
   ColorScheme useThemesColSchemeOrFallback(ThemeData? theme) {
     return theme?.colorScheme ?? ThemeData.fallback().colorScheme;
+  }
+
+  List<Widget> buildDevButtons(WidgetRef ref) {
+    return [
+      Wrap(
+        children: [
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "Theme light", () {
+              setNewTheme(ref, "light");
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "Theme dark", () {
+              setNewTheme(ref, "dark");
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "Papagei light", () {
+              setNewTheme(ref, "papageiLight");
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "Papagei dark", () {
+              setNewTheme(ref, "papageiDark");
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(
+              labelText: "Papagei papageiBasedFirstOwnLight",
+              () {
+                setNewTheme(ref, "papageiBasedFirstOwnLight");
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "Papagei papageiBasedFirstOwnDark", () {
+              setNewTheme(ref, "papageiBasedFirstOwnDark");
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "walk through themes", () {
+              walkThroughThemesOnePerClick(ref, themeController);
+            }),
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "save theme (file) (NYI)", () {}),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "load themes (file) (NYI)", () {}),
+          ),
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(labelText: "reset themes", () {
+              themeController.resetThemeList();
+            }),
+          ),
+        ],
+      ),
+    ];
+  }
+
+  List<Widget> buildCurrentThemeCurrentColorInfoWidgets(
+    WidgetRef ref,
+    BuildContext context,
+  ) {
+    return [
+      Padding(
+        padding: const EdgeInsets.only(top: WidgetDeco.paddingPanelOnScreen),
+        child: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: WidgetDeco.paddingPanelOnScreen,
+            ),
+            child: Row(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: _labelSizeMin),
+                  child: Text(
+                    "Theme:",
+                    style: TextStyle(
+                      fontSize: _fontSize,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: _labelSizeMin),
+                  child: Text(
+                    themeController.getCurrentThemeName(),
+                    style: TextStyle(
+                      fontSize: _fontSize,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: WidgetDeco.paddingPanelOnScreen,
+        ),
+        child: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: WidgetDeco.paddingPanelOnScreen,
+            ),
+            child: Row(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: _labelSizeMin),
+                  child: Text(
+                    "Current Color:",
+                    style: TextStyle(
+                      fontSize: _fontSize,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: _labelSizeMin),
+                  child: Text(
+                    colorToHex(_chosenColor),
+                    style: TextStyle(
+                      fontSize: _fontSize,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ];
   }
 }

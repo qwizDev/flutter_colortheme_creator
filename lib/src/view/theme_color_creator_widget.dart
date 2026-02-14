@@ -55,6 +55,7 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
   Widget build(BuildContext context) {
     _colorScheme = ref.watch(themeStateProvider).colorScheme;
 
+    // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
     _ownCustomColorScheme = ref
         .watch(customColorschemeDataProvider(themeController))
         .customColorScheme;
@@ -63,120 +64,165 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
         .watch(customColorschemeDataProvider(themeController))
         .chosenColor;
 
-    // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
-
     return LayoutBuilder(
       builder: (context, constraints) {
-        // return ConstrainedBox(
-        //   constraints: BoxConstraints(maxWidth: constraints.maxWidth),
         return SizedBox(
-          width: constraints.maxWidth, // <- DAS ist entscheidend
+          width: constraints.maxWidth,
 
           child: SingleChildScrollView(
             child: Row(
               children: [
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 900),
-
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      AppBar(
-                        backgroundColor: _colorScheme.primary,
-                        centerTitle: true,
-                        title: Text(
-                          "ThemeColor-Creator",
-                          style: TextStyle(color: _colorScheme.inversePrimary),
-                        ),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(
-                              "Pick colors and create your own custom colorScheme",
-                              style: TextStyle(
-                                fontSize: Theme.of(
-                                  context,
-                                ).textTheme.headlineMedium?.fontSize,
-                              ),
+                  child: Container(
+                    decoration: WidgetDeco.createBoxDeco(
+                      // context: context,
+                      // colBorder: Theme.of(context).colorScheme.primary,
+                      //     border: WidgetDeco.borderStd
+                      colBorder: _ownCustomColorScheme.primary,
+                      width: 4,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        /* // APPBAR */
+                        AppBar(
+                          backgroundColor: _ownCustomColorScheme.primary,
+                          centerTitle: true,
+                          title: Text(
+                            "ThemeColor-Creator",
+                            style: TextStyle(
+                              color: _ownCustomColorScheme.inversePrimary,
                             ),
                           ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
 
-                          /* //COLORPICKER AND SOME DEV BUTTONS IN A ROW */
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: WidgetDeco.boxDecoStd,
-                                child: ColorPicker(
-                                  pickerColor: _chosenColor,
-                                  onColorChanged: (color) =>
-                                      Helpers.applyChosenColor(
-                                        ref,
-                                        themeController,
-                                        color,
-                                      ),
+                          children: [
+                            /* // HEADLINE-ROW */
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Text(
+                                "Pick colors and create your own custom colorScheme",
+                                style: TextStyle(
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.headlineMedium?.fontSize,
                                 ),
                               ),
-                              ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 300),
+                            ),
+
+                            /* // COLORPICKER AND SOME DEV BUTTONS IN A ROW */
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      /* //COLORPICKER */
+                                      Container(
+                                        // decoration: WidgetDeco.boxDecoStd,
+                                        child: ColorPicker(
+                                          pickerColor: _chosenColor,
+                                          onColorChanged: (color) =>
+                                              Helpers.applyChosenColor(
+                                                ref,
+                                                themeController,
+                                                color,
+                                              ),
+                                        ),
+                                      ),
+
+                                      /* // SOME DEV BUTTONS IN A ROW */
+                                      // Spacer(),
+                                      Expanded(
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                            maxHeight: 300,
+                                          ),
+                                          child:
+                                              ButtonPanelForColorSchemeCreation(
+                                                themeController:
+                                                    themeController,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            /* // DEV-PANEL FOR SWITCHING THEMES */
+                            DevPanelSwitchThemes(
+                              themeController: themeController,
+                            ),
+
+                            /* // PANEL WITH ButtonPanelForColorSchemeCreation AS ROW */
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxHeight: 300),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.only(
+                                  bottom: WidgetDeco.paddingBoxInPanel * 5,
+                                ),
                                 child: ButtonPanelForColorSchemeCreation(
                                   themeController: themeController,
+                                  givenButtonsToUse: [
+                                    ButtonsForColorSchemeCreation.useThisColor,
+                                    ButtonsForColorSchemeCreation
+                                        .createAndUseTheme,
+                                  ],
+                                  asRow: true,
                                 ),
                               ),
-                            ],
-                          ),
-                          DevPanelSwitchThemes(
-                            themeController: themeController,
-                          ),
+                            ),
 
-                          // IntrinsicHeight(
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
 
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  //PANEL SHOWING COLOR-ROLE-NAMES AND CUSTOM COLORS
-                                  Text("customColorScheme:"),
-                                  PanelShowColorsFromColScheme(
-                                    colScheme: _ownCustomColorScheme,
-                                  ),
-                                ],
-                              ),
+                              children: [
+                                /* // PANEL SHOWING COLOR-ROLE-NAMES AND CUSTOM COLORS */
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text("customColorScheme:"),
+                                    PanelShowColorsFromColScheme(
+                                      themeController: themeController,
+                                      colScheme: _ownCustomColorScheme,
+                                    ),
+                                  ],
+                                ),
 
-                              /* //PANEL SHOWING RADIOBUTTONS AND COLOR-ROLE NAMES */
-                              PanelColorRoleChoser(
-                                themeController: themeController,
-                              ),
-                            ],
-                          ),
-                          /* //AGAIN: PANEL WITH ButtonPanelForColorSchemeCreation BUT AS A ROW NOW */
-                          ConstrainedBox(
-                            constraints: BoxConstraints(maxHeight: 300),
-                            child: Padding(
-                              padding: EdgeInsetsGeometry.symmetric(
-                                vertical: WidgetDeco.paddingBoxInPanel * 10,
-                              ),
-                              child: ButtonPanelForColorSchemeCreation(
-                                themeController: themeController,
-                                givenButtonsToUse: [
-                                  ButtonsForColorSchemeCreation.useThisColor,
-                                  ButtonsForColorSchemeCreation
-                                      .createAndUseTheme,
-                                ],
-                                asRow: true,
+                                /* // PANEL SHOWING RADIOBUTTONS AND COLOR-ROLE NAMES */
+                                PanelColorRoleChoser(
+                                  themeController: themeController,
+                                ),
+                              ],
+                            ),
+                            /* // PANEL WITH ButtonPanelForColorSchemeCreation AS ROW */
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxHeight: 300),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.symmetric(
+                                  vertical: WidgetDeco.paddingBoxInPanel * 10,
+                                ),
+                                child: ButtonPanelForColorSchemeCreation(
+                                  themeController: themeController,
+                                  givenButtonsToUse: [
+                                    ButtonsForColorSchemeCreation.useThisColor,
+                                    ButtonsForColorSchemeCreation
+                                        .createAndUseTheme,
+                                  ],
+                                  asRow: true,
+                                ),
                               ),
                             ),
-                          ),
-                          ExampleScreen01(themeController: themeController),
-                        ],
-                      ),
-                    ],
+                            ExampleScreen01(themeController: themeController),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 // Expanded(
