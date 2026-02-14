@@ -18,7 +18,13 @@ class DevPanelSwitchThemes extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _fontSize = Theme.of(context).textTheme.headlineMedium?.fontSize ?? 24;
+    double? tmpFontSize = Theme.of(context).textTheme.bodyLarge?.fontSize;
+    if (tmpFontSize != null) {
+      tmpFontSize = tmpFontSize * 1.1;
+    }
+
+    _fontSize = tmpFontSize ?? 24;
+
     _chosenColor = ref
         .read(customColorschemeDataProvider(themeController))
         .chosenColor;
@@ -85,32 +91,41 @@ class DevPanelSwitchThemes extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "Theme light", () {
+            child: ButtonStd(labelText: "Theme light", fontSize: _fontSize, () {
               setNewTheme(ref, "light");
             }),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "Theme dark", () {
+            child: ButtonStd(labelText: "Theme dark", fontSize: _fontSize, () {
               setNewTheme(ref, "dark");
             }),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "Papagei light", () {
-              setNewTheme(ref, "papageiLight");
-            }),
+            child: ButtonStd(
+              labelText: "Papagei light",
+              fontSize: _fontSize,
+              () {
+                setNewTheme(ref, "papageiLight");
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "Papagei dark", () {
-              setNewTheme(ref, "papageiDark");
-            }),
+            child: ButtonStd(
+              labelText: "Papagei dark",
+              fontSize: _fontSize,
+              () {
+                setNewTheme(ref, "papageiDark");
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
             child: ButtonStd(
               labelText: "Papagei papageiBasedFirstOwnLight",
+              fontSize: _fontSize,
               () {
                 setNewTheme(ref, "papageiBasedFirstOwnLight");
               },
@@ -118,30 +133,50 @@ class DevPanelSwitchThemes extends ConsumerWidget {
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "Papagei papageiBasedFirstOwnDark", () {
-              setNewTheme(ref, "papageiBasedFirstOwnDark");
-            }),
+            child: ButtonStd(
+              labelText: "Papagei papageiBasedFirstOwnDark",
+              fontSize: _fontSize,
+              () {
+                setNewTheme(ref, "papageiBasedFirstOwnDark");
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "walk through themes", () {
-              walkThroughThemesOnePerClick(ref, themeController);
-            }),
+            child: ButtonStd(
+              labelText: "walk through themes",
+              fontSize: _fontSize,
+              () {
+                walkThroughThemesOnePerClick(ref, themeController);
+              },
+            ),
           ),
           Divider(),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "save theme (file) (NYI)", () {}),
+            child: ButtonStd(
+              labelText: "save theme (file) (NYI)",
+              fontSize: _fontSize,
+              () {},
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "load themes (file) (NYI)", () {}),
+            child: ButtonStd(
+              labelText: "load themes (file) (NYI)",
+              fontSize: _fontSize,
+              () {},
+            ),
           ),
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
-            child: ButtonStd(labelText: "reset themes", () {
-              themeController.resetThemeList();
-            }),
+            child: ButtonStd(
+              labelText: "reset themes",
+              fontSize: _fontSize,
+              () {
+                themeController.resetThemeList();
+              },
+            ),
           ),
         ],
       ),
