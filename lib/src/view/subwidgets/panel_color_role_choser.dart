@@ -27,7 +27,7 @@ class _PanelColorRoleChoser extends ConsumerState<PanelColorRoleChoser> {
   Widget build(BuildContext context) {
     themeController = widget.themeController;
     _colorScheme = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .customColorScheme;
     _radioColorKey = ref.watch(radioValueForColorRoleProvider);
     return Column(

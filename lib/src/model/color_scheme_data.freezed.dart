@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ColorSchemeData {
 
- ColorScheme get customColorScheme; Color get chosenColor;
+ ColorScheme get customColorScheme; Color get chosenColor; Color get seedColor;
 /// Create a copy of ColorSchemeData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ColorSchemeDataCopyWith<ColorSchemeData> get copyWith => _$ColorSchemeDataCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorSchemeData&&(identical(other.customColorScheme, customColorScheme) || other.customColorScheme == customColorScheme)&&(identical(other.chosenColor, chosenColor) || other.chosenColor == chosenColor));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorSchemeData&&(identical(other.customColorScheme, customColorScheme) || other.customColorScheme == customColorScheme)&&(identical(other.chosenColor, chosenColor) || other.chosenColor == chosenColor)&&(identical(other.seedColor, seedColor) || other.seedColor == seedColor));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,customColorScheme,chosenColor);
+int get hashCode => Object.hash(runtimeType,customColorScheme,chosenColor,seedColor);
 
 @override
 String toString() {
-  return 'ColorSchemeData(customColorScheme: $customColorScheme, chosenColor: $chosenColor)';
+  return 'ColorSchemeData(customColorScheme: $customColorScheme, chosenColor: $chosenColor, seedColor: $seedColor)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ColorSchemeDataCopyWith<$Res>  {
   factory $ColorSchemeDataCopyWith(ColorSchemeData value, $Res Function(ColorSchemeData) _then) = _$ColorSchemeDataCopyWithImpl;
 @useResult
 $Res call({
- ColorScheme customColorScheme, Color chosenColor
+ ColorScheme customColorScheme, Color chosenColor, Color seedColor
 });
 
 
@@ -62,10 +62,11 @@ class _$ColorSchemeDataCopyWithImpl<$Res>
 
 /// Create a copy of ColorSchemeData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? customColorScheme = null,Object? chosenColor = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? customColorScheme = null,Object? chosenColor = null,Object? seedColor = null,}) {
   return _then(ColorSchemeData(
 customColorScheme: null == customColorScheme ? _self.customColorScheme : customColorScheme // ignore: cast_nullable_to_non_nullable
 as ColorScheme,chosenColor: null == chosenColor ? _self.chosenColor : chosenColor // ignore: cast_nullable_to_non_nullable
+as Color,seedColor: null == seedColor ? _self.seedColor : seedColor // ignore: cast_nullable_to_non_nullable
 as Color,
   ));
 }

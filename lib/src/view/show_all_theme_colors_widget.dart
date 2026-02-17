@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../provider/theme_controller.dart';
-import '../provider/theme_state_provider.dart';
 import 'subwidgets/dev_panel_switch_themes.dart';
 import 'subwidgets/widget_showing_current_colors.dart';
 import 'subwidgets/widget_themecolors_in_use.dart';
@@ -35,14 +34,10 @@ class _ShowAllThemeColorsWidget
 
   @override
   Widget build(BuildContext context) {
-    // final themeState = ref.watch(themeStateProvider);
-    // _customThemeData = themeState.themeData;
-
-    // final colSchemeAppWide = ref.watch(themeStateProvider).colorScheme;
     final colSchemeAppWide = Theme.of(context).colorScheme;
 
     final colSchemeOwnCustom = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     return Center(

@@ -22,7 +22,7 @@ class ExampleScreen02 extends ConsumerWidget {
     // _colorScheme = ref.read(themeStateProvider).colorScheme;
 
     _ownCustomColorScheme = ref
-        .read(customColorschemeDataProvider(themeController))
+        .read(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     return Column(

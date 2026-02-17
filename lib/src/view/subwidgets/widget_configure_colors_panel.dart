@@ -1,37 +1,21 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
+import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../../../flutter_colortheme_creator.dart';
+import '../util/helpers.dart';
 import 'helper_widgets.dart';
-import 'widget_example_for_chosen_colors.dart';
 
 class ConfigureColorsPanel extends ConsumerWidget {
-  const ConfigureColorsPanel({
-    super.key,
-    required this.themeController,
-    // required this.updateColorAndStateCallback,
-    // required this.getColorCallback,
-    // required this.currentColor,
-    // required this.colThemeData,
-  });
+  const ConfigureColorsPanel({super.key, required this.themeController});
 
   final ThemeController themeController;
 
-  // /* did not use a provider to learn how to do
-  //    it the setState callback-passing way */
-  // final Function updateColorAndStateCallback;
-  // final Function getColorCallback;
-  // final Color currentColor;
-  // final ThemeData colThemeData;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeData = ref.watch(themeStateProvider);
+    final themeData = ref.watch(customColorSchemeDataProvider(themeController));
 
     return Column(
       children: [
@@ -39,59 +23,54 @@ class ConfigureColorsPanel extends ConsumerWidget {
         Column(
           children: [
             ColButtonBox(
-              onPressed: null,
               caption: "Use as seed for App-Theme (NYI)",
+              onPressed: null,
             ),
-            // ColButtonBox(
-            //   onPressed: () => showColorPicker(),
-            //   caption: "show color picker",
-            // ),
             Container(
               alignment: Alignment.center,
               decoration: WidgetDeco.boxDecoStd,
               child: ColorPicker(
-                pickerColor: themeData.seedColor,
-                // pickerColor: currentColor,
-                // print("prints from onColorChanged. Color:\t $color")),
+                pickerColor: themeData.chosenColor,
                 onColorChanged: (color) =>
-                    ref.read(themeStateProvider.notifier).setSeedColor(color),
+                    Helpers.applyChosenColor(ref, themeController, color),
               ),
             ),
-            ColButtonBox(
-              onPressed: () => setNewColor(ref, buildRandomColor()),
 
+            //   pickerColor: themeData.seedColor,
+            //   onColorChanged: (color) => ref
+            //       .read(
+            //         customColorSchemeDataProvider(themeController).notifier,
+            //       )
+            //       .setSeedColor(color),
+            // ),
+            ColButtonBox(
               caption: "use a random color",
+              onPressed: () => setNewColor(ref, buildRandomColor()),
             ),
             ColButtonBox(
-              onPressed: () => setNewColor(ref, Colors.yellow),
               caption: "use yellow",
+              onPressed: () => setNewColor(ref, Colors.yellow),
             ),
             ColButtonBox(
-              // onPressed: () {createAndAddThemeToApp(ref)},
-              // onPressed: () {themeController.addThemeToList(DateTime.now().toIso8601String(),
-              //   ref.read(themeStateProvider).colorScheme, true);},
+              caption: "create and apply theme to app",
               onPressed: () {
                 final String themeName = DateTime.now().toIso8601String();
                 themeController.addThemeToList(
                   themeName,
-                  ref.read(themeStateProvider).colorScheme,
+                  ref
+                      .read(customColorSchemeDataProvider(themeController))
+                      .customColorScheme,
                   true,
                 );
                 themeController.applyTheme(themeName);
               },
-
-              caption: "create and apply theme to app",
             ),
-            ColButtonBox(
-              onPressed: () {},
-              caption: "save ColorScheme (NYI)",
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Headline(text: "ExampleWidget for PrimaryColor:"),
-            ),
-            ExampleWidgetForChosenColors(),
+            ColButtonBox(onPressed: () {}, caption: "save ColorScheme (NYI)"),
+            // Divider(),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Headline(text: "ExampleWidget for PrimaryColor:"),
+            // ),
           ],
         ),
       ],
@@ -99,10 +78,8 @@ class ConfigureColorsPanel extends ConsumerWidget {
   }
 
   void setNewColor(WidgetRef ref, Color newColor) {
-    ref.read(themeStateProvider.notifier).setSeedColor(newColor);
-  }
-
-  void createAndAddThemeToApp(WidgetRef ref) {
-    // ref.read();
+    ref
+        .read(customColorSchemeDataProvider(themeController).notifier)
+        .setSeedColor(newColor);
   }
 }

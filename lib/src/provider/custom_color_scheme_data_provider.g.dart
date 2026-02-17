@@ -12,41 +12,41 @@ part of 'custom_color_scheme_data_provider.dart';
 /// (that is: the ColorScheme itself as well a Color chosencolor which is
 /// needed for constructing and finetuning themes)
 
-@ProviderFor(CustomColorschemeData)
-final customColorschemeDataProvider = CustomColorschemeDataFamily._();
+@ProviderFor(CustomColorSchemeData)
+final customColorSchemeDataProvider = CustomColorSchemeDataFamily._();
 
 /// This class defines a riverpod provider for all data related to our own customColorSchemeData.
 /// (that is: the ColorScheme itself as well a Color chosencolor which is
 /// needed for constructing and finetuning themes)
-final class CustomColorschemeDataProvider
-    extends $NotifierProvider<CustomColorschemeData, ColorSchemeData> {
+final class CustomColorSchemeDataProvider
+    extends $NotifierProvider<CustomColorSchemeData, ColorSchemeData> {
   /// This class defines a riverpod provider for all data related to our own customColorSchemeData.
   /// (that is: the ColorScheme itself as well a Color chosencolor which is
   /// needed for constructing and finetuning themes)
-  CustomColorschemeDataProvider._({
-    required CustomColorschemeDataFamily super.from,
+  CustomColorSchemeDataProvider._({
+    required CustomColorSchemeDataFamily super.from,
     required ThemeController super.argument,
   }) : super(
          retry: null,
-         name: r'customColorschemeDataProvider',
+         name: r'customColorSchemeDataProvider',
          isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$customColorschemeDataHash();
+  String debugGetCreateSourceHash() => _$customColorSchemeDataHash();
 
   @override
   String toString() {
-    return r'customColorschemeDataProvider'
+    return r'customColorSchemeDataProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  CustomColorschemeData create() => CustomColorschemeData();
+  CustomColorSchemeData create() => CustomColorSchemeData();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(ColorSchemeData value) {
@@ -58,7 +58,7 @@ final class CustomColorschemeDataProvider
 
   @override
   bool operator ==(Object other) {
-    return other is CustomColorschemeDataProvider && other.argument == argument;
+    return other is CustomColorSchemeDataProvider && other.argument == argument;
   }
 
   @override
@@ -67,26 +67,26 @@ final class CustomColorschemeDataProvider
   }
 }
 
-String _$customColorschemeDataHash() =>
-    r'c6bcbe84d4ae2b9816119a73b1713e438fadc814';
+String _$customColorSchemeDataHash() =>
+    r'b675ed6e7ea6e46a51863f2e9bf64e6310127036';
 
 /// This class defines a riverpod provider for all data related to our own customColorSchemeData.
 /// (that is: the ColorScheme itself as well a Color chosencolor which is
 /// needed for constructing and finetuning themes)
 
-final class CustomColorschemeDataFamily extends $Family
+final class CustomColorSchemeDataFamily extends $Family
     with
         $ClassFamilyOverride<
-          CustomColorschemeData,
+          CustomColorSchemeData,
           ColorSchemeData,
           ColorSchemeData,
           ColorSchemeData,
           ThemeController
         > {
-  CustomColorschemeDataFamily._()
+  CustomColorSchemeDataFamily._()
     : super(
         retry: null,
-        name: r'customColorschemeDataProvider',
+        name: r'customColorSchemeDataProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: false,
@@ -96,18 +96,18 @@ final class CustomColorschemeDataFamily extends $Family
   /// (that is: the ColorScheme itself as well a Color chosencolor which is
   /// needed for constructing and finetuning themes)
 
-  CustomColorschemeDataProvider call(ThemeController themeController) =>
-      CustomColorschemeDataProvider._(argument: themeController, from: this);
+  CustomColorSchemeDataProvider call(ThemeController themeController) =>
+      CustomColorSchemeDataProvider._(argument: themeController, from: this);
 
   @override
-  String toString() => r'customColorschemeDataProvider';
+  String toString() => r'customColorSchemeDataProvider';
 }
 
 /// This class defines a riverpod provider for all data related to our own customColorSchemeData.
 /// (that is: the ColorScheme itself as well a Color chosencolor which is
 /// needed for constructing and finetuning themes)
 
-abstract class _$CustomColorschemeData extends $Notifier<ColorSchemeData> {
+abstract class _$CustomColorSchemeData extends $Notifier<ColorSchemeData> {
   late final _$args = ref.$arg as ThemeController;
   ThemeController get themeController => _$args;
 

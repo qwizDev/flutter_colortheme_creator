@@ -16,7 +16,7 @@ class Helpers {
     Color chosenCol,
   ) {
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setChosenColor(chosenCol);
   }
 
@@ -25,11 +25,11 @@ class Helpers {
     ThemeController themeController,
   ) {
     ColorScheme ownCustomColorScheme = ref
-        .read(customColorschemeDataProvider(themeController))
+        .read(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     final Color chosenColor = ref
-        .read(customColorschemeDataProvider(themeController))
+        .read(customColorSchemeDataProvider(themeController))
         .chosenColor;
 
     final ColorSchemeKey radioColorKey = ref.read(
@@ -187,7 +187,7 @@ class Helpers {
     }
 
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setCustomColorScheme(ownCustomColorScheme);
   }
 
@@ -198,14 +198,14 @@ class Helpers {
   ) {
     final Map<ColorSchemeKey, Color> colorSchemeAsMap = ColorSchemeHelper.toMap(
       ref
-          .read(customColorschemeDataProvider(themeController))
+          .read(customColorSchemeDataProvider(themeController))
           .customColorScheme,
     );
 
     final colorToSet = colorSchemeAsMap[radVal] ?? Colors.amber;
 
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setChosenColor(colorToSet);
   }
 
@@ -215,7 +215,7 @@ class Helpers {
     Color color,
   ) {
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setChosenColor(color);
   }
 

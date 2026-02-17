@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_colortheme_creator/src/view/subwidgets/widget_showing_current_colors.dart';
 import 'package:flutter_colortheme_creator/src/view/util/helpers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../flutter_colortheme_creator.dart';
 import '../../provider/custom_color_scheme_data_provider.dart';
-import '../../provider/theme_state_provider.dart';
 
 enum ButtonsForColorSchemeCreation {
   useThisColor,
@@ -44,7 +42,7 @@ class _ButtonPanelForColorSchemeCreation
   @override
   Widget build(BuildContext context) {
     _ownCustomColorScheme = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     if (widget.givenButtonsToUse.isEmpty) {
@@ -103,18 +101,18 @@ class _ButtonPanelForColorSchemeCreation
 
   void nowCreateAndUseTheme(ThemeController themeController) {
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setCustomColorScheme(_ownCustomColorScheme);
   }
 
   void useColorAsSeedColor(ThemeController themeController) {
     _ownCustomColorScheme = ColorScheme.fromSeed(
       seedColor: ref
-          .read(customColorschemeDataProvider(themeController))
+          .read(customColorSchemeDataProvider(themeController))
           .chosenColor,
     );
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setCustomColorScheme(_ownCustomColorScheme);
   }
 
@@ -123,7 +121,7 @@ class _ButtonPanelForColorSchemeCreation
     //     .read(themeStateProvider.notifier)
     //     .setColorTheme(
     //       ref
-    //           .read(customColorschemeDataProvider(themeController))
+    //           .read(customColorSchemeDataProvider(themeController))
     //           .customColorScheme,
     //     );
 
@@ -132,7 +130,7 @@ class _ButtonPanelForColorSchemeCreation
       themeName,
       // ref.read(themeStateProvider).colorScheme,
       ref
-          .read(customColorschemeDataProvider(themeController))
+          .read(customColorSchemeDataProvider(themeController))
           .customColorScheme,
       true,
     );

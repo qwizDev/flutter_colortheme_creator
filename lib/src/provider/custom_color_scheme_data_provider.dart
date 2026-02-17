@@ -3,7 +3,6 @@ import 'package:flutter_colortheme_creator/src/model/color_scheme_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'theme_controller.dart';
-import 'theme_state_provider.dart';
 
 part 'custom_color_scheme_data_provider.g.dart';
 
@@ -11,17 +10,19 @@ part 'custom_color_scheme_data_provider.g.dart';
 /// (that is: the ColorScheme itself as well a Color chosencolor which is
 /// needed for constructing and finetuning themes)
 @Riverpod(keepAlive: true)
-class CustomColorschemeData extends _$CustomColorschemeData {
+class CustomColorSchemeData extends _$CustomColorSchemeData {
   @override
   late ThemeController themeController;
+  static const Color _startColor = Colors.green;
 
   @override
   ColorSchemeData build(ThemeController themeController) {
     this.themeController = themeController;
 
     return ColorSchemeData(
-      customColorScheme: ref.watch(themeStateProvider).colorScheme,
-      chosenColor: Colors.green,
+      customColorScheme: themeController.getCurrentThemeData().colorScheme,
+      chosenColor: _startColor,
+      seedColor: _startColor,
     );
   }
 
@@ -30,6 +31,10 @@ class CustomColorschemeData extends _$CustomColorschemeData {
   }
 
   void setChosenColor(Color chosenCol) {
+    state = state.copyWith(chosenColor: chosenCol);
+  }
+
+  void setSeedColor(Color chosenCol) {
     state = state.copyWith(chosenColor: chosenCol);
   }
 

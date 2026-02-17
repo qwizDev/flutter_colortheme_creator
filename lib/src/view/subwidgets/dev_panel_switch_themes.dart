@@ -26,7 +26,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
     _fontSize = tmpFontSize ?? 24;
 
     _chosenColor = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .chosenColor;
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: 100),
@@ -66,7 +66,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
     /*  also set _ownCustomColorScheme */
     final theme = themeController.getCurrentThemeData();
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setCustomColorScheme(useThemesColSchemeOrFallback(theme));
   }
 
@@ -77,7 +77,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
     await themeController.walkThroughThemesOnePerClick();
     final theme = themeController.getCurrentThemeData();
     ref
-        .read(customColorschemeDataProvider(themeController).notifier)
+        .read(customColorSchemeDataProvider(themeController).notifier)
         .setCustomColorScheme(useThemesColSchemeOrFallback(theme));
   }
 

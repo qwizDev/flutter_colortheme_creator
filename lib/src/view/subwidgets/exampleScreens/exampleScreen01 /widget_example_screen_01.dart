@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
-import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
+import '../../../../provider/custom_color_scheme_data_provider.dart';
 import '../../example_buttons.dart';
 import '../subwidgetsForAllExampleScreens/panel_demo.dart';
 
@@ -19,7 +20,7 @@ class ExampleScreen01 extends ConsumerWidget {
     // _colorScheme = ref.read(themeStateProvider).colorScheme;
 
     _ownCustomColorScheme = ref
-        .read(customColorschemeDataProvider(themeController))
+        .read(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     return Column(

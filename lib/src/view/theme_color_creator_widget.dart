@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
 import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
-import 'package:flutter_colortheme_creator/src/provider/theme_state_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
@@ -54,16 +53,14 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // _colorScheme = ref.watch(themeStateProvider).colorScheme;
     _colorScheme = Theme.of(context).colorScheme;
 
-    // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
     _ownCustomColorScheme = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .customColorScheme;
 
     _chosenColor = ref
-        .watch(customColorschemeDataProvider(themeController))
+        .watch(customColorSchemeDataProvider(themeController))
         .chosenColor;
 
     return LayoutBuilder(
@@ -80,9 +77,6 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                     constraints: BoxConstraints(maxWidth: 900),
                     child: Container(
                       decoration: WidgetDeco.createBoxDeco(
-                        // context: context,
-                        // colBorder: Theme.of(context).colorScheme.primary,
-                        //     border: WidgetDeco.borderStd
                         colBorder: _ownCustomColorScheme.primary,
                         colBackground: _ownCustomColorScheme.surface,
                         width: 3,
@@ -97,7 +91,6 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                             title: Text(
                               "ThemeColor-Creator",
                               style: TextStyle(
-                                // color: _ownCustomColorScheme.inversePrimary,
                                 color: _ownCustomColorScheme.onPrimary,
                               ),
                             ),
@@ -151,7 +144,6 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                                           ),
 
                                           /* // SOME DEV BUTTONS IN A ROW */
-                                          // Spacer(),
                                           Expanded(
                                             child: ConstrainedBox(
                                               constraints: BoxConstraints(
@@ -255,12 +247,6 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                       ),
                     ),
                   ),
-                  // Expanded(
-                  //   child: Row(
-                  //     mainAxisSize: MainAxisSize.max,
-                  //     children: [Text("fsadfasdfasdfsadfasdfasd")],
-                  //   ),
-                  // ),
                 ],
               ),
             ),

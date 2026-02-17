@@ -8,7 +8,7 @@ abstract class ThemeController {
 
   String getCurrentThemeName();
 
-  ThemeData? getCurrentThemeData();
+  ThemeData getCurrentThemeData();
 
   void addThemeToList(String name, ColorScheme colorScheme, bool isBrightTheme);
 

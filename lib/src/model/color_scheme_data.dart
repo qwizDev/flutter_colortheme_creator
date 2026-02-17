@@ -9,6 +9,12 @@ class ColorSchemeData with _$ColorSchemeData {
   final ColorScheme customColorScheme;
   @override
   final Color chosenColor;
+  @override
+  final Color seedColor;
 
-  ColorSchemeData({required this.customColorScheme, required this.chosenColor});
+  ColorSchemeData({
+    required this.customColorScheme,
+    required this.chosenColor,
+    required this.seedColor,
+  });
 }
