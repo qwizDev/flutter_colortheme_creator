@@ -9,6 +9,7 @@ import 'package:gui_creation_helper/gui_creation_helper.dart';
 import 'subwidgets/button_panel_for_color_scheme_creation.dart';
 import 'subwidgets/dev_panel_switch_themes.dart';
 import 'subwidgets/exampleScreens/exampleScreen01 /widget_example_screen_01.dart';
+import 'subwidgets/exampleScreens/exampleScreen02/widget_example_screen_02.dart';
 import 'subwidgets/panel_color_role_choser.dart';
 import 'subwidgets/panel_show_colors_from_color_scheme.dart';
 import 'util/helpers.dart';
@@ -53,7 +54,8 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _colorScheme = ref.watch(themeStateProvider).colorScheme;
+    // _colorScheme = ref.watch(themeStateProvider).colorScheme;
+    _colorScheme = Theme.of(context).colorScheme;
 
     // _ownCustomColorScheme = ref.watch(themeStateProvider).colorScheme;
     _ownCustomColorScheme = ref
@@ -240,7 +242,10 @@ class _ContentWidgetThemeColor extends ConsumerState<ThemeColorCreatorWidget> {
                                     ),
                                   ),
                                 ),
-                                ExampleScreen01(
+                                // ExampleScreen01(
+                                //   themeController: themeController,
+                                // ),
+                                ExampleScreen02(
                                   themeController: themeController,
                                 ),
                               ],

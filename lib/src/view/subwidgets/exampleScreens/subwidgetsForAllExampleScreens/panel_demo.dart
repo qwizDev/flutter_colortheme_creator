@@ -7,7 +7,7 @@ class PanelDemo extends StatelessWidget {
   final ColorScheme colScheme;
   final String kindOfThemeCol;
 
-  final String someFillText = "aaaaaaaaaaaaaaaaaaaaaaaa";
+  final String someFillText = "Text to fill the panel";
 
   late final Color mainCol;
   late final Color inverseCol;
@@ -24,18 +24,22 @@ class PanelDemo extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: containerCol, border: Border.all()),
         child: SizedBox(
-          width: 100,
-          height: 100,
+          width: 150,
+          height: 150,
           child: Column(
             children: [
               Text(
-                kindOfThemeCol,
+                "Color: $kindOfThemeCol",
                 style: TextStyle(
                   fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                   color: mainCol,
                 ),
               ),
               Text(someFillText, style: TextStyle(color: mainCol)),
+              Text(
+                "backgroundColor: container",
+                style: TextStyle(color: mainCol),
+              ),
             ],
           ),
         ),

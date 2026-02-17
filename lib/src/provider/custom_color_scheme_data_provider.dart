@@ -7,6 +7,9 @@ import 'theme_state_provider.dart';
 
 part 'custom_color_scheme_data_provider.g.dart';
 
+/// This class defines a riverpod provider for all data related to our own customColorSchemeData.
+/// (that is: the ColorScheme itself as well a Color chosencolor which is
+/// needed for constructing and finetuning themes)
 @Riverpod(keepAlive: true)
 class CustomColorschemeData extends _$CustomColorschemeData {
   @override
@@ -31,6 +34,6 @@ class CustomColorschemeData extends _$CustomColorschemeData {
   }
 
   void resetCustomColorSchemeData() {
-    build(themeController);
+    state = build(themeController);
   }
 }

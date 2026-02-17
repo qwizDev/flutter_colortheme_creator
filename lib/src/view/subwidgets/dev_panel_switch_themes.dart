@@ -26,7 +26,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
     _fontSize = tmpFontSize ?? 24;
 
     _chosenColor = ref
-        .read(customColorschemeDataProvider(themeController))
+        .watch(customColorschemeDataProvider(themeController))
         .chosenColor;
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: 100),
@@ -144,6 +144,28 @@ class DevPanelSwitchThemes extends ConsumerWidget {
           Padding(
             padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
             child: ButtonStd(
+              labelText: "papageiBasedLight002A1",
+              fontSize: _fontSize,
+              () {
+                setNewTheme(ref, "papageiBasedLight002A1");
+              },
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(
+              labelText: "papageiBasedDark002A1",
+              fontSize: _fontSize,
+              () {
+                setNewTheme(ref, "papageiBasedDark002A1");
+              },
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsetsGeometry.all(paddingBetweenButtons),
+            child: ButtonStd(
               labelText: "walk through themes",
               fontSize: _fontSize,
               () {
@@ -249,7 +271,7 @@ class DevPanelSwitchThemes extends ConsumerWidget {
                 ),
                 ConstrainedBox(
                   constraints: BoxConstraints(minWidth: _labelSizeMin),
-                  child: Text(
+                  child: SelectableText(
                     colorToHex(_chosenColor),
                     style: TextStyle(
                       fontSize: _fontSize,

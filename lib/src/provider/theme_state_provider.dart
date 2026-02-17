@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colortheme_creator/src/provider/theme_controller.dart';
 import '../model/theme_data_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,6 +17,17 @@ class ThemeState extends _$ThemeState {
       themeData: ThemeData.dark(),
     );
   }
+
+  // @override
+  // ThemeDataState build(ThemeController themeController) {
+  //   ThemeData theme = themeController.getCurrentThemeData() ?? ThemeData.dark();
+
+  //   return ThemeDataState(
+  //     colorScheme: theme.colorScheme,
+  //     seedColor: _startColor,
+  //     themeData: theme,
+  //   );
+  // }
 
   void setSeedColor(Color newColor) {
     final colorScheme = ColorScheme.fromSeed(seedColor: newColor);

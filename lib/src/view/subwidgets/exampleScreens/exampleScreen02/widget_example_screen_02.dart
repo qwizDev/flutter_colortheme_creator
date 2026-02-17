@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colortheme_creator/flutter_colortheme_creator.dart';
 import 'package:flutter_colortheme_creator/src/provider/custom_color_scheme_data_provider.dart';
+import 'package:flutter_colortheme_creator/src/view/subwidgets/exampleScreens/subwidgetsForAllExampleScreens/panel_col_demo.dart';
+import 'package:flutter_colortheme_creator/src/view/subwidgets/mini_color_box.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gui_creation_helper/gui_creation_helper.dart';
 
 import '../../example_buttons.dart';
 import '../subwidgetsForAllExampleScreens/panel_demo.dart';
+import '../subwidgetsForAllExampleScreens/panel_show_background_colors.dart';
 
-class ExampleScreen01 extends ConsumerWidget {
+class ExampleScreen02 extends ConsumerWidget {
   // late final ColorScheme _colorScheme;
   late final ColorScheme _ownCustomColorScheme;
-  final ThemeController themeController;
+  late final ThemeController themeController;
 
-  ExampleScreen01({super.key, required this.themeController});
+  ExampleScreen02({super.key, required this.themeController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,26 +42,54 @@ class ExampleScreen01 extends ConsumerWidget {
                     backgroundColor: _ownCustomColorScheme.primary,
                     centerTitle: true,
                     title: Text(
-                      "ExampleScreen01",
+                      "ExampleScreen02",
                       style: TextStyle(
                         color: _ownCustomColorScheme.inversePrimary,
                       ),
                     ),
                   ),
+                  PanelShowBackgroundColors(
+                    colorScheme: _ownCustomColorScheme,
+                    themeController: themeController,
+                  ),
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     PanelDemo(
+                  //       colScheme: _ownCustomColorScheme,
+                  //       kindOfThemeCol: "primary",
+                  //     ),
+                  //     PanelDemo(
+                  //       colScheme: _ownCustomColorScheme,
+                  //       kindOfThemeCol: "secondary",
+                  //     ),
+                  //     PanelDemo(
+                  //       colScheme: _ownCustomColorScheme,
+                  //       kindOfThemeCol: "tertiary",
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PanelDemo(
-                        colScheme: _ownCustomColorScheme,
-                        kindOfThemeCol: "primary",
+                      PanelColDemo(
+                        textCol: _ownCustomColorScheme.primary,
+                        textColName: "primary",
+                        backgroundCol: _ownCustomColorScheme.primaryContainer,
+                        backgroundColName: "primaryContainer",
                       ),
-                      PanelDemo(
-                        colScheme: _ownCustomColorScheme,
-                        kindOfThemeCol: "secondary",
+                      PanelColDemo(
+                        textCol: _ownCustomColorScheme.primary,
+                        textColName: "primary",
+                        backgroundCol: _ownCustomColorScheme.surface,
+                        backgroundColName: "surface",
                       ),
-                      PanelDemo(
-                        colScheme: _ownCustomColorScheme,
-                        kindOfThemeCol: "tertiary",
+                      PanelColDemo(
+                        textCol: _ownCustomColorScheme.primary,
+                        textColName: "primary",
+                        backgroundCol: _ownCustomColorScheme.onPrimaryContainer,
+                        backgroundColName: "onPrimaryContainer",
                       ),
                     ],
                   ),

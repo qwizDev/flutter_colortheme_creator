@@ -27,9 +27,8 @@ class DisplayWidgetThemeColorsInUse extends StatelessWidget {
         //   height: _colorPanelHeigth,
         Column(
           children: [
-            ...buildColorBoxes(context),
-
             // ...buildColorBoxes_oldWay(context),
+            ...buildColorBoxes(context),
           ],
         ),
       ],

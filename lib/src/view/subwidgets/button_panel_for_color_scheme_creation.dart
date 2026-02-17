@@ -76,14 +76,13 @@ class _ButtonPanelForColorSchemeCreation
           child: Text("USE THIS COLOR"),
         ),
 
-      if (buttonsToUse.contains(
-        ButtonsForColorSchemeCreation.createAndUseTheme,
-      ))
-        _ButtonForThis(
-          onPressed: () => nowCreateAndUseTheme(themeController),
-          child: Text("CREATE AND USE THEME"),
-        ),
-
+      // if (buttonsToUse.contains(
+      //   ButtonsForColorSchemeCreation.createAndUseTheme,
+      // ))
+      //   _ButtonForThis(
+      //     onPressed: () => nowCreateAndUseTheme(themeController),
+      //     child: Text("CREATE AND USE THEME"),
+      //   ),
       if (buttonsToUse.contains(ButtonsForColorSchemeCreation.useAsSeedColor))
         _ButtonForThis(
           onPressed: () => useColorAsSeedColor(themeController),
@@ -120,18 +119,21 @@ class _ButtonPanelForColorSchemeCreation
   }
 
   void setColorSchemeGlobally(ThemeController themeController) {
-    ref
-        .read(themeStateProvider.notifier)
-        .setColorTheme(
-          ref
-              .read(customColorschemeDataProvider(themeController))
-              .customColorScheme,
-        );
+    // ref
+    //     .read(themeStateProvider.notifier)
+    //     .setColorTheme(
+    //       ref
+    //           .read(customColorschemeDataProvider(themeController))
+    //           .customColorScheme,
+    //     );
 
     final String themeName = DateTime.now().toIso8601String();
     themeController.addThemeToList(
       themeName,
-      ref.read(themeStateProvider).colorScheme,
+      // ref.read(themeStateProvider).colorScheme,
+      ref
+          .read(customColorschemeDataProvider(themeController))
+          .customColorScheme,
       true,
     );
     themeController.applyTheme(themeName);
